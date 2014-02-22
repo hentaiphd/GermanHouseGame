@@ -3,23 +3,33 @@ package{
 
     public class Player extends FlxSprite{
         private var runSpeed:Number = 1;
-        public var walkTarget:FlxPoint;
+        private var walkDistance:Number = 0;
+        private var walkTarget:DHPoint;
+        private var walkDirection:DHPoint;
         private var walking:Boolean = false;
+        private var walkSpeed:Number = 4;
 
         public function Player(x:int, y:int){
             super(x, y);
             this.makeGraphic(20,20,0xffFFDABA);
-            walkTarget = new FlxPoint(x,y);
+            this.walkTarget = new DHPoint(0, 0);
         }
 
         override public function update():void{
             super.update();
             borderCollide();
 
+            var pos:FlxPoint = new FlxPoint(this.x, this.y);
+
             if(FlxG.mouse.justPressed()){
-                walkTarget.x = FlxG.mouse.x;
-                walkTarget.y = FlxG.mouse.y;
+                walkTarget = new DHPoint(FlxG.mouse.x, FlxG.mouse.y);
                 this.walking = true;
+                walkDistance = new DHPoint(walkTarget.x-pos.x, walkTarget.y-pos.y)._length();
+                walkDirection = new DHPoint(walkTarget.x-pos.x, walkTarget.y-pos.y).normalized();
+            }
+
+            if (new DHPoint(walkTarget.x-pos.x, walkTarget.y-pos.y)._length() < 3) {
+                this.walking = false;
             }
 
             if(this.walking) {
@@ -33,10 +43,8 @@ package{
         }
 
         public function walk():void{
-            var distX:Number = walkTarget.x - this.x;
-            var distY:Number = walkTarget.y - this.y;
-            this.x += distX / 100;
-            this.y += distY / 100;
+            this.x += this.walkDirection.x * this.walkSpeed;
+            this.y += this.walkDirection.y * this.walkSpeed;
         }
 
         public function borderCollide():void{

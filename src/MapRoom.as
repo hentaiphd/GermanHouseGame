@@ -27,8 +27,18 @@ package
             for (var k:Object in this.zones) {
                 var contactFn:Function = this.zones[k];
                 var _clickZone:FlxButton = k as FlxButton;
-                FlxG.collide(player,_clickZone,contactFn);
+                this.doContact(_clickZone, contactFn);
             }
+        }
+
+        private function doContact(_clickZone:FlxButton, contactFn:Function):void
+        {
+            function _callback(a:FlxSprite, b:FlxSprite):void
+            {
+                player.collideFn();
+                contactFn(a, b);
+            }
+            FlxG.collide(player,_clickZone,_callback);
         }
 
         public function setupBackground(image:Class):void

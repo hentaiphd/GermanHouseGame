@@ -4,6 +4,7 @@ package{
     public class Player extends FlxSprite{
         private var runSpeed:Number = 1;
         public var walkTarget:FlxPoint;
+        private var walking:Boolean = false;
 
         public function Player(x:int, y:int){
             super(x, y);
@@ -18,18 +19,20 @@ package{
             if(FlxG.mouse.justPressed()){
                 walkTarget.x = FlxG.mouse.x;
                 walkTarget.y = FlxG.mouse.y;
+                this.walking = true;
             }
 
-            if(this.x != walkTarget.x){
-                walking();
-            }
-
-            if(this.y != walkTarget.y){
-                walking();
+            if(this.walking) {
+                this.walk();
             }
         }
 
-        public function walking():void{
+        public function collideFn():void
+        {
+            this.walking = false;
+        }
+
+        public function walk():void{
             var distX:Number = walkTarget.x - this.x;
             var distY:Number = walkTarget.y - this.y;
             this.x += distX / 100;

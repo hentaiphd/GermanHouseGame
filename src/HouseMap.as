@@ -6,6 +6,10 @@ package
     {
 
         private static var _instance:HouseMap;
+        public var CultureRoom:Boolean = false;
+        public var KidsRoom:Boolean = false;
+        public var LangRoom:Boolean = false;
+        public var endingCounter:Number = 0;
 
         public function setup():void
         {

@@ -9,6 +9,7 @@ package
         public var textBox:TextBox;
         public var player:Player;
         private var zones:Dictionary;
+        public var ending:Boolean = false;
 
         public function MapRoom()
         {
@@ -28,6 +29,16 @@ package
                 var contactFn:Function = this.zones[k];
                 var _clickZone:DHButton = k as DHButton;
                 this.doContact(_clickZone, contactFn);
+            }
+
+            if(HouseMap.getInstance().endingCounter >= 3){
+                if(HouseMap.getInstance().CultureRoom){
+                    if(HouseMap.getInstance().KidsRoom){
+                        if(HouseMap.getInstance().LangRoom){
+                            ending = true;
+                        }
+                    }
+                }
             }
         }
 

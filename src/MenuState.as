@@ -4,15 +4,21 @@ package
 
     public class MenuState extends FlxState
     {
+        [Embed(source="../assets/Title.png")] private var BG:Class;
+        [Embed(source="../assets/LeaBlock-Regular.ttf", fontFamily="LeaBlock-Regular", embedAsCFF="false")]
+        public var FontLea:String;
+        public var bg:FlxSprite;
+        public var t:FlxText;
+
         override public function create():void
         {
-            var t:FlxText;
-            t = new FlxText(0,FlxG.height/2-10,FlxG.width,"germanhousegame");
-            t.size = 16;
-            t.alignment = "center";
-            add(t);
-            t = new FlxText(FlxG.width/2-50,FlxG.height-20,100,"click to play");
-            t.alignment = "center";
+            FlxG.bgColor = 0xffffffff;
+            bg = new FlxSprite(0,0);
+            bg.loadGraphic(BG,false,false,640,480);
+            add(bg);
+
+            t = new FlxText(215,200,100,"click to play");
+            t.setFormat("LeaBlock-Regular",18,0xff000000,"center");
             add(t);
 
             FlxG.mouse.show();

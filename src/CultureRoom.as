@@ -14,6 +14,9 @@ package
                 null, doorWasClicked);
 
             FlxG.mouse.show();
+
+            HouseMap.getInstance().CultureRoom = true;
+            HouseMap.getInstance().endingCounter++;
         }
 
         private function doorWasClicked(a:FlxSprite, b:FlxSprite):void

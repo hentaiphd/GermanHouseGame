@@ -1,13 +1,13 @@
 package
 {
-	import org.flixel.system.FlxPreloader;
+    import org.flixel.system.FlxPreloader;
 
-	public class Preloader extends FlxPreloader
-	{
-		public function Preloader()
-		{
-			className = "germanhousegame";
-			super();
-		}
-	}
+    public class Preloader extends FlxPreloader
+    {
+        public function Preloader()
+        {
+            className = "germanhousegame";
+            super();
+        }
+    }
 }

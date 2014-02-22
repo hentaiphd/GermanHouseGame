@@ -1,6 +1,6 @@
 package
 {
-	import org.flixel.*;
+    import org.flixel.*;
 
 	public class PlayState extends FlxState
 	{

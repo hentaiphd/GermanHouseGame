@@ -6,8 +6,6 @@ package
     {
         override public function create():void
         {
-            HouseMap.getInstance();
-
             var t:FlxText;
             t = new FlxText(0,FlxG.height/2-10,FlxG.width,"germanhousegame");
             t.size = 16;
@@ -27,7 +25,7 @@ package
             if(FlxG.mouse.justPressed())
             {
                 FlxG.mouse.hide();
-                FlxG.switchState(new PlayState());
+                FlxG.switchState(new LobbyRoom());
             }
         }
     }

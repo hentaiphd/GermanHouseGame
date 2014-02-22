@@ -30,16 +30,25 @@ package
             add(this.bgImage);
         }
 
-        public function addClickZone(origin:FlxPoint, size:FlxPoint, clickFn:Function):void
+        public function addClickZone(origin:FlxPoint, size:FlxPoint, clickFn:Function):FlxButton
         {
             var _clickZone:FlxButton = new FlxButton(origin.x, origin.y, "", clickFn);
             _clickZone.makeGraphic(size.x, size.y, 0x77FF0000);
             _clickZone.immovable = true;
             add(_clickZone);
+            return _clickZone;
         }
 
         public function conversation(x:int, y:int, _text:String):Function{
             function inner():void
+            {
+                textBox = new TextBox(x, y, _text);
+            }
+            return inner;
+        }
+
+        public function colliderConversation(x:int, y:int, _text:String):Function{
+            function inner(p:FlxSprite,b:FlxSprite):void
             {
                 textBox = new TextBox(x, y, _text);
             }

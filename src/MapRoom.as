@@ -26,17 +26,19 @@ package
             super.update();
             for (var k:Object in this.zones) {
                 var contactFn:Function = this.zones[k];
-                var _clickZone:FlxButton = k as FlxButton;
+                var _clickZone:DHButton = k as DHButton;
                 this.doContact(_clickZone, contactFn);
             }
         }
 
-        private function doContact(_clickZone:FlxButton, contactFn:Function):void
+        private function doContact(_clickZone:DHButton, contactFn:Function):void
         {
             function _callback(a:FlxSprite, b:FlxSprite):void
             {
-                player.collideFn();
-                contactFn(a, b);
+                if (_clickZone.wasClicked) {
+                    player.collideFn();
+                    contactFn(a, b);
+                }
             }
             FlxG.collide(player,_clickZone,_callback);
         }
@@ -49,9 +51,9 @@ package
         }
 
         public function addClickZone(origin:FlxPoint, size:FlxPoint,
-                                     clickFn:Function, contactFn:Function):FlxButton
+                                     clickFn:Function, contactFn:Function):DHButton
         {
-            var _clickZone:FlxButton = new FlxButton(origin.x, origin.y, "", clickFn);
+            var _clickZone:DHButton = new DHButton(origin.x, origin.y, "", clickFn);
             _clickZone.makeGraphic(size.x, size.y, 0x77FF0000);
             _clickZone.immovable = true;
             add(_clickZone);

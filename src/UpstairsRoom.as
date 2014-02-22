@@ -10,6 +10,13 @@ package
         {
             super.create();
             this.setupBackground(ImgRoomUpperLevel);
+            this.addClickZone(new FlxPoint(100, 100), new FlxPoint(40, 40),
+                              doorWasClicked);
+        }
+
+        private function doorWasClicked():void
+        {
+            FlxG.switchState(new LobbyRoom());
         }
     }
 }

@@ -23,17 +23,11 @@ package
 
             //receptionist = new NPC(400,280,200,200);
 
-            this.addClickZone(
-                new FlxPoint(100, 100),
-                new FlxPoint(40, 40),
-                doorWasClicked
+            this.addClickZone(new FlxPoint(400,280), new FlxPoint(200,200),
+                              conversation(10,10,"Hello I am a text box!")
             );
-
-            this.addClickZone(
-                new FlxPoint(400,280),
-                new FlxPoint(200,200),
-                conversation(10,10,"Hello I am a text box!")
-            );
+            this.addClickZone(new FlxPoint(100, 100), new FlxPoint(40, 40),
+                              doorWasClicked);
         }
 
         override public function update():void{

@@ -34,6 +34,7 @@ package
         {
             var _clickZone:FlxButton = new FlxButton(origin.x, origin.y, "", clickFn);
             _clickZone.makeGraphic(size.x, size.y, 0x77FF0000);
+            _clickZone.immovable = true;
             add(_clickZone);
         }
 

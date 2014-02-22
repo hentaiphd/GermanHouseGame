@@ -30,21 +30,15 @@ package{
         }
 
         public function walking():void{
-            if(this.x <= walkTarget.x){
-                this.x += runSpeed;
-            } else {
-                this.x -= runSpeed;
-            }
-            if(this.y <= walkTarget.y){
-                this.y += runSpeed;
-            } else {
-                this.y -= runSpeed;
-            }
+            var distX:Number = walkTarget.x - this.x;
+            var distY:Number = walkTarget.y - this.y;
+            this.x += distX / 100;
+            this.y += distY / 100;
         }
 
         public function borderCollide():void{
-            if(x >= FlxG.width - width)
-                x = FlxG.width - width;
+            if(this.x >= FlxG.width - width)
+                this.x = FlxG.width - width;
             if(this.x <= 0)
                 this.x = 0;
             if(this.y >= FlxG.height - height)

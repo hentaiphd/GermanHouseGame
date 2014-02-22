@@ -27,11 +27,22 @@ package
             add(npc);
 
             textBox = new TextBox(10,10,"Hello I am a text box!");
+
+            this.addClickZone(
+                new FlxPoint(100, 100),
+                new FlxPoint(40, 40),
+                doorWasClicked
+            );
         }
 
         override public function update():void{
             super.update();
             FlxG.collide();
+        }
+
+        private function doorWasClicked():void
+        {
+            FlxG.switchState(new UpstairsRoom());
         }
     }
 }

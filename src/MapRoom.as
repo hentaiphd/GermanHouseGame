@@ -20,6 +20,7 @@ package
         {
             super.create();
             FlxG.mouse.show();
+            endingChecker();
         }
 
         override public function update():void
@@ -29,16 +30,6 @@ package
                 var contactFn:Function = this.zones[k];
                 var _clickZone:DHButton = k as DHButton;
                 this.doContact(_clickZone, contactFn);
-            }
-
-            if(HouseMap.getInstance().endingCounter >= 3){
-                if(HouseMap.getInstance().CultureRoom){
-                    if(HouseMap.getInstance().KidsRoom){
-                        if(HouseMap.getInstance().LangRoom){
-                            ending = true;
-                        }
-                    }
-                }
             }
         }
 
@@ -86,6 +77,18 @@ package
                 textBox = new TextBox(x, y, _text);
             }
             return inner;
+        }
+
+        public function endingChecker():void{
+            if(HouseMap.getInstance().endingCounter >= 3){
+                if(HouseMap.getInstance().CultureRoom){
+                    if(HouseMap.getInstance().KidsRoom){
+                        if(HouseMap.getInstance().LangRoom){
+                            ending = true;
+                        }
+                    }
+                }
+            }
         }
     }
 }

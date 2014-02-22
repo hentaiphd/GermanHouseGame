@@ -2,6 +2,8 @@ package{
     import org.flixel.*;
 
     public class TextBox{
+        [Embed(source="../assets/LeaBlock-Regular.ttf", fontFamily="LeaBlock-Regular", embedAsCFF="false")]
+        public var FontLea:String;
         public var text:FlxText;
         public var box:FlxSprite;
         public var boxWidth:Number = 300;
@@ -18,8 +20,7 @@ package{
             FlxG.state.add(box);
 
             text = new FlxText(x,y,boxWidth,_text);
-            text.color = 0xff000000;
-            text.size = 16;
+            text.setFormat("LeaBlock-Regular",18,0xff000000,"center");
             FlxG.state.add(text);
         }
 

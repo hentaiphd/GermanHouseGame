@@ -5,6 +5,7 @@ package
     public class MapRoom extends FlxState
     {
         private var bgImage:FlxSprite;
+        public var textBox:TextBox;
 
         public function MapRoom()
         {
@@ -34,6 +35,14 @@ package
             var _clickZone:FlxButton = new FlxButton(origin.x, origin.y, "", clickFn);
             _clickZone.makeGraphic(size.x, size.y, 0x77FF0000);
             add(_clickZone);
+        }
+
+        public function conversation(x:int, y:int, _text:String):Function{
+            function inner():void
+            {
+                textBox = new TextBox(x, y, _text);
+            }
+            return inner;
         }
     }
 }

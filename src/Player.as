@@ -23,6 +23,10 @@ package{
             if(this.x != walkTarget.x){
                 walking();
             }
+
+            if(this.y != walkTarget.y){
+                walking();
+            }
         }
 
         public function walking():void{

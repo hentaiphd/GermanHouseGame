@@ -8,6 +8,7 @@ package{
         public function TextBox(x:int, y:int, _text:String){
             box = new FlxSprite(x,y);
             box.makeGraphic(200,50);
+            box.immovable = true;
             FlxG.state.add(box);
 
             text = new FlxText(x,y,200,_text);

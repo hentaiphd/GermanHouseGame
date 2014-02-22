@@ -8,6 +8,7 @@ package{
         private var walkDirection:DHPoint;
         private var walking:Boolean = false;
         private var walkSpeed:Number = 4;
+        private var pos:FlxPoint;
 
         public function Player(x:int, y:int){
             super(x, y);
@@ -19,7 +20,7 @@ package{
             super.update();
             borderCollide();
 
-            var pos:FlxPoint = new FlxPoint(this.x, this.y);
+            pos = new FlxPoint(this.x, this.y);
 
             if(FlxG.mouse.justPressed()){
                 walkTarget = new DHPoint(FlxG.mouse.x, FlxG.mouse.y);
@@ -43,6 +44,7 @@ package{
         }
 
         public function walk():void{
+            walkDirection = new DHPoint(walkTarget.x-pos.x, walkTarget.y-pos.y).normalized();
             this.x += this.walkDirection.x * this.walkSpeed;
             this.y += this.walkDirection.y * this.walkSpeed;
         }

@@ -8,14 +8,18 @@ package
 
         private static var _instance:HouseMap;
 
-        public function HouseMap(s:SingletonEnforcer) {
-            if (s == null) throw new Error("Singleton, use HouseMap.instance");
+        public function HouseMap(){
+            if(_instance){
+                throw new Error("Singleton... use getInstance()");
+            }
+            _instance = this;
         }
 
-        public static function get instance():HouseMap
-            if (_instance == null) _instance = new HouseMap(new SingletonEnforcer());
+        public static function getInstance():HouseMap{
+            if(!_instance){
+                new HouseMap();
+            }
             return _instance;
         }
     }
 }
-class SingletonEnforcer {}

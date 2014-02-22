@@ -4,7 +4,6 @@ package{
     public class Player extends FlxSprite{
         private var runSpeed:Number = 1;
         public var walkTarget:FlxPoint;
-        public var targetReached:Boolean = true;
 
         public function Player(x:int, y:int){
             super(x, y);
@@ -19,7 +18,6 @@ package{
             if(FlxG.mouse.justPressed()){
                 walkTarget.x = FlxG.mouse.x;
                 walkTarget.y = FlxG.mouse.y;
-                //targetReached = false;
             }
 
             if(this.x != walkTarget.x){
@@ -32,6 +30,11 @@ package{
                 this.x += runSpeed;
             } else {
                 this.x -= runSpeed;
+            }
+            if(this.y <= walkTarget.y){
+                this.y += runSpeed;
+            } else {
+                this.y -= runSpeed;
             }
         }
 

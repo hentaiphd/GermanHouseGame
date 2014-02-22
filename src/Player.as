@@ -7,7 +7,7 @@ package{
 
         public function Player(x:int, y:int){
             super(x, y);
-            this.makeGraphic(20,20);
+            this.makeGraphic(20,20,0xffFFDABA);
             walkTarget = new FlxPoint(x,y);
         }
 

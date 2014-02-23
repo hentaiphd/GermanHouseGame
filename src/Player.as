@@ -50,8 +50,15 @@ package{
 
         public function walk():void{
             walkDirection = new DHPoint(walkTarget.x-footPos.x, walkTarget.y-footPos.y).normalized();
-            this.x += this.walkDirection.x * this.walkSpeed;
-            this.y += this.walkDirection.y * this.walkSpeed;
+            var walkX:Number = this.walkDirection.x * this.walkSpeed;
+            var walkY:Number = this.walkDirection.y * this.walkSpeed;
+            this.x += walkX;
+            this.y += walkY;
+            if (walkX < 0) {
+                this.scale.x = -1;
+            } else {
+                this.scale.x = 1;
+            }
         }
 
         public function borderCollide():void{

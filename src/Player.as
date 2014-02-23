@@ -11,12 +11,15 @@ package{
         private var walking:Boolean = false;
         private var walkSpeed:Number = 4;
         private var footPos:FlxPoint;
+        private var heightDivisor:Number = 2;
 
         public var pos:FlxPoint;
 
         public function Player(x:int, y:int){
             super(x, y);
             this.loadGraphic(ImgKid, true, true, 72, 185, true);
+            this.offset.y = this.height - this.height/this.heightDivisor;
+            this.height /= this.heightDivisor;
             this.walkTarget = new DHPoint(0, 0);
 
             addAnimation("stand", [0], 12, true);

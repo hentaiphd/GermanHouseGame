@@ -9,6 +9,7 @@ package
         private var zones:Dictionary;
 
         public var activeSelectorBox:SelectorTextBox = null;
+        public var activeTextBox:TextBox = null;
         public var player:Player;
         public var ending:Boolean = false;
         public var debugText:FlxText;
@@ -87,6 +88,19 @@ package
             {
                 activeSelectorBox = new SelectorTextBox(origin, size, _text, _label, opts, transparent);
                 activeSelectorBox.selectionDelegate = _this;
+            }
+            return inner;
+        }
+
+        public function makeTextBoxCallback(origin:FlxPoint, size:FlxPoint, _text:String, _callback:Function=null):Function
+        {
+            function inner(p:FlxSprite, b:FlxSprite):void
+            {
+                FlxG.state.remove(activeTextBox);
+                activeTextBox = new TextBox(origin, size, _text);
+                if (_callback != null) {
+                    _callback(activeTextBox);
+                }
             }
             return inner;
         }

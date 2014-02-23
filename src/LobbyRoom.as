@@ -10,6 +10,7 @@ package
         [Embed(source="../assets/0104-Student Worker.png")] private var ImgStudentWorker:Class;
         [Embed(source="../assets/Bubble-01.png")] private var ImgWorkerBubble:Class;
         [Embed(source="../assets/Bubble-02.png")] private var ImgKidBubble:Class;
+        [Embed(source="../assets/Bubble-03.png")] private var ImgBubble3:Class;
 
         public var worker:FlxSprite;
         public var stairs:FlxSprite;
@@ -27,6 +28,7 @@ package
         private const ALPHA_DELTA:Number = .04;
 
         private var lastSelectionTimeFrame:Number = -1;
+        private var lastCollideTimeFrame:Number = -1;
 
         private static const SEL_LANG:String = "lang_sel";
 
@@ -58,14 +60,15 @@ package
             add(worker);
 
             workerBubble = new FlxSprite(377, 103);
+            workerBubble.loadGraphic(ImgWorkerBubble, true, true, 249, 166, true);
+            workerBubble.alpha = 0;
+
             workerText = new TextBox(new FlxPoint(399, 113), new FlxPoint(220, 100),
                                     "Hey kid, are you looking for your mom 'n dad?");
-            if (currentState == STATE_INTRO) {
-                workerBubble.loadGraphic(ImgWorkerBubble, true, true, 249, 166, true);
-                workerBubble.alpha = 0;
-                add(workerBubble);
+            workerText.alpha = 0;
 
-                workerText.alpha = 0;
+            if (currentState == STATE_INTRO) {
+                add(workerBubble);
                 add(workerText);
 
                 kidBubble = new FlxSprite(7, 130);
@@ -85,8 +88,6 @@ package
             player.shouldMove = false;
             add(player);
 
-            this.addClickZone(new FlxPoint(400,280), new FlxPoint(200,200),
-                              null, null);
             this.addClickZone(new FlxPoint(350, 0), new FlxPoint(300, 10),
                               null, doorWasClicked);
             this.addClickZone(new FlxPoint(0, 0), new FlxPoint(200, 200),
@@ -95,6 +96,26 @@ package
             debugText = new FlxText(200,200,FlxG.width,"");
             debugText.color = 0xff000000;
             add(debugText);
+
+            this.addClickZone(
+                new FlxPoint(400,280), new FlxPoint(200,200), null,
+                makeTextBoxCallback(
+                    new FlxPoint(399, 113), new FlxPoint(220, 100), "",
+                    function _callback(box:TextBox):void
+                    {
+                        var workerCollideText:String = "Just walk around the house. They must be somewhere!";
+                        if (HouseMap.getInstance().currentLanguage == HouseMap.LANG_DE) {
+                            workerCollideText = "Such im ganzen Haus herum! Sie müssen ja irgendwo sein.";
+                        }
+                        box.text = workerCollideText;
+                        current_scene = 101;
+                        lastCollideTimeFrame = timeFrame;
+                        FlxG.state.add(box);
+                        box.alpha = 0;
+                        FlxG.state.add(workerBubble);
+                    }
+                )
+            );
 
             conversation(new FlxPoint(kidBubble.x+40, kidBubble.y),new FlxPoint(250, 100),"", SEL_LANG,
                          new Array("Yes!","Kannst du auch Deutsch?"), this, true)();
@@ -126,8 +147,22 @@ package
 
                 }
             } else if (currentState == STATE_MAIN) {
-                workerBubble.alpha -= ALPHA_DELTA;
-                workerText.alpha -= ALPHA_DELTA;
+                if (current_scene == 101 && (timeFrame == lastCollideTimeFrame+3*TimedState.fpSec)) {
+                    current_scene = 102;
+                }
+
+                if (current_scene == 102 || current_scene == 4) {
+                    workerBubble.alpha -= ALPHA_DELTA;
+                    workerText.alpha -= ALPHA_DELTA;
+                    if (activeTextBox != null) {
+                        activeTextBox.alpha -= ALPHA_DELTA;
+                    }
+                } else if(current_scene == 101) {
+                    workerBubble.alpha += ALPHA_DELTA;
+                    if (activeTextBox != null) {
+                        activeTextBox.alpha += ALPHA_DELTA;
+                    }
+                }
                 player.shouldMove = true;
             }
         }
@@ -157,7 +192,6 @@ package
 
                 selector.destroy();
                 FlxG.state.remove(kidBubble);
-
 
                 if (idx == 0) {
                     HouseMap.getInstance().currentLanguage = HouseMap.LANG_EN;

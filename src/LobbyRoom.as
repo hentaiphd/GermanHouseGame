@@ -86,13 +86,13 @@ package
         {
             HouseMap.getInstance().pushExitPoint(player.pos);
             HouseMap.getInstance().pushExitPoint(UpstairsRoom.mainEntryPoint);
-            FlxG.switchState(new UpstairsRoom());
+            FlxG.switchState(new CultureRoom());
         }
 
         private function stairsTouched(a:FlxSprite, b:FlxSprite):void
         {
             HouseMap.getInstance().pushExitPoint(player.pos);
-            FlxG.switchState(new CultureRoom());
+            FlxG.switchState(new UpstairsRoom());
         }
 
         override public function didSelectTextOption(idx:Number, item:FlxText,

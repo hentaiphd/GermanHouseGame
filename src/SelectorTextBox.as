@@ -7,10 +7,11 @@ package{
         public var answers:FlxGroup;
         public var mouseRect:FlxRect;
         public var selector:FlxSprite;
+        public var _label:String;
 
         public var selectionDelegate:MapRoom;
 
-        public function SelectorTextBox(x:int, y:int, _text:String, opts:Array=null)
+        public function SelectorTextBox(x:int, y:int, _text:String, label:String, opts:Array=null)
         {
             super(x, y, _text);
 
@@ -21,6 +22,7 @@ package{
                 answers.add(t);
                 FlxG.state.add(t);
             }
+            this._label = label;
 
             selector = new FlxSprite(t.x+20,t.y);
             selector.loadGraphic(ImgSelector, true, true, 16, 21, true);
@@ -38,7 +40,7 @@ package{
                 var choice:FlxText = this.getChoiceAtCursor();
                 if (choice != null) {
                     this.selectionDelegate.didSelectTextOption(
-                        this.answers.members.indexOf(choice), choice
+                        this.answers.members.indexOf(choice), choice, this
                     );
                 }
             }

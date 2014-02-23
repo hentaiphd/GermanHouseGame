@@ -70,22 +70,22 @@ package
         }
 
         public function conversation(x:int, y:int, _text:String,
-                                     opts:Array = null,
+                                     _label:String, opts:Array = null,
                                      _this:MapRoom=null):Function{
             function inner():void
             {
-                activeSelectorBox = new SelectorTextBox(x, y, _text, opts);
+                activeSelectorBox = new SelectorTextBox(x, y, _text, _label, opts);
                 activeSelectorBox.selectionDelegate = _this;
             }
             return inner;
         }
 
         public function colliderConversation(x:int, y:int, _text:String,
-                                             opts:Array = null,
+                                             _label:String, opts:Array = null,
                                              _this:MapRoom=null):Function{
             function inner(p:FlxSprite,b:FlxSprite):void
             {
-                activeSelectorBox = new SelectorTextBox(x, y, _text, opts);
+                activeSelectorBox = new SelectorTextBox(x, y, _text, _label, opts);
                 activeSelectorBox.selectionDelegate = _this;
             }
             return inner;
@@ -103,7 +103,8 @@ package
             }
         }
 
-        public function didSelectTextOption(idx:Number, item:FlxText):void
+        public function didSelectTextOption(idx:Number, item:FlxText,
+                                            selector:SelectorTextBox):void
         {
         }
     }

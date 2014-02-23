@@ -17,6 +17,12 @@ package
         public var workerBubble:FlxSprite;
         public var kidBubble:FlxSprite;
 
+        private static const STATE_INTRO:int = 1;
+        private static const STATE_MAIN:int = 2;
+        private var currentState:int = STATE_INTRO;
+
+        private static const SEL_LANG:String = "lang_sel";
+
         {
             public static var mainEntryPoint:FlxPoint = new FlxPoint(280, 270);
         }
@@ -67,7 +73,7 @@ package
             debugText.color = 0xff000000;
             add(debugText);
 
-            conversation(kidBubble.x, kidBubble.y,"",
+            conversation(kidBubble.x, kidBubble.y,"", SEL_LANG,
                          new Array("one","two","three"), this)();
         }
 
@@ -88,9 +94,13 @@ package
             FlxG.switchState(new CultureRoom());
         }
 
-        override public function didSelectTextOption(idx:Number, item:FlxText):void
+        override public function didSelectTextOption(idx:Number, item:FlxText,
+                                                     selector:SelectorTextBox):void
         {
-            debugText.text = "got it";
+            if (currentState == STATE_INTRO && selector._label == SEL_LANG) {
+                debugText.text = "got it";
+                currentState = STATE_MAIN;
+            }
         }
     }
 }

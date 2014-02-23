@@ -32,7 +32,7 @@ package
                 new FlxPoint(500,210),
                 new FlxPoint(100,200),
                 null,
-                conversation(10,10,"Hello I am a text box!")
+                conversation(10,10,"Hello I am a text box!", "")
             );
         }
 

@@ -2,6 +2,8 @@ package{
     import org.flixel.*;
 
     public class Player extends FlxSprite{
+        [Embed(source="../assets/Kid.png")] private var ImgKid:Class;
+
         private var runSpeed:Number = 1;
         private var walkDistance:Number = 0;
         private var walkTarget:DHPoint;
@@ -10,10 +12,11 @@ package{
         private var walkSpeed:Number = 4;
 
         public var pos:FlxPoint;
+        public var footPos:FlxPoint;
 
         public function Player(x:int, y:int){
             super(x, y);
-            this.makeGraphic(20,20,0xffFFDABA);
+            this.loadGraphic(ImgKid, true, true, 72, 185, true);
             this.walkTarget = new DHPoint(0, 0);
         }
 
@@ -22,15 +25,16 @@ package{
             borderCollide();
 
             pos = new FlxPoint(this.x, this.y);
+            footPos = new FlxPoint(this.x+this.width/2, this.y+this.height);
 
             if(FlxG.mouse.justPressed()){
                 walkTarget = new DHPoint(FlxG.mouse.x, FlxG.mouse.y);
                 this.walking = true;
-                walkDistance = new DHPoint(walkTarget.x-pos.x, walkTarget.y-pos.y)._length();
-                walkDirection = new DHPoint(walkTarget.x-pos.x, walkTarget.y-pos.y).normalized();
+                walkDistance = new DHPoint(walkTarget.x-footPos.x, walkTarget.y-footPos.y)._length();
+                walkDirection = new DHPoint(walkTarget.x-footPos.x, walkTarget.y-footPos.y).normalized();
             }
 
-            if (new DHPoint(walkTarget.x-pos.x, walkTarget.y-pos.y)._length() < 3) {
+            if (new DHPoint(walkTarget.x-footPos.x, walkTarget.y-footPos.y)._length() < 3) {
                 this.walking = false;
             }
 
@@ -45,7 +49,7 @@ package{
         }
 
         public function walk():void{
-            walkDirection = new DHPoint(walkTarget.x-pos.x, walkTarget.y-pos.y).normalized();
+            walkDirection = new DHPoint(walkTarget.x-footPos.x, walkTarget.y-footPos.y).normalized();
             this.x += this.walkDirection.x * this.walkSpeed;
             this.y += this.walkDirection.y * this.walkSpeed;
         }

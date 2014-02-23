@@ -61,7 +61,9 @@ package
             add(player);
 
             this.addClickZone(new FlxPoint(400,280), new FlxPoint(200,200),
-                              null, conversation(10,10,"Hello I am a text box!", true, new Array("one","two","three")));
+                              null,
+                              conversation(kidBubble.x, kidBubble.y,"", true,
+                                           new Array("one","two","three")));
             this.addClickZone(new FlxPoint(100, 100), new FlxPoint(40, 40),
                               null, doorWasClicked);
             this.addClickZone(new FlxPoint(300, 100), new FlxPoint(40, 40),

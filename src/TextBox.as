@@ -2,9 +2,8 @@ package{
     import org.flixel.*;
 
     public class TextBox{
-        [Embed(source="../assets/LeaBlock-Regular.ttf", fontFamily="LeaBlock-Regular", embedAsCFF="false")]
-        //[Embed(source="../assets/0101-BG.png")] private var ImgRoomLobby:Class;
-        public var FontLea:String;
+        [Embed(source="../assets/LeaBlock-Regular.ttf", fontFamily="LeaBlock-Regular", embedAsCFF="false")] public var FontLea:String;
+        [Embed(source="../assets/Select.png")] private var ImgSelector:Class;
         public var text:FlxText;
         public var box:FlxSprite;
         public var boxWidth:Number = 300;
@@ -15,13 +14,14 @@ package{
         public var isSelector:Boolean = false;
         public var answers:FlxGroup;
         public var mouseRect:FlxRect;
+        public var debugText:FlxText;
 
         public function TextBox(x:int, y:int, _text:String, selecting:Boolean = false, opts:Array = null){
             boxPoint = new FlxPoint(x,y);
             isSelector = selecting;
 
             box = new FlxSprite(x,y);
-            box.makeGraphic(boxWidth,boxHeight,0xffBAF0FF);
+            box.makeGraphic(boxWidth,boxHeight,0x00BAF0FF);
             box.immovable = true;
             FlxG.state.add(box);
 
@@ -34,7 +34,8 @@ package{
                     FlxG.state.add(t);
                 }
 
-                selector = new FlxSprite(t.x-5,t.y);
+                selector = new FlxSprite(t.x+20,t.y);
+                selector.loadGraphic(ImgSelector, true, true, 16, 21, true);
                 FlxG.state.add(selector);
 
                 mouseRect = new FlxRect(FlxG.mouse.x,FlxG.mouse.y,1,1);
@@ -43,14 +44,12 @@ package{
             text = new FlxText(x,y,boxWidth,_text);
             text.setFormat("LeaBlock-Regular",18,0xff000000,"center");
             FlxG.state.add(text);
+
+            debugText = new FlxText(10,10,100,"move damn it");
+            debugText.color = 0xff000000;
         }
 
         public function update():void{
-            super.update();
-            var f:FlxText = new FlxText(10,10,100,"move damn it");
-            f.color = 0xff000000;
-            FlxG.state.add(f);
-
             if(isSelector){
                 mouseRect.x = FlxG.mouse.x;
                 mouseRect.y = FlxG.mouse.y;

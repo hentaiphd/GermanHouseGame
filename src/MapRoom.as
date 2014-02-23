@@ -3,7 +3,7 @@ package
     import flash.utils.Dictionary;
     import org.flixel.*;
 
-    public class MapRoom extends FlxState
+    public class MapRoom extends TimedState
     {
         private var bgImage:FlxSprite;
         private var zones:Dictionary;
@@ -69,23 +69,23 @@ package
             return _clickZone;
         }
 
-        public function conversation(x:int, y:int, _text:String,
+        public function conversation(origin:FlxPoint, size:FlxPoint, _text:String,
                                      _label:String, opts:Array = null,
-                                     _this:MapRoom=null):Function{
+                                     _this:MapRoom=null, transparent:Boolean=false):Function{
             function inner():void
             {
-                activeSelectorBox = new SelectorTextBox(x, y, _text, _label, opts);
+                activeSelectorBox = new SelectorTextBox(origin, size, _text, _label, opts, transparent);
                 activeSelectorBox.selectionDelegate = _this;
             }
             return inner;
         }
 
-        public function colliderConversation(x:int, y:int, _text:String,
+        public function colliderConversation(origin:FlxPoint, size:FlxPoint, _text:String,
                                              _label:String, opts:Array = null,
-                                             _this:MapRoom=null):Function{
+                                             _this:MapRoom=null, transparent:Boolean=false):Function{
             function inner(p:FlxSprite,b:FlxSprite):void
             {
-                activeSelectorBox = new SelectorTextBox(x, y, _text, _label, opts);
+                activeSelectorBox = new SelectorTextBox(origin, size, _text, _label, opts, transparent);
                 activeSelectorBox.selectionDelegate = _this;
             }
             return inner;
@@ -105,7 +105,6 @@ package
 
         public function didSelectTextOption(idx:Number, item:FlxText,
                                             selector:SelectorTextBox):void
-        {
-        }
+        {}
     }
 }

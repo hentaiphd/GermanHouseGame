@@ -7,31 +7,50 @@ package{
         public var answers:FlxGroup;
         public var mouseRect:FlxRect;
         public var selector:FlxSprite;
+        public var transparent:Boolean;
         public var _label:String;
 
         public var selectionDelegate:MapRoom;
 
-        public function SelectorTextBox(x:int, y:int, _text:String, label:String, opts:Array=null)
+        public function SelectorTextBox(origin:FlxPoint, size:FlxPoint,
+                                        _text:String, label:String,
+                                        opts:Array=null, transparent:Boolean=false)
         {
-            super(x, y, _text);
+            super(origin, size, _text);
 
             answers = new FlxGroup();
             for(var i:Number = 0; i < opts.length; i++){
-                var t:FlxText = new FlxText(x,y+((i*25)+10),boxWidth,opts[i]);
+                var t:FlxText = new FlxText(origin.x,origin.y+((i*25)+10),size.x,opts[i]);
                 t.setFormat("LeaBlock-Regular",18,0xff000000,"center");
                 answers.add(t);
                 FlxG.state.add(t);
+                if (transparent) {
+                    t.alpha = 0;
+                }
             }
             this._label = label;
 
-            selector = new FlxSprite(t.x+20,t.y);
+            selector = new FlxSprite(t.x-20,t.y);
             selector.loadGraphic(ImgSelector, true, true, 16, 21, true);
             FlxG.state.add(selector);
+            if (transparent) {
+                selector.alpha = 0;
+                this.alpha = 0;
+            }
 
             mouseRect = new FlxRect(FlxG.mouse.x,FlxG.mouse.y,1,1);
         }
 
-        public function update():void{
+        public function incrementAlpha(inc:Number):void
+        {
+            this.alpha += inc;
+            this.selector.alpha += inc;
+            for(var u:Number = 0; u < answers.length; u++){
+                answers.members[u].alpha += inc;
+            }
+        }
+
+        override public function update():void{
             mouseRect.x = FlxG.mouse.x;
             mouseRect.y = FlxG.mouse.y;
             this.moveSelector();
@@ -49,7 +68,7 @@ package{
         public function moveSelector():void{
             var choice:FlxText = this.getChoiceAtCursor();
             if (choice != null) {
-                selector.y = choice.y;
+                selector.y = choice.y + 5;
             }
         }
 
@@ -68,7 +87,7 @@ package{
             return null;
         }
 
-        public function destroy():void
+        override public function destroy():void
         {
             FlxG.state.remove(selector);
             for(var u:Number = 0; u < answers.length; u++){

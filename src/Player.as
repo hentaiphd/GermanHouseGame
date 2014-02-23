@@ -10,9 +10,9 @@ package{
         private var walkDirection:DHPoint;
         private var walking:Boolean = false;
         private var walkSpeed:Number = 4;
+        private var footPos:FlxPoint;
 
         public var pos:FlxPoint;
-        public var footPos:FlxPoint;
 
         public function Player(x:int, y:int){
             super(x, y);

@@ -8,14 +8,18 @@ package
         [Embed(source="../assets/0102-Stairs.png")] private var ImgStairs:Class;
         [Embed(source="../assets/0103-Door.png")] private var ImgDoor:Class;
         [Embed(source="../assets/0104-Student Worker.png")] private var ImgStudentWorker:Class;
+        [Embed(source="../assets/Bubble-01.png")] private var ImgWorkerBubble:Class;
+        [Embed(source="../assets/Bubble-02.png")] private var ImgKidBubble:Class;
 
         public var debugText:FlxText;
         public var worker:FlxSprite;
         public var stairs:FlxSprite;
         public var door:FlxSprite;
+        public var workerBubble:FlxSprite;
+        public var kidBubble:FlxSprite;
 
         {
-            public static var mainEntryPoint:FlxPoint = new FlxPoint(20, 150);
+            public static var mainEntryPoint:FlxPoint = new FlxPoint(280, 270);
         }
 
         override public function create():void
@@ -34,6 +38,14 @@ package
             worker = new FlxSprite(433, 269);
             worker.loadGraphic(ImgStudentWorker, true, true, 179, 209, true);
             add(worker);
+
+            workerBubble = new FlxSprite(377, 103);
+            workerBubble.loadGraphic(ImgWorkerBubble, true, true, 249, 166, true);
+            add(workerBubble);
+
+            kidBubble = new FlxSprite(7, 130);
+            kidBubble.loadGraphic(ImgKidBubble, true, true, 329, 144, true);
+            add(kidBubble);
 
             FlxG.mouse.show();
 

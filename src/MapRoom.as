@@ -6,7 +6,7 @@ package
     public class MapRoom extends FlxState
     {
         private var bgImage:FlxSprite;
-        public var textBox:TextBox;
+        public var textBox:TextBox = null;
         public var player:Player;
         private var zones:Dictionary;
         public var ending:Boolean = false;
@@ -26,6 +26,10 @@ package
         override public function update():void
         {
             super.update();
+            if(textBox != null){
+                textBox.update();
+            }
+
             for (var k:Object in this.zones) {
                 var contactFn:Function = this.zones[k];
                 var _clickZone:DHButton = k as DHButton;
@@ -63,18 +67,18 @@ package
             return _clickZone;
         }
 
-        public function conversation(x:int, y:int, _text:String):Function{
+        public function conversation(x:int, y:int, _text:String, selecting:Boolean = false, opts:Array = null):Function{
             function inner():void
             {
-                textBox = new TextBox(x, y, _text);
+                textBox = new TextBox(x, y, _text, selecting, opts);
             }
             return inner;
         }
 
-        public function colliderConversation(x:int, y:int, _text:String):Function{
+        public function colliderConversation(x:int, y:int, _text:String, selecting:Boolean = false, opts:Array = null):Function{
             function inner(p:FlxSprite,b:FlxSprite):void
             {
-                textBox = new TextBox(x, y, _text);
+                textBox = new TextBox(x, y, _text, selecting, opts);
             }
             return inner;
         }

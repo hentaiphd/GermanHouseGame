@@ -18,6 +18,9 @@ package{
             super(x, y);
             this.loadGraphic(ImgKid, true, true, 72, 185, true);
             this.walkTarget = new DHPoint(0, 0);
+
+            addAnimation("stand", [0], 12, true);
+            addAnimation("walk", [1,2,3,4], 12, true);
         }
 
         override public function update():void{
@@ -40,6 +43,9 @@ package{
 
             if(this.walking) {
                 this.walk();
+                this.play("walk");
+            } else {
+                this.play("stand");
             }
         }
 

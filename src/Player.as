@@ -8,7 +8,8 @@ package{
         private var walkDirection:DHPoint;
         private var walking:Boolean = false;
         private var walkSpeed:Number = 4;
-        private var pos:FlxPoint;
+
+        public var pos:FlxPoint;
 
         public function Player(x:int, y:int){
             super(x, y);

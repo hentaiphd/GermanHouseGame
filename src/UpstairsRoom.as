@@ -5,6 +5,9 @@ package
     public class UpstairsRoom extends MapRoom
     {
         [Embed(source="../assets/Room-3-Upper-Level.png")] private var ImgRoomUpperLevel:Class;
+        {
+            public static var mainEntryPoint:FlxPoint = new FlxPoint(20, 350);
+        }
 
         override public function create():void
         {
@@ -19,7 +22,10 @@ package
 
             FlxG.mouse.show();
 
-            player = new Player(20,150);
+            var entryPoint:FlxPoint = mainEntryPoint;
+            var lastExitPoint:FlxPoint = HouseMap.getInstance().popExitPoint();
+            entryPoint = lastExitPoint;
+            player = new Player(entryPoint.x, entryPoint.y);
             add(player);
 
             this.addClickZone(
@@ -32,16 +38,20 @@ package
 
         private function stairsTouched(a:FlxSprite, b:FlxSprite):void
         {
+            HouseMap.getInstance().pushExitPoint(player.pos);
+            HouseMap.getInstance().pushExitPoint(LobbyRoom.mainEntryPoint);
             FlxG.switchState(new LobbyRoom());
         }
 
         private function kidsDoorTouched(a:FlxSprite, b:FlxSprite):void
         {
+            HouseMap.getInstance().pushExitPoint(player.pos);
             FlxG.switchState(new KidsRoom());
         }
 
         private function languageDoorTouched(a:FlxSprite, b:FlxSprite):void
         {
+            HouseMap.getInstance().pushExitPoint(player.pos);
             FlxG.switchState(new LanguageRoom());
         }
     }

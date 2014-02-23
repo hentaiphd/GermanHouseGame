@@ -25,12 +25,10 @@ package{
 
             addAnimation("stand", [0], 12, true);
             addAnimation("walk", [1,2,3,4], 12, true);
-            addAnimation("walkdown", [5,6,7,8,9], 12, true);
-            addAnimation("walkup", [10,11,12,13,14], 12, true);
-
-            debugText = new FlxText(100,100,100,"YOOO");
-            debugText.color = 0xff000000;
-            FlxG.state.add(debugText);
+            addAnimation("walkdown", [6,7,8,9], 12, true);
+            addAnimation("standdown", [5], 12, true);
+            addAnimation("walkup", [11,12,13,14], 12, true);
+            addAnimation("standup", [10], 12, true);
         }
 
         override public function update():void{
@@ -69,7 +67,6 @@ package{
 
             if(this.walking) {
                 this.walk();
-                debugText.text = this.facing.toString();
                 if(this.facing == LEFT){
                     this.play("walk");
                 } else if (this.facing == RIGHT){
@@ -79,9 +76,16 @@ package{
                 } else if(this.facing == DOWN){
                     this.play("walkdown");
                 }
-
             } else {
-                this.play("stand");
+                if(this.facing == LEFT){
+                    this.play("stand");
+                } else if (this.facing == RIGHT){
+                    this.play("stand");
+                } else if(this.facing == UP){
+                    this.play("standup");
+                } else if(this.facing == DOWN){
+                    this.play("standdown");
+                }
             }
         }
 

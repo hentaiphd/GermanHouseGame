@@ -11,7 +11,6 @@ package
         [Embed(source="../assets/Bubble-01.png")] private var ImgWorkerBubble:Class;
         [Embed(source="../assets/Bubble-02.png")] private var ImgKidBubble:Class;
 
-        public var debugText:FlxText;
         public var worker:FlxSprite;
         public var stairs:FlxSprite;
         public var door:FlxSprite;
@@ -47,10 +46,10 @@ package
             kidBubble.loadGraphic(ImgKidBubble, true, true, 329, 144, true);
             add(kidBubble);
 
-            FlxG.mouse.show();
+            conversation(kidBubble.x, kidBubble.y,"",
+                         new Array("one","two","three"))();
 
-            debugText = new FlxText(100,100,FlxG.width,"");
-            add(debugText);
+            FlxG.mouse.show();
 
             var entryPoint:FlxPoint = mainEntryPoint;
             var lastExitPoint:FlxPoint = HouseMap.getInstance().popExitPoint();
@@ -61,13 +60,15 @@ package
             add(player);
 
             this.addClickZone(new FlxPoint(400,280), new FlxPoint(200,200),
-                              null,
-                              conversation(kidBubble.x, kidBubble.y,"", true,
-                                           new Array("one","two","three")));
+                              null, null);
             this.addClickZone(new FlxPoint(350, 0), new FlxPoint(300, 10),
                               null, doorWasClicked);
             this.addClickZone(new FlxPoint(0, 0), new FlxPoint(200, 200),
                               null, stairsTouched);
+
+            debugText = new FlxText(200,200,FlxG.width,"");
+            debugText.color = 0xff000000;
+            add(debugText);
         }
 
         override public function update():void{

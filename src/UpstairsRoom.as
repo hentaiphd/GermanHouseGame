@@ -38,8 +38,6 @@ package
 
         private function stairsTouched(a:FlxSprite, b:FlxSprite):void
         {
-            HouseMap.getInstance().pushExitPoint(player.pos);
-            HouseMap.getInstance().pushExitPoint(LobbyRoom.mainEntryPoint);
             FlxG.switchState(new LobbyRoom());
         }
 

@@ -21,7 +21,7 @@ package{
             answers = new FlxGroup();
             for(var i:Number = 0; i < opts.length; i++){
                 var t:FlxText = new FlxText(origin.x,origin.y+((i*25)+10),size.x,opts[i]);
-                t.setFormat("LeaBlock-Regular",18,0xff000000,"center");
+                t.setFormat("LeaBlock-Regular",18,0xff000000,"left");
                 answers.add(t);
                 FlxG.state.add(t);
                 if (transparent) {

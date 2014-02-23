@@ -20,7 +20,7 @@ package{
             FlxG.state.add(box);
 
             super(origin.x, origin.y, size.x, _text);
-            this.setFormat("LeaBlock-Regular",18,0xff000000,"center");
+            this.setFormat("LeaBlock-Regular",18,0xff000000,"left");
 
             debugText = new FlxText(10,10,100,"move damn it");
             debugText.color = 0xff000000;

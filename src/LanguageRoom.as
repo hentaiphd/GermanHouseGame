@@ -43,8 +43,9 @@ package
                 kidBubble.loadGraphic(ImgKidBubble, true, true, 329, 144, true);
                 add(kidBubble);
 
-                conversation(kidBubble.x, kidBubble.y,"", SEL_PROF,
-                         new Array("Hi","Kannst du auch Deutsch?"), this)();
+                conversation(new FlxPoint(kidBubble.x, kidBubble.y),
+                             new FlxPoint(300, 100),"", SEL_PROF,
+                             new Array("Hi","Kannst du auch Deutsch?"), this)();
             } else {
                 this.setupBackground(ImgLanguageRoom);
                 this.addClickZone(new FlxPoint(100, 100), new FlxPoint(40, 40),
@@ -56,8 +57,9 @@ package
                 kidBubble.loadGraphic(ImgKidBubble, true, true, 329, 144, true);
                 add(kidBubble);
 
-                conversation(kidBubble.x, kidBubble.y,"", SEL_PROF,
-                         new Array("Hi","Kannst du auch Deutsch?"), this)();
+                conversation(new FlxPoint(kidBubble.x, kidBubble.y),
+                             new FlxPoint(300, 100),"", SEL_PROF,
+                             new Array("Hi","Kannst du auch Deutsch?"), this)();
             }
         }
 

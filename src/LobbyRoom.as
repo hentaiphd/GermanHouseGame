@@ -15,22 +15,35 @@ package
         public var stairs:FlxSprite;
         public var door:FlxSprite;
         public var workerBubble:FlxSprite;
+        public var workerText:TextBox;
         public var kidBubble:FlxSprite;
+
+        public var current_scene:Number = 1;
 
         private static const STATE_INTRO:int = 1;
         private static const STATE_MAIN:int = 2;
         private var currentState:int = STATE_INTRO;
 
+        private const ALPHA_DELTA:Number = .04;
+
+        private var lastSelectionTimeFrame:Number = -1;
+
         private static const SEL_LANG:String = "lang_sel";
 
         {
-            public static var mainEntryPoint:FlxPoint = new FlxPoint(280, 270);
+            public static var mainEntryPoint:FlxPoint = new FlxPoint(320, 370);
         }
 
         override public function create():void
         {
             super.create();
             this.setupBackground(ImgRoomLobby);
+
+            if (HouseMap.getInstance().hasSeenIntroSequence) {
+                currentState = STATE_MAIN;
+            } else {
+                currentState = STATE_INTRO;
+            }
 
             stairs = new FlxSprite(0, 0);
             stairs.loadGraphic(ImgStairs, true, true, 243, 475, true);
@@ -46,10 +59,17 @@ package
 
             workerBubble = new FlxSprite(377, 103);
             workerBubble.loadGraphic(ImgWorkerBubble, true, true, 249, 166, true);
+            workerBubble.alpha = 0;
             add(workerBubble);
+
+            workerText = new TextBox(new FlxPoint(399, 113), new FlxPoint(220, 100),
+                                     "Hey kid, are you looking for your mom 'n dad?");
+            workerText.alpha = 0;
+            add(workerText);
 
             kidBubble = new FlxSprite(7, 130);
             kidBubble.loadGraphic(ImgKidBubble, true, true, 329, 144, true);
+            kidBubble.alpha = 0;
             add(kidBubble);
 
             FlxG.mouse.show();
@@ -74,12 +94,42 @@ package
             debugText.color = 0xff000000;
             add(debugText);
 
-            conversation(kidBubble.x, kidBubble.y,"", SEL_LANG,
-                         new Array("Hi","Kannst du auch Deutsch?"), this)();
+            conversation(new FlxPoint(kidBubble.x+40, kidBubble.y),new FlxPoint(250, 100),"", SEL_LANG,
+                         new Array("Yes!","Kannst du auch Deutsch?"), this, true)();
         }
 
         override public function update():void{
             super.update();
+
+            if (current_scene == 1 && (timeFrame == 3*TimedState.fpSec)) {
+                current_scene += 1;
+            } else if (current_scene == 2 && (timeFrame == 6*TimedState.fpSec)) {
+                current_scene += 1;
+            } else if (current_scene == 3) {
+
+            } else if (current_scene == 4 && (timeFrame == lastSelectionTimeFrame+5*TimedState.fpSec)) {
+                currentState = STATE_MAIN;
+                player.shouldMove = true;
+                HouseMap.getInstance().hasSeenIntroSequence = true;
+            }
+
+            if (current_scene == 2) {
+                workerBubble.alpha += ALPHA_DELTA;
+                workerText.alpha += ALPHA_DELTA;
+            } else if (current_scene == 3) {
+                kidBubble.alpha += ALPHA_DELTA;
+                this.activeSelectorBox.incrementAlpha(ALPHA_DELTA);
+            } else if (current_scene == 4) {
+
+            }
+
+            if (currentState == STATE_INTRO) {
+
+            } else if (currentState == STATE_MAIN) {
+                workerBubble.alpha -= ALPHA_DELTA;
+                workerText.alpha -= ALPHA_DELTA;
+                player.shouldMove = true;
+            }
         }
 
         private function doorWasClicked(a:FlxSprite, b:FlxSprite):void
@@ -98,12 +148,16 @@ package
         override public function didSelectTextOption(idx:Number, item:FlxText,
                                                      selector:SelectorTextBox):void
         {
-            if (currentState == STATE_INTRO && selector._label == SEL_LANG) {
-                currentState = STATE_MAIN;
+            if (currentState == STATE_INTRO && current_scene == 3
+                && selector._label == SEL_LANG)
+            {
+                current_scene += 1;
+
+                lastSelectionTimeFrame = timeFrame;
 
                 selector.destroy();
                 FlxG.state.remove(kidBubble);
-                FlxG.state.remove(workerBubble);
+
 
                 if (idx == 0) {
                     HouseMap.getInstance().currentLanguage = HouseMap.LANG_EN;
@@ -111,7 +165,12 @@ package
                     HouseMap.getInstance().currentLanguage = HouseMap.LANG_DE;
                 }
 
-                player.shouldMove = true;
+                if (HouseMap.getInstance().currentLanguage == HouseMap.LANG_EN) {
+                    workerText.text = "Well, I saw them around a while ago. They have to be here somewhere!";
+                } else if (HouseMap.getInstance().currentLanguage == HouseMap.LANG_DE) {
+                    workerText.text = "Klar! Deine Eltern hab ich vorhin noch gesehen. Sie müssen hier irgendwo sein!";
+                }
+
             }
         }
     }

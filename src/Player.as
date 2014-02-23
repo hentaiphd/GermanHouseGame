@@ -22,6 +22,8 @@ package{
             this.loadGraphic(ImgKid, true, true, 116, 188, true);
             this.offset.y = this.height - this.height/this.heightDivisor;
             this.height /= this.heightDivisor;
+            this.width /= 2;
+            this.offset.x = this.width/2;
             this.walkTarget = new DHPoint(0, 0);
 
             addAnimation("stand", [0], 12, true);

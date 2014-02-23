@@ -6,6 +6,14 @@ package
     {
         [Embed(source="../assets/Room-5-Kids.png")] private var ImgKidsRoom:Class;
 
+        //german player version
+        //barbeque - dog, boat, potassium, scanner, menu
+        //peanut - house, shark, garage, pulp, beaker
+        //curtains - printer, shelf, wallpaper, liquid, canary
+        //chandelier - barcode, laser, comforter, outhouse, cot
+        //asparagus - purse, skyscraper, guava, grapefruit, towel
+        //bandana - banana, sherbet, alley, stool, ramp
+
         override public function create():void
         {
             HouseMap.getInstance().KidsRoom = true;

@@ -67,5 +67,13 @@ package{
             }
             return null;
         }
+
+        public function destroy():void
+        {
+            FlxG.state.remove(selector);
+            for(var u:Number = 0; u < answers.length; u++){
+                FlxG.state.remove(answers.members[u]);
+            }
+        }
     }
 }

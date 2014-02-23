@@ -60,6 +60,7 @@ package
                 entryPoint = lastExitPoint;
             }
             player = new Player(entryPoint.x, entryPoint.y);
+            player.shouldMove = false;
             add(player);
 
             this.addClickZone(new FlxPoint(400,280), new FlxPoint(200,200),
@@ -74,7 +75,7 @@ package
             add(debugText);
 
             conversation(kidBubble.x, kidBubble.y,"", SEL_LANG,
-                         new Array("one","two","three"), this)();
+                         new Array("Hi","Kannst du auch Deutsch?"), this)();
         }
 
         override public function update():void{
@@ -98,8 +99,19 @@ package
                                                      selector:SelectorTextBox):void
         {
             if (currentState == STATE_INTRO && selector._label == SEL_LANG) {
-                debugText.text = "got it";
                 currentState = STATE_MAIN;
+
+                selector.destroy();
+                FlxG.state.remove(kidBubble);
+                FlxG.state.remove(workerBubble);
+
+                if (idx == 0) {
+                    HouseMap.getInstance().currentLanguage = HouseMap.LANG_EN;
+                } else {
+                    HouseMap.getInstance().currentLanguage = HouseMap.LANG_DE;
+                }
+
+                player.shouldMove = true;
             }
         }
     }

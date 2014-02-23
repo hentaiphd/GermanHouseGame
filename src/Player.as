@@ -14,6 +14,7 @@ package{
         private var heightDivisor:Number = 2;
         private var debugText:FlxText;
 
+        public var shouldMove:Boolean = true;
         public var pos:FlxPoint;
 
         public function Player(x:int, y:int){
@@ -29,6 +30,10 @@ package{
             addAnimation("standdown", [5], 12, true);
             addAnimation("walkup", [11,12,13,14], 12, true);
             addAnimation("standup", [10], 12, true);
+
+            debugText = new FlxText(100,100,100,"");
+            debugText.color = 0xff000000;
+            FlxG.state.add(debugText);
         }
 
         override public function update():void{
@@ -38,14 +43,14 @@ package{
             pos = new FlxPoint(this.x, this.y);
             footPos = new FlxPoint(this.x+this.width/2, this.y+this.height);
 
-            if(FlxG.mouse.justPressed()){
+            if(this.shouldMove && FlxG.mouse.justPressed()){
                 walkTarget = new DHPoint(FlxG.mouse.x, FlxG.mouse.y);
                 this.walking = true;
                 walkDistance = new DHPoint(walkTarget.x-footPos.x, walkTarget.y-footPos.y)._length();
                 walkDirection = new DHPoint(walkTarget.x-footPos.x, walkTarget.y-footPos.y).normalized();
             }
 
-            if(walkDirection != null){
+            if(this.shouldMove && walkDirection != null){
                 if(Math.abs(walkDirection.y) > Math.abs(walkDirection.x)){
                     if(walkDirection.y < 0){
                         this.facing = UP;
@@ -65,7 +70,7 @@ package{
                 this.walking = false;
             }
 
-            if(this.walking) {
+            if(this.shouldMove && this.walking) {
                 this.walk();
                 if(this.facing == LEFT){
                     this.play("walk");

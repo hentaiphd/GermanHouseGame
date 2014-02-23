@@ -46,9 +46,6 @@ package
             kidBubble.loadGraphic(ImgKidBubble, true, true, 329, 144, true);
             add(kidBubble);
 
-            conversation(kidBubble.x, kidBubble.y,"",
-                         new Array("one","two","three"))();
-
             FlxG.mouse.show();
 
             var entryPoint:FlxPoint = mainEntryPoint;
@@ -69,6 +66,9 @@ package
             debugText = new FlxText(200,200,FlxG.width,"");
             debugText.color = 0xff000000;
             add(debugText);
+
+            conversation(kidBubble.x, kidBubble.y,"",
+                         new Array("one","two","three"), this)();
         }
 
         override public function update():void{
@@ -86,6 +86,11 @@ package
         {
             HouseMap.getInstance().pushExitPoint(player.pos);
             FlxG.switchState(new CultureRoom());
+        }
+
+        override public function didSelectTextOption(idx:Number, item:FlxText):void
+        {
+            debugText.text = "got it";
         }
     }
 }

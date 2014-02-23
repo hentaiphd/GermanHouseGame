@@ -8,9 +8,12 @@ package{
         public var mouseRect:FlxRect;
         public var selector:FlxSprite;
 
+        public var selectionDelegate:MapRoom;
+
         public function SelectorTextBox(x:int, y:int, _text:String, opts:Array=null)
         {
             super(x, y, _text);
+
             answers = new FlxGroup();
             for(var i:Number = 0; i < opts.length; i++){
                 var t:FlxText = new FlxText(x,y+((i*25)+10),boxWidth,opts[i]);
@@ -30,9 +33,26 @@ package{
             mouseRect.x = FlxG.mouse.x;
             mouseRect.y = FlxG.mouse.y;
             this.moveSelector();
+
+            if (FlxG.mouse.justPressed() && this.selectionDelegate != null) {
+                var choice:FlxText = this.getChoiceAtCursor();
+                if (choice != null) {
+                    this.selectionDelegate.didSelectTextOption(
+                        this.answers.members.indexOf(choice), choice
+                    );
+                }
+            }
         }
 
         public function moveSelector():void{
+            var choice:FlxText = this.getChoiceAtCursor();
+            if (choice != null) {
+                selector.y = choice.y;
+            }
+        }
+
+        private function getChoiceAtCursor():FlxText
+        {
             for(var u:Number = 0; u < answers.length; u++){
                 var r:FlxRect = new FlxRect(
                     answers.members[u].x,
@@ -40,9 +60,10 @@ package{
                     boxWidth,
                     answers.members[u].height);
                 if(r.overlaps(mouseRect)){
-                    selector.y = answers.members[u].y;
+                    return answers.members[u] as FlxText;
                 }
             }
+            return null;
         }
     }
 }

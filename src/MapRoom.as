@@ -6,9 +6,10 @@ package
     public class MapRoom extends FlxState
     {
         private var bgImage:FlxSprite;
+        private var zones:Dictionary;
+
         public var activeSelectorBox:SelectorTextBox = null;
         public var player:Player;
-        private var zones:Dictionary;
         public var ending:Boolean = false;
         public var debugText:FlxText;
 
@@ -22,7 +23,6 @@ package
             super.create();
             FlxG.mouse.show();
             endingChecker();
-
         }
 
         override public function update():void
@@ -69,18 +69,24 @@ package
             return _clickZone;
         }
 
-        public function conversation(x:int, y:int, _text:String, opts:Array = null):Function{
+        public function conversation(x:int, y:int, _text:String,
+                                     opts:Array = null,
+                                     _this:MapRoom=null):Function{
             function inner():void
             {
                 activeSelectorBox = new SelectorTextBox(x, y, _text, opts);
+                activeSelectorBox.selectionDelegate = _this;
             }
             return inner;
         }
 
-        public function colliderConversation(x:int, y:int, _text:String, opts:Array = null):Function{
+        public function colliderConversation(x:int, y:int, _text:String,
+                                             opts:Array = null,
+                                             _this:MapRoom=null):Function{
             function inner(p:FlxSprite,b:FlxSprite):void
             {
                 activeSelectorBox = new SelectorTextBox(x, y, _text, opts);
+                activeSelectorBox.selectionDelegate = _this;
             }
             return inner;
         }
@@ -95,6 +101,10 @@ package
                     }
                 }
             }
+        }
+
+        public function didSelectTextOption(idx:Number, item:FlxText):void
+        {
         }
     }
 }

@@ -4,9 +4,15 @@ package
 
     public class LobbyRoom extends MapRoom
     {
-        [Embed(source="../assets/Room-1-Lobby.png")] private var ImgRoomLobby:Class;
+        [Embed(source="../assets/0101-BG.png")] private var ImgRoomLobby:Class;
+        [Embed(source="../assets/0102-Stairs.png")] private var ImgStairs:Class;
+        [Embed(source="../assets/0103-Door.png")] private var ImgDoor:Class;
+        [Embed(source="../assets/0104-Student Worker.png")] private var ImgStudentWorker:Class;
+
         public var debugText:FlxText;
-        public var receptionist:FlxButton;
+        public var worker:FlxSprite;
+        public var stairs:FlxSprite;
+        public var door:FlxSprite;
 
         {
             public static var mainEntryPoint:FlxPoint = new FlxPoint(20, 150);
@@ -16,6 +22,18 @@ package
         {
             super.create();
             this.setupBackground(ImgRoomLobby);
+
+            stairs = new FlxSprite(0, 0);
+            stairs.loadGraphic(ImgStairs, true, true, 243, 475, true);
+            add(stairs);
+
+            door = new FlxSprite(159, 461);
+            door.loadGraphic(ImgDoor, true, true, 194, 13, true);
+            add(door);
+
+            worker = new FlxSprite(433, 269);
+            worker.loadGraphic(ImgStudentWorker, true, true, 179, 209, true);
+            add(worker);
 
             FlxG.mouse.show();
 

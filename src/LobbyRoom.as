@@ -58,19 +58,21 @@ package
             add(worker);
 
             workerBubble = new FlxSprite(377, 103);
-            workerBubble.loadGraphic(ImgWorkerBubble, true, true, 249, 166, true);
-            workerBubble.alpha = 0;
-            add(workerBubble);
-
             workerText = new TextBox(new FlxPoint(399, 113), new FlxPoint(220, 100),
-                                     "Hey kid, are you looking for your mom 'n dad?");
-            workerText.alpha = 0;
-            add(workerText);
+                                    "Hey kid, are you looking for your mom 'n dad?");
+            if (currentState == STATE_INTRO) {
+                workerBubble.loadGraphic(ImgWorkerBubble, true, true, 249, 166, true);
+                workerBubble.alpha = 0;
+                add(workerBubble);
 
-            kidBubble = new FlxSprite(7, 130);
-            kidBubble.loadGraphic(ImgKidBubble, true, true, 329, 144, true);
-            kidBubble.alpha = 0;
-            add(kidBubble);
+                workerText.alpha = 0;
+                add(workerText);
+
+                kidBubble = new FlxSprite(7, 130);
+                kidBubble.loadGraphic(ImgKidBubble, true, true, 329, 144, true);
+                kidBubble.alpha = 0;
+                add(kidBubble);
+            }
 
             FlxG.mouse.show();
 
@@ -101,30 +103,28 @@ package
         override public function update():void{
             super.update();
 
-            if (current_scene == 1 && (timeFrame == 3*TimedState.fpSec)) {
-                current_scene += 1;
-            } else if (current_scene == 2 && (timeFrame == 6*TimedState.fpSec)) {
-                current_scene += 1;
-            } else if (current_scene == 3) {
-
-            } else if (current_scene == 4 && (timeFrame == lastSelectionTimeFrame+5*TimedState.fpSec)) {
-                currentState = STATE_MAIN;
-                player.shouldMove = true;
-                HouseMap.getInstance().hasSeenIntroSequence = true;
-            }
-
-            if (current_scene == 2) {
-                workerBubble.alpha += ALPHA_DELTA;
-                workerText.alpha += ALPHA_DELTA;
-            } else if (current_scene == 3) {
-                kidBubble.alpha += ALPHA_DELTA;
-                this.activeSelectorBox.incrementAlpha(ALPHA_DELTA);
-            } else if (current_scene == 4) {
-
-            }
-
             if (currentState == STATE_INTRO) {
+                if (current_scene == 1 && (timeFrame == 1*TimedState.fpSec)) {
+                    current_scene += 1;
+                } else if (current_scene == 2 && (timeFrame == 4*TimedState.fpSec)) {
+                    current_scene += 1;
+                } else if (current_scene == 3) {
 
+                } else if (current_scene == 4 && (timeFrame == lastSelectionTimeFrame+3*TimedState.fpSec)) {
+                    currentState = STATE_MAIN;
+                    player.shouldMove = true;
+                    HouseMap.getInstance().hasSeenIntroSequence = true;
+                }
+
+                if (current_scene == 2) {
+                    workerBubble.alpha += ALPHA_DELTA;
+                    workerText.alpha += ALPHA_DELTA;
+                } else if (current_scene == 3) {
+                    kidBubble.alpha += ALPHA_DELTA;
+                    this.activeSelectorBox.incrementAlpha(ALPHA_DELTA);
+                } else if (current_scene == 4) {
+
+                }
             } else if (currentState == STATE_MAIN) {
                 workerBubble.alpha -= ALPHA_DELTA;
                 workerText.alpha -= ALPHA_DELTA;

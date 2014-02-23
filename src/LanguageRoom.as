@@ -1,14 +1,17 @@
 package
 {
+    import flash.utils.Dictionary;
     import org.flixel.*;
 
     public class LanguageRoom extends MapRoom
     {
         [Embed(source="../assets/Room-4-Language.png")] private var ImgLanguageRoom:Class;
         [Embed(source="../assets/Bubble-02.png")] private var ImgKidBubble:Class;
+        [Embed(source="../assets/LeaBlock-Regular.ttf", fontFamily="LeaBlock-Regular", embedAsCFF="false")] public var FontLea:String;
         private static const SEL_PROF:String = "prof_sel";
-        public var german_player_words:Array = new Array("Earful","Cushy","Wide-eyed","Weathervane","Facetious","Knee-slapper","Canoodle");
-        public var german_player_answers:Array = new Array("");
+        public var wordList:Array;
+        public var germanPlayerQuestions:Dictionary;
+        public var boardText:FlxText;
 
         public var kidBubble:FlxSprite;
 
@@ -28,6 +31,20 @@ package
 
             super.create();
 
+            //if player is a german speaker
+            germanPlayerQuestions = new Dictionary();
+            germanPlayerQuestions['Earful'] = new Array("An empty waste basket.", "A lot of angry talk.", "A good dancer.");
+            germanPlayerQuestions['Cushy'] = new Array("Something easy or comfortable.", "A freshly baked pie.", "The color of a sunset.");
+            germanPlayerQuestions['Wide-eyed'] = new Array("A juicy conversation.", "Being unsophisticated or innocent.", "Large flocks of geese.");
+            germanPlayerQuestions['Weathervane'] = new Array("Used to measure wind direction.", "A mountable screen.", "A recruiter for an orchestra.");
+            germanPlayerQuestions['Facetious'] = new Array("Soft, swishy or sweeping.", "Supportive or like a boulder.", "Joking about serious issues.");
+            germanPlayerQuestions['Knee-slapper'] = new Array("A very funny joke.", "A fast-food restaurant.", "A very slippery slope.");
+            germanPlayerQuestions['Canoodle'] = new Array("Hugging and kissing.", "Getting ready for bed.", "Wrapping a present.");
+
+            wordList = getKeys(germanPlayerQuestions);
+            boardText = new FlxText(230,100,300,"");
+            boardText.setFormat("LeaBlock-Regular",18,0xff000000,"center");
+
             debugText = new FlxText(10,10,100,"");
             debugText.color = 0xff000000;
             debugText.size = 18;
@@ -38,28 +55,34 @@ package
                     null, doorWasClicked);
 
                 add(debugText);
+                add(boardText);
 
                 kidBubble = new FlxSprite(7, 130);
                 kidBubble.loadGraphic(ImgKidBubble, true, true, 329, 144, true);
                 add(kidBubble);
 
-                conversation(new FlxPoint(kidBubble.x, kidBubble.y),
-                             new FlxPoint(300, 100),"", SEL_PROF,
-                             new Array("Hi","Kannst du auch Deutsch?"), this)();
+                var randend:Number = Math.floor(Math.random()*wordList.length);
+                var wordend:String = wordList[randend].toString();
+                boardText.text = wordend;
+                conversation(new FlxPoint(kidBubble.x, kidBubble.y), new FlxPoint(300,300),"", SEL_PROF,
+                         germanPlayerQuestions[wordend], this)();
             } else {
                 this.setupBackground(ImgLanguageRoom);
                 this.addClickZone(new FlxPoint(100, 100), new FlxPoint(40, 40),
                     null, doorWasClicked);
 
                 add(debugText);
+                add(boardText);
 
                 kidBubble = new FlxSprite(7, 130);
                 kidBubble.loadGraphic(ImgKidBubble, true, true, 329, 144, true);
                 add(kidBubble);
 
-                conversation(new FlxPoint(kidBubble.x, kidBubble.y),
-                             new FlxPoint(300, 100),"", SEL_PROF,
-                             new Array("Hi","Kannst du auch Deutsch?"), this)();
+                var rand:Number = Math.floor(Math.random()*wordList.length);
+                var word:String = wordList[rand].toString();
+                boardText.text = word;
+                conversation(new FlxPoint(kidBubble.x, kidBubble.y), new FlxPoint(300,100),"", SEL_PROF,
+                         germanPlayerQuestions[word], this)();
             }
         }
 

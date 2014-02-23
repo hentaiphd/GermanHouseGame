@@ -105,6 +105,14 @@ package
 
         public function didSelectTextOption(idx:Number, item:FlxText,
                                             selector:SelectorTextBox):void
-        {}
+        {
+        }
+
+        public function getKeys(dictionary:Dictionary):Array
+        {
+            var keys:Array = [];
+            for (var key:* in dictionary) keys.push(key);
+            return keys;
+        }
     }
 }

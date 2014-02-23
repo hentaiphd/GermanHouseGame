@@ -4,13 +4,18 @@ package
 
     public class HouseMap
     {
-
         private static var _instance:HouseMap;
+
         public var CultureRoom:Boolean = false;
         public var KidsRoom:Boolean = false;
         public var LangRoom:Boolean = false;
         public var endingCounter:Number = 0;
+        public var currentLanguage:int;
+
         private var exitPoints:Array;
+
+        public static const LANG_DE:int = 1;
+        public static const LANG_EN:int = 2;
 
         public function setup():void
         {

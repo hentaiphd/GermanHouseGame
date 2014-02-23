@@ -110,9 +110,9 @@ package
                         box.text = workerCollideText;
                         current_scene = 101;
                         lastCollideTimeFrame = timeFrame;
-                        FlxG.state.add(box);
                         box.alpha = 0;
                         FlxG.state.add(workerBubble);
+                        FlxG.state.add(box);
                     }
                 )
             );

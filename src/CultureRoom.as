@@ -4,7 +4,10 @@ package
 
     public class CultureRoom extends MapRoom
     {
-        [Embed(source="../assets/Room-2-Culture.png")] private var ImgCultureRoom:Class;
+        [Embed(source="../assets/0201-BG.png")] private var ImgBG:Class;
+        [Embed(source="../assets/0202-Photographer.png")] private var ImgPhotographer:Class;
+
+        private var photographer:FlxSprite;
 
         override public function create():void
         {
@@ -13,11 +16,16 @@ package
 
             super.create();
 
+            this.setupBackground(ImgBG);
+
+            photographer = new FlxSprite(34, 96);
+            photographer.loadGraphic(ImgPhotographer, true, true, 235, 220, true);
+            add(photographer);
+
             if(this.ending){
                 var t:FlxText = new FlxText(10,10,100,"end");
                 add(t);
             } else {
-                this.setupBackground(ImgCultureRoom);
                 this.addClickZone(new FlxPoint(100, 100), new FlxPoint(40, 40),
                     null, doorWasClicked);
             }

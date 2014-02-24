@@ -10,8 +10,10 @@ package
         [Embed(source="../assets/LeaBlock-Regular.ttf", fontFamily="LeaBlock-Regular", embedAsCFF="false")] public var FontLea:String;
         private static const SEL_PROF:String = "prof_sel";
         public var wordList:Array;
-        public var germanPlayerQuestions:Dictionary;
+        public var playerQuestions:Dictionary;
+        public var playerAnswers:Dictionary;
         public var boardText:FlxText;
+        public var word:String;
 
         public var kidBubble:FlxSprite;
 
@@ -31,18 +33,30 @@ package
 
             super.create();
 
-            //if player is a german speaker
-            germanPlayerQuestions = new Dictionary();
-            germanPlayerQuestions['Earful'] = new Array("An empty waste basket.", "A lot of angry talk.", "A good dancer.");
-            germanPlayerQuestions['Cushy'] = new Array("Something easy or comfortable.", "A freshly baked pie.", "The color of a sunset.");
-            germanPlayerQuestions['Wide-eyed'] = new Array("A juicy conversation.", "Being unsophisticated or innocent.", "Large flocks of geese.");
-            germanPlayerQuestions['Weathervane'] = new Array("Used to measure wind direction.", "A mountable screen.", "A recruiter for an orchestra.");
-            germanPlayerQuestions['Facetious'] = new Array("Soft, swishy or sweeping.", "Supportive or like a boulder.", "Joking about serious issues.");
-            germanPlayerQuestions['Knee-slapper'] = new Array("A very funny joke.", "A fast-food restaurant.", "A very slippery slope.");
-            germanPlayerQuestions['Canoodle'] = new Array("Hugging and kissing.", "Getting ready for bed.", "Wrapping a present.");
+            if(HouseMap.getInstance().currentLanguage == HouseMap.LANG_EN){
+                //eng stuff
+            } else if(HouseMap.getInstance().currentLanguage == HouseMap.LANG_DE){
+                playerQuestions = new Dictionary();
+                playerQuestions['Earful'] = new Array("An empty waste basket.", "A lot of angry talk.", "A good dancer.");
+                playerQuestions['Cushy'] = new Array("Something easy or comfortable.", "A freshly baked pie.", "The color of a sunset.");
+                playerQuestions['Wide-eyed'] = new Array("A juicy conversation.", "Being unsophisticated or innocent.", "Large flocks of geese.");
+                playerQuestions['Weathervane'] = new Array("Used to measure wind direction.", "A mountable screen.", "A recruiter for an orchestra.");
+                playerQuestions['Facetious'] = new Array("Soft, swishy or sweeping.", "Supportive or like a boulder.", "Joking about serious issues.");
+                playerQuestions['Knee-slapper'] = new Array("A very funny joke.", "A fast-food restaurant.", "A very slippery slope.");
+                playerQuestions['Canoodle'] = new Array("Hugging and kissing.", "Getting ready for bed.", "Wrapping a present.");
 
-            wordList = getKeys(germanPlayerQuestions);
-            boardText = new FlxText(230,100,300,"");
+                playerAnswers = new Dictionary();
+                playerAnswers['Earful'] = new String("A lot of angry talk.");
+                playerAnswers['Cushy'] = new String("Something easy or comfortable.");
+                playerAnswers['Wide-eyed'] = new String("Being unsophisticated or innocent.");
+                playerAnswers['Weathervane'] = new String("Used to measure wind direction.");
+                playerAnswers['Facetious'] = new String("Joking about serious issues.");
+                playerAnswers['Knee-slapper'] = new String("A very funny joke.");
+                playerAnswers['Canoodle'] = new Array("Hugging and kissing.");
+            }
+
+            wordList = getKeys(playerQuestions);
+            boardText = new FlxText(230,100,500,"");
             boardText.setFormat("LeaBlock-Regular",18,0xff000000,"center");
 
             debugText = new FlxText(10,10,100,"");
@@ -62,10 +76,10 @@ package
                 add(kidBubble);
 
                 var randend:Number = Math.floor(Math.random()*wordList.length);
-                var wordend:String = wordList[randend].toString();
-                boardText.text = wordend;
-                conversation(new FlxPoint(kidBubble.x, kidBubble.y), new FlxPoint(300,300),"", SEL_PROF,
-                         germanPlayerQuestions[wordend], this)();
+                word = wordList[randend].toString();
+                boardText.text = word;
+                conversation(new FlxPoint(kidBubble.x, kidBubble.y), new FlxPoint(600,600),"", SEL_PROF,
+                         playerQuestions[word], this)();
             } else {
                 this.setupBackground(ImgLanguageRoom);
                 this.addClickZone(new FlxPoint(100, 100), new FlxPoint(40, 40),
@@ -79,10 +93,10 @@ package
                 add(kidBubble);
 
                 var rand:Number = Math.floor(Math.random()*wordList.length);
-                var word:String = wordList[rand].toString();
+                word = wordList[rand].toString();
                 boardText.text = word;
-                conversation(new FlxPoint(kidBubble.x, kidBubble.y), new FlxPoint(300,100),"", SEL_PROF,
-                         germanPlayerQuestions[word], this)();
+                conversation(new FlxPoint(kidBubble.x, kidBubble.y), new FlxPoint(600,600),"", SEL_PROF,
+                         playerQuestions[word], this)();
             }
         }
 
@@ -99,26 +113,20 @@ package
                                                      selector:SelectorTextBox):void
         {
             if (this.ending && selector._label == SEL_PROF) {
-                debugText.text = "parent end select";
-
-                selector.destroy();
-                FlxG.switchState(new MenuState());
-
-                if (idx == 0) {
-                    HouseMap.getInstance().currentLanguage = HouseMap.LANG_EN;
+                if(item.text == playerAnswers[word]){
+                    debugText.text = "win";
                 } else {
-                    HouseMap.getInstance().currentLanguage = HouseMap.LANG_DE;
+                    debugText.text = "lose";
                 }
+                //add timer for this? bc someone will probs say something
+                //depending on whether you win or lose
+                //selector.destroy();
+                //FlxG.switchState(new MenuState());
             } else if(!this.ending && selector._label == SEL_PROF){
-                debugText.text = "not parent end select";
-
-                selector.destroy();
-                FlxG.switchState(new UpstairsRoom());
-
-                if (idx == 0) {
-                    HouseMap.getInstance().currentLanguage = HouseMap.LANG_EN;
+                if(item.text == playerAnswers[word]){
+                    debugText.text = "win";
                 } else {
-                    HouseMap.getInstance().currentLanguage = HouseMap.LANG_DE;
+                    debugText.text = "lose";
                 }
             }
         }

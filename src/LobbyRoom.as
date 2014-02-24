@@ -27,9 +27,6 @@ package
 
         private const ALPHA_DELTA:Number = .04;
 
-        private var lastSelectionTimeFrame:Number = -1;
-        private var lastCollideTimeFrame:Number = -1;
-
         private static const SEL_LANG:String = "lang_sel";
 
         {
@@ -131,7 +128,9 @@ package
                     current_scene += 1;
                 } else if (current_scene == 3) {
 
-                } else if (current_scene == 4 && (timeFrame == lastSelectionTimeFrame+3*TimedState.fpSec)) {
+                } else if (current_scene == 4
+                    && ((timeFrame == lastSelectionTimeFrame+3*TimedState.fpSec)))
+                {
                     currentState = STATE_MAIN;
                     player.shouldMove = true;
                     HouseMap.getInstance().hasSeenIntroSequence = true;

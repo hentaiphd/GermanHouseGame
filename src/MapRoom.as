@@ -8,6 +8,9 @@ package
         private var bgImage:FlxSprite;
         private var zones:Dictionary;
 
+        public var lastSelectionTimeFrame:Number = -1;
+        public var lastCollideTimeFrame:Number = -1;
+        public var lastClickTimeFrame:Number = -1;
         public var activeSelectorBox:SelectorTextBox = null;
         public var activeTextBox:TextBox = null;
         public var player:Player;
@@ -29,6 +32,10 @@ package
         override public function update():void
         {
             super.update();
+            if (FlxG.mouse.pressed()) {
+                lastClickTimeFrame = timeFrame;
+            }
+
             if(this.activeSelectorBox != null){
                 this.activeSelectorBox.update();
             }
@@ -119,8 +126,7 @@ package
 
         public function didSelectTextOption(idx:Number, item:FlxText,
                                             selector:SelectorTextBox):void
-        {
-        }
+        {}
 
         public function getKeys(dictionary:Dictionary):Array
         {

@@ -6,8 +6,12 @@ package
     {
         [Embed(source="../assets/0201-BG.png")] private var ImgBG:Class;
         [Embed(source="../assets/0202-Photographer.png")] private var ImgPhotographer:Class;
+        [Embed(source="../assets/0203-Friseurin.png")] private var ImgFriseurin:Class;
+        [Embed(source="../assets/0204-Kid.png")] private var ImgKid1:Class;
 
         private var photographer:FlxSprite;
+        private var friseurin:FlxSprite;
+        private var kid:FlxSprite;
 
         override public function create():void
         {
@@ -21,6 +25,14 @@ package
             photographer = new FlxSprite(34, 96);
             photographer.loadGraphic(ImgPhotographer, true, true, 235, 220, true);
             add(photographer);
+
+            friseurin = new FlxSprite(325, 26);
+            friseurin.loadGraphic(ImgFriseurin, true, true, 288, 291, true);
+            add(friseurin);
+
+            kid = new FlxSprite(248, 342);
+            kid.loadGraphic(ImgKid1, true, true, 130, 133, true);
+            add(kid);
 
             if(this.ending){
                 var t:FlxText = new FlxText(10,10,100,"end");

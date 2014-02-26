@@ -10,13 +10,13 @@ package
         public var KidsRoom:Boolean = false;
         public var LangRoom:Boolean = false;
         public var endingCounter:Number = 0;
-        public var currentLanguage:int;
         public var hasSeenIntroSequence:Boolean = false;
 
         private var exitPoints:Array;
 
         public static const LANG_DE:int = 1;
         public static const LANG_EN:int = 2;
+        public var currentLanguage:int = LANG_DE;
 
         public function setup():void
         {

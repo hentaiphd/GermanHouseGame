@@ -19,11 +19,10 @@ package
         public var workerText:TextBox;
         public var kidBubble:FlxSprite;
 
-        public var current_scene:Number = 1;
-
         private static const STATE_INTRO:int = 1;
         private static const STATE_MAIN:int = 2;
         private var currentState:int = STATE_INTRO;
+        public var current_scene:Number = 1;
 
         private const ALPHA_DELTA:Number = .04;
 
@@ -43,6 +42,9 @@ package
             } else {
                 currentState = STATE_INTRO;
             }
+
+            // DEBUG
+            currentState = STATE_MAIN;
 
             stairs = new FlxSprite(0, 0);
             stairs.loadGraphic(ImgStairs, true, true, 243, 475, true);

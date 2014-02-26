@@ -5,12 +5,13 @@ package
 
     public class MapRoom extends TimedState
     {
-        private var bgImage:FlxSprite;
+        public var bgImage:FlxSprite;
         private var zones:Dictionary;
 
         public var lastSelectionTimeFrame:Number = -1;
         public var lastCollideTimeFrame:Number = -1;
         public var lastClickTimeFrame:Number = -1;
+        public var lastStateChangeTimeFrame:Number = -1;
         public var activeSelectorBox:SelectorTextBox = null;
         public var activeTextBox:TextBox = null;
         public var player:Player;

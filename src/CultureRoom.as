@@ -5,6 +5,7 @@ package
     public class CultureRoom extends MapRoom
     {
         [Embed(source="../assets/0201-BG.png")] private var ImgBG:Class;
+        [Embed(source="../assets/02-BG-1.png")] private var ImgBGOffer:Class;
         [Embed(source="../assets/0202-Photographer.png")] private var ImgPhotographer:Class;
         [Embed(source="../assets/0203-Friseurin.png")] private var ImgFriseurin:Class;
         [Embed(source="../assets/0204-Kid.png")] private var ImgKid1:Class;
@@ -12,6 +13,7 @@ package
         [Embed(source="../assets/Bubble-04.png")] private var ImgKidBubble1:Class;
         [Embed(source="../assets/Bubble-05.png")] private var ImgFriseurBubble1:Class;
         [Embed(source="../assets/Bubble-06.png")] private var ImgPhotographerBubble1:Class;
+        [Embed(source="../assets/Bubble-07.png")] private var ImgOfferBubble1:Class;
 
         private var photographer:FlxSprite;
         private var friseurin:FlxSprite;
@@ -23,6 +25,8 @@ package
         private var friseurBubble1Text:FlxText;
         private var photographerBubble1:FlxSprite;
         private var photographerBubble1Text:FlxText;
+        private var offerBackground:FlxSprite;
+        private var offerBubble:FlxSprite;
 
         private static const STATE_INTRO:int = 1;
         private static const STATE_CHOICE:int = 2;
@@ -99,6 +103,16 @@ package
             photographerBubble1Text.alpha = 0;
             add(photographerBubble1Text);
 
+            offerBackground = new FlxSprite(0, 0);
+            offerBackground.loadGraphic(ImgBGOffer, true, true, 640, 480, true);
+            offerBackground.alpha = 0;
+            add(offerBackground);
+
+            offerBubble = new FlxSprite(11, 10);
+            offerBubble.loadGraphic(ImgOfferBubble1, true, true, 361, 457, true);
+            offerBubble.alpha = 0;
+            add(offerBubble);
+
             if(this.ending){
                 var t:FlxText = new FlxText(10,10,100,"end");
                 add(t);
@@ -106,38 +120,59 @@ package
                 this.addClickZone(new FlxPoint(100, 100), new FlxPoint(40, 40),
                     null, doorWasClicked);
             }
-            player = new Player(20,150);
-            add(player);
         }
 
         override public function update():void{
             super.update();
 
-            if (current_scene == 0 && timeFrame == 1) {
-                current_scene += 1;
-            } else if (current_scene == 1 && timeFrame == 3*TimedState.fpSec) {
-                current_scene += 1;
-            } else if (current_scene == 2 && timeFrame == 6*TimedState.fpSec) {
-                current_scene += 1;
-            } else if (current_scene == 3 && timeFrame == 9*TimedState.fpSec) {
-                current_scene += 1;
+            if (currentState == STATE_INTRO) {
+                if (current_scene == 0 && timeFrame == 1) {
+                    current_scene += 1;
+                } else if (current_scene == 1 && timeFrame == 2*TimedState.fpSec) {
+                    current_scene += 1;
+                } else if (current_scene == 2 && timeFrame == 4*TimedState.fpSec) {
+                    current_scene += 1;
+                } else if (current_scene == 3 && timeFrame == 6*TimedState.fpSec) {
+                    current_scene = 1;
+                    currentState = STATE_CHOICE;
+                    lastStateChangeTimeFrame = timeFrame;
+                }
+            } else if (currentState == STATE_CHOICE) {
+                if (current_scene == 1 && timeFrame == lastStateChangeTimeFrame+1*TimedState.fpSec) {
+                    current_scene += 1;
+                }
             }
 
-            if (current_scene == 1) {
-                kidBubble1.alpha += ALPHA_DELTA;
-                kidBubble1Text.alpha += ALPHA_DELTA;
-            } else if (current_scene == 2) {
-                kidBubble1.alpha -= ALPHA_DELTA;
-                kidBubble1Text.alpha -= ALPHA_DELTA;
-                friseurBubble1.alpha += ALPHA_DELTA;
-                friseurBubble1Text.alpha += ALPHA_DELTA;
-            } else if (current_scene == 3) {
-                kid.alpha -= ALPHA_DELTA;
-                kid2.alpha += ALPHA_DELTA;
-                friseurBubble1.alpha -= ALPHA_DELTA;
-                friseurBubble1Text.alpha -= ALPHA_DELTA;
-                photographerBubble1.alpha += ALPHA_DELTA;
-                photographerBubble1Text.alpha += ALPHA_DELTA;
+
+            if (currentState == STATE_INTRO) {
+                if (current_scene == 1) {
+                    kidBubble1.alpha += ALPHA_DELTA;
+                    kidBubble1Text.alpha += ALPHA_DELTA;
+                } else if (current_scene == 2) {
+                    kidBubble1.alpha -= ALPHA_DELTA;
+                    kidBubble1Text.alpha -= ALPHA_DELTA;
+                    friseurBubble1.alpha += ALPHA_DELTA;
+                    friseurBubble1Text.alpha += ALPHA_DELTA;
+                } else if (current_scene == 3) {
+                    kid.alpha -= ALPHA_DELTA;
+                    kid2.alpha += ALPHA_DELTA;
+                    friseurBubble1.alpha -= ALPHA_DELTA;
+                    friseurBubble1Text.alpha -= ALPHA_DELTA;
+                    photographerBubble1.alpha += ALPHA_DELTA;
+                    photographerBubble1Text.alpha += ALPHA_DELTA;
+                }
+            } else if (currentState == STATE_CHOICE) {
+                if (current_scene == 1) {
+                    bgImage.alpha -= ALPHA_DELTA;
+                    kid2.alpha -= ALPHA_DELTA;
+                    friseurin.alpha -= ALPHA_DELTA;
+                    photographer.alpha -= ALPHA_DELTA;
+                    photographerBubble1.alpha -= ALPHA_DELTA;
+                    photographerBubble1Text.alpha -= ALPHA_DELTA;
+                    offerBackground.alpha += ALPHA_DELTA;
+                } else if (current_scene == 2) {
+                    offerBubble.alpha += ALPHA_DELTA;
+                }
             }
         }
 

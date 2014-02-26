@@ -17,10 +17,11 @@ package{
                                         opts:Array=null, transparent:Boolean=false)
         {
             super(origin, size, _text);
+            FlxG.state.add(this);
 
             answers = new FlxGroup();
             for(var i:Number = 0; i < opts.length; i++){
-                var t:FlxText = new FlxText(origin.x,origin.y+((i*25)+10),size.x,opts[i]);
+                var t:FlxText = new FlxText(origin.x,origin.y+((i*25)+20),size.x,opts[i]);
                 t.setFormat("LeaBlock-Regular",18,0xff000000,"left");
                 answers.add(t);
                 FlxG.state.add(t);

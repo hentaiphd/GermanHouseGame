@@ -6,19 +6,25 @@ package
     {
         [Embed(source="../assets/0201-BG.png")] private var ImgBG:Class;
         [Embed(source="../assets/02-BG-1.png")] private var ImgBGOffer:Class;
+        [Embed(source="../assets/02-BG-2.png")] private var ImgBGResult:Class;
         [Embed(source="../assets/0202-Photographer.png")] private var ImgPhotographer:Class;
         [Embed(source="../assets/0203-Friseurin.png")] private var ImgFriseurin:Class;
         [Embed(source="../assets/0204-Kid.png")] private var ImgKid1:Class;
         [Embed(source="../assets/0204-Kid-1.png")] private var ImgKid2:Class;
+        [Embed(source="../assets/02-Kid-2.png")] private var ImgKid3:Class;
         [Embed(source="../assets/Bubble-04.png")] private var ImgKidBubble1:Class;
         [Embed(source="../assets/Bubble-05.png")] private var ImgFriseurBubble1:Class;
         [Embed(source="../assets/Bubble-06.png")] private var ImgPhotographerBubble1:Class;
         [Embed(source="../assets/Bubble-07.png")] private var ImgOfferBubble1:Class;
+        [Embed(source="../assets/02-Customer-1.png")] private var ImgCustomer1:Class;
+        [Embed(source="../assets/02-Customer-2.png")] private var ImgCustomer2:Class;
+        [Embed(source="../assets/02-Customer-3.png")] private var ImgCustomer3:Class;
 
         private var photographer:FlxSprite;
         private var friseurin:FlxSprite;
         private var kid:FlxSprite;
         private var kid2:FlxSprite;
+        private var kid3:FlxSprite;
         private var kidBubble1:FlxSprite;
         private var kidBubble1Text:FlxText;
         private var friseurBubble1:FlxSprite;
@@ -27,6 +33,16 @@ package
         private var photographerBubble1Text:FlxText;
         private var offerBackground:FlxSprite;
         private var offerBubble:FlxSprite;
+        private var resultBackground:FlxSprite;
+        private var customer:FlxSprite;
+        private var resultBubble1:FlxSprite, resultText1:FlxText;
+        private var resultBubble2:FlxSprite, resultText2:FlxText;
+        private var endText2:String;
+
+        private static const CHOICE_SHORT:int = 1;
+        private static const CHOICE_MED:int = 2;
+        private static const CHOICE_LONG:int = 3;
+        private var cutChoice:Number;
 
         private static const STATE_INTRO:int = 1;
         private static const STATE_CHOICE:int = 2;
@@ -35,6 +51,8 @@ package
         public var current_scene:Number = 0;
 
         private const ALPHA_DELTA:Number = .04;
+
+        private static const SEL_OFFER:String = "offer_sel";
 
         override public function create():void
         {
@@ -45,15 +63,27 @@ package
 
             this.setupBackground(ImgBG);
 
-            var kidText1:String, friseurText1:String, photographerText1:String;
+            var kidText1:String, friseurText1:String, photographerText1:String,
+                offerText:String, resultText:String, endText1:String;
+            var offerChoices:Array = new Array();
             if (HouseMap.getInstance().currentLanguage == HouseMap.LANG_EN) {
                 kidText1 = "What are you doing?";
                 friseurText1 = "I'm cutting her hair!";
                 photographerText1 = "I'm a photographer and there will be an exhibition afterwards.";
+                offerText = "You wanna try for yourself, sweetie?";
+                offerChoices = new Array("Cut a little", "Cut something", "Cut a lot");
+                resultText = "That's not bad, kid!";
+                endText1 = "But your parents are not here, at the cultural program.";
+                endText2 = "You will have to find them in another part of Deutsches Haus";
             } else if (HouseMap.getInstance().currentLanguage == HouseMap.LANG_DE) {
                 kidText1 = "Was machst du denn da?";
                 friseurText1 = "Ich verpass ihr einen hippen Haarschnitt!";
                 photographerText1 = "Ich mache Fotos, für eine Ausstellung, die es darüber geben wird!";
+                offerText = "Willstes mal selber probieren?";
+                offerChoices = new Array("Wenig abschneiden", "Etwas abschneiden", "Viel abschneiden");
+                resultText = "Wow! Gar nicht schlecht ist das!";
+                endText1 = "Aber deine Eltern sind leider nicht hier, im Kulturprogramm!";
+                endText2 = "Die müssen irgendwo anders im Deutschen Haus sein.";
             }
 
             photographer = new FlxSprite(34, 96);
@@ -113,13 +143,48 @@ package
             offerBubble.alpha = 0;
             add(offerBubble);
 
+            resultBackground = new FlxSprite(0, 0);
+            resultBackground.loadGraphic(ImgBGResult, true, true, 640, 480, true);
+            resultBackground.alpha = 0;
+            add(resultBackground);
+
+            customer = new FlxSprite(0, 0);
+            customer.alpha = 0;
+            add(customer);
+
+            kid3 = new FlxSprite(26, 285);
+            kid3.loadGraphic(ImgKid3, true, true, 228, 205, true);
+            kid3.alpha = 0;
+            add(kid3);
+
+            resultBubble1 = new FlxSprite(57, 15);
+            resultBubble1.loadGraphic(ImgPhotographerBubble1, true, true, 236, 160, true);
+            resultBubble1.alpha = 0;
+            add(resultBubble1);
+            resultText1 = new TextBox(new FlxPoint(resultBubble1.x+10, resultBubble1.y+40),
+                                             new FlxPoint(resultBubble1.width-20, resultBubble1.height),
+                                             resultText);
+            resultText1.alpha = 0;
+            add(resultText1);
+
+            resultBubble2 = new FlxSprite(393, 307);
+            resultBubble2.loadGraphic(ImgPhotographerBubble1, true, true, 236, 160, true);
+            resultBubble2.alpha = 0;
+            add(resultBubble2);
+            resultText2 = new TextBox(new FlxPoint(resultBubble2.x+10, resultBubble2.y+40),
+                                             new FlxPoint(resultBubble2.width-20, resultBubble2.height),
+                                             endText1);
+            resultText2.alpha = 0;
+            add(resultText2);
+
             if(this.ending){
                 var t:FlxText = new FlxText(10,10,100,"end");
                 add(t);
-            } else {
-                this.addClickZone(new FlxPoint(100, 100), new FlxPoint(40, 40),
-                    null, doorWasClicked);
             }
+
+            conversation(new FlxPoint(offerBubble.x+35, offerBubble.y+40),
+                         new FlxPoint(offerBubble.width-60, offerBubble.height),
+                         offerText, SEL_OFFER, offerChoices, this, true)();
         }
 
         override public function update():void{
@@ -141,8 +206,19 @@ package
                 if (current_scene == 1 && timeFrame == lastStateChangeTimeFrame+1*TimedState.fpSec) {
                     current_scene += 1;
                 }
+            } else if (currentState == STATE_RESULT) {
+                if (current_scene == 1 && timeFrame == lastStateChangeTimeFrame+3*TimedState.fpSec) {
+                    current_scene += 1;
+                } else if (current_scene == 2 && timeFrame == lastStateChangeTimeFrame+5*TimedState.fpSec) {
+                    current_scene += 1;
+                } else if (current_scene == 3 && timeFrame == lastStateChangeTimeFrame+7*TimedState.fpSec) {
+                    current_scene += 1;
+                    resultText2.text = endText2;
+                } else if (current_scene == 4 && timeFrame == lastStateChangeTimeFrame+10*TimedState.fpSec) {
+                    current_scene += 1;
+                    FlxG.switchState(new LobbyRoom());
+                }
             }
-
 
             if (currentState == STATE_INTRO) {
                 if (current_scene == 1) {
@@ -172,6 +248,24 @@ package
                     offerBackground.alpha += ALPHA_DELTA;
                 } else if (current_scene == 2) {
                     offerBubble.alpha += ALPHA_DELTA;
+                    this.activeSelectorBox.incrementAlpha(ALPHA_DELTA);
+                }
+            } else if (currentState == STATE_RESULT) {
+                if (current_scene == 1) {
+                    offerBubble.alpha -= ALPHA_DELTA;
+                    offerBackground.alpha -= ALPHA_DELTA;
+                    this.activeSelectorBox.incrementAlpha(-ALPHA_DELTA);
+                    resultBackground.alpha += ALPHA_DELTA;
+                    kid3.alpha += ALPHA_DELTA;
+                    customer.alpha += ALPHA_DELTA;
+                } else if (current_scene == 2) {
+                    resultBubble1.alpha += ALPHA_DELTA;
+                    resultText1.alpha += ALPHA_DELTA;
+                } else if (current_scene == 3) {
+                    resultBubble1.alpha -= ALPHA_DELTA;
+                    resultText1.alpha -= ALPHA_DELTA;
+                    resultBubble2.alpha += ALPHA_DELTA;
+                    resultText2.alpha += ALPHA_DELTA;
                 }
             }
         }
@@ -179,6 +273,36 @@ package
         private function doorWasClicked(a:FlxSprite, b:FlxSprite):void
         {
             FlxG.switchState(new LobbyRoom());
+        }
+
+        override public function didSelectTextOption(idx:Number, item:FlxText,
+                                                     selector:SelectorTextBox):void
+        {
+            if (currentState == STATE_CHOICE && current_scene == 2
+                && selector._label == SEL_OFFER)
+            {
+                current_scene = 1;
+                currentState = STATE_RESULT;
+                lastSelectionTimeFrame = timeFrame;
+                lastStateChangeTimeFrame = timeFrame;
+
+                if (idx == 0) {
+                    cutChoice = CHOICE_SHORT;
+                    customer.x = 44;
+                    customer.y = 14;
+                    customer.loadGraphic(ImgCustomer1, true, true, 425, 470, true);
+                } else if (idx == 1) {
+                    cutChoice = CHOICE_MED;
+                    customer.x = 124;
+                    customer.y = 9;
+                    customer.loadGraphic(ImgCustomer2, true, true, 344, 468, true);
+                } else if (idx == 2) {
+                    cutChoice = CHOICE_LONG;
+                    customer.x = 110;
+                    customer.y = 8;
+                    customer.loadGraphic(ImgCustomer3, true, true, 356, 470, true);
+                }
+            }
         }
     }
 }

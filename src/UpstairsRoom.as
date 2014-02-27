@@ -24,6 +24,8 @@ package
             stairs = new FlxSprite(0, 287);
             stairs.loadGraphic(ImgStairs, true, true, 218, 189, true);
             add(stairs);
+            this.addClickZone(new FlxPoint(stairs.x, stairs.y), new FlxPoint(stairs.width, stairs.height),
+                null, stairsTouched);
 
             table = new FlxSprite(387, 61);
             table.loadGraphic(ImgTable, true, true, 142, 243, true);
@@ -32,17 +34,15 @@ package
             door1 = new FlxSprite(42, 0);
             door1.loadGraphic(ImgDoor1, true, true, 176, 21, true);
             add(door1);
+            this.addClickZone(new FlxPoint(door1.x, door1.y), new FlxPoint(door1.width, door1.height),
+                null, languageDoorTouched);
 
             door2 = new FlxSprite(403, 449);
             door2.loadGraphic(ImgDoor2, true, true, 202, 29, true);
             add(door2);
-
-            this.addClickZone(new FlxPoint(20, 400), new FlxPoint(40, 40),
-                null, stairsTouched);
-            this.addClickZone(new FlxPoint(20, 50), new FlxPoint(40, 40),
-                null, languageDoorTouched);
-            this.addClickZone(new FlxPoint(400, 400), new FlxPoint(40, 40),
+            this.addClickZone(new FlxPoint(door2.x, door2.y), new FlxPoint(door2.width, door2.height),
                 null, kidsDoorTouched);
+
 
             FlxG.mouse.show();
 
@@ -51,13 +51,6 @@ package
             entryPoint = lastExitPoint;
             player = new Player(entryPoint.x, entryPoint.y);
             add(player);
-
-            this.addClickZone(
-                new FlxPoint(500,210),
-                new FlxPoint(100,200),
-                null,
-                conversation(new FlxPoint(10,10), new FlxPoint(300, 100),"Hello I am a text box!", "")
-            );
         }
 
         private function stairsTouched(a:FlxSprite, b:FlxSprite):void

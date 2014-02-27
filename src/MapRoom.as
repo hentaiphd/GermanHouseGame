@@ -80,10 +80,11 @@ package
 
         public function conversation(origin:FlxPoint, size:FlxPoint, _text:String,
                                      _label:String, opts:Array = null,
-                                     _this:MapRoom=null, transparent:Boolean=false):Function{
+                                     _this:MapRoom=null, transparent:Boolean=false,
+                                     lineHeight:Number=25):Function{
             function inner():void
             {
-                activeSelectorBox = new SelectorTextBox(origin, size, _text, _label, opts, transparent);
+                activeSelectorBox = new SelectorTextBox(origin, size, _text, _label, opts, transparent, lineHeight);
                 activeSelectorBox.selectionDelegate = _this;
             }
             return inner;

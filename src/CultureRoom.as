@@ -184,7 +184,7 @@ package
 
             conversation(new FlxPoint(offerBubble.x+35, offerBubble.y+40),
                          new FlxPoint(offerBubble.width-60, offerBubble.height),
-                         offerText, SEL_OFFER, offerChoices, this, true)();
+                         offerText, SEL_OFFER, offerChoices, this, true, 60)();
         }
 
         override public function update():void{

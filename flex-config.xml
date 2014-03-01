@@ -1,0 +1,6 @@
+<compiler>
+    <define append="true">
+        <name>CONFIG::debugging</name>
+        <value>false</value>
+    </define>
+</compiler>

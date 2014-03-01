@@ -28,7 +28,7 @@ package{
             var box:FlxSprite = new FlxSprite(_origin.x, _origin.y);
             box.makeGraphic(_size.x, _size.y, 0x7700FF00);
             box.immovable = true;
-            if (HouseMap.getInstance().DEBUG) {
+            CONFIG::debugging {
                 FlxG.state.add(box);
             }
 

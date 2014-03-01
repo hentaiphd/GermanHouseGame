@@ -78,24 +78,22 @@ package
             return _clickZone;
         }
 
-        public function conversation(origin:FlxPoint, size:FlxPoint, _text:String,
-                                     _label:String, opts:Array = null,
-                                     _this:MapRoom=null, transparent:Boolean=false,
-                                     lineHeight:Number=25):Function{
+        public function conversation(origin:FlxPoint, size:FlxPoint, _text:String, _this:MapRoom, ... args):Function{
             function inner():void
             {
-                activeSelectorBox = new SelectorTextBox(origin, size, _text, _label, opts, transparent, lineHeight);
+                activeSelectorBox = new SelectorTextBox(origin, size, _text);
+                activeSelectorBox.setup.apply(null, args);
                 activeSelectorBox.selectionDelegate = _this;
             }
             return inner;
         }
 
         public function colliderConversation(origin:FlxPoint, size:FlxPoint, _text:String,
-                                             _label:String, opts:Array = null,
-                                             _this:MapRoom=null, transparent:Boolean=false):Function{
+                                             _this:MapRoom=null, ... args):Function{
             function inner(p:FlxSprite,b:FlxSprite):void
             {
-                activeSelectorBox = new SelectorTextBox(origin, size, _text, _label, opts, transparent);
+                activeSelectorBox = new SelectorTextBox(origin, size, _text);
+                activeSelectorBox.setup.apply(null, args);
                 activeSelectorBox.selectionDelegate = _this;
             }
             return inner;

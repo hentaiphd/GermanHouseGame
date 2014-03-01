@@ -116,8 +116,8 @@ package
                 )
             );
 
-            conversation(new FlxPoint(kidBubble.x+40, kidBubble.y),new FlxPoint(250, 100),"", SEL_LANG,
-                         new Array("Yes!","Kannst du auch Deutsch?"), this, true)();
+            conversation(new FlxPoint(kidBubble.x+40, kidBubble.y),new FlxPoint(250, 100),
+                         "", this,SEL_LANG, new Array("Yes!","Kannst du auch Deutsch?"), true)();
         }
 
         override public function update():void{

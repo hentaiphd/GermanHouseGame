@@ -13,16 +13,21 @@ package{
         public var selectionDelegate:MapRoom;
 
         public function SelectorTextBox(origin:FlxPoint, size:FlxPoint,
-                                        _text:String, label:String,
-                                        opts:Array=null, transparent:Boolean=false,
-                                        lineHeight:Number=25)
+                                        _text:String)
         {
             super(origin, size, _text);
             FlxG.state.add(this);
+        }
 
+        public function setup(label:String,
+                              opts:Array=null, transparent:Boolean=false,
+                              lineHeight:Number=25):void
+        {
             answers = new FlxGroup();
             for(var i:Number = 0; i < opts.length; i++){
-                var t:FlxText = new FlxText(origin.x,origin.y+((i*lineHeight)+lineHeight),size.x,opts[i]);
+                var t:FlxText = new FlxText(
+                    this.origin.x,this.origin.y+((i*lineHeight)+lineHeight),
+                    this._size.x,opts[i]);
                 t.setFormat("LeaBlock-Regular",18,0xff000000,"left");
                 answers.add(t);
                 FlxG.state.add(t);

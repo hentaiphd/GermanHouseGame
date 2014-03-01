@@ -19,6 +19,9 @@ package
         [Embed(source="../assets/02-Customer-1.png")] private var ImgCustomer1:Class;
         [Embed(source="../assets/02-Customer-2.png")] private var ImgCustomer2:Class;
         [Embed(source="../assets/02-Customer-3.png")] private var ImgCustomer3:Class;
+        [Embed(source="../assets/02-Scissors-01.png")] private var ImgScissors1:Class;
+        [Embed(source="../assets/02-Scissors-02.png")] private var ImgScissors2:Class;
+        [Embed(source="../assets/02-Scissors-03.png")] private var ImgScissors3:Class;
 
         private var photographer:FlxSprite;
         private var friseurin:FlxSprite;
@@ -38,6 +41,7 @@ package
         private var resultBubble1:FlxSprite, resultText1:FlxText;
         private var resultBubble2:FlxSprite, resultText2:FlxText;
         private var endText2:String;
+        private var cutOption1:FlxSprite, cutOption2:FlxSprite, cutOption3:FlxSprite;
 
         private static const CHOICE_SHORT:int = 1;
         private static const CHOICE_MED:int = 2;
@@ -182,9 +186,18 @@ package
                 add(t);
             }
 
+            cutOption1 = new FlxSprite(0, 0);
+            cutOption1.loadGraphic(ImgScissors1, true, true, 70, 76, true);
+
+            cutOption2 = new FlxSprite(0, 0);
+            cutOption2.loadGraphic(ImgScissors2, true, true, 70, 80, true);
+
+            cutOption3 = new FlxSprite(0, 0);
+            cutOption3.loadGraphic(ImgScissors3, true, true, 81, 108, true);
+
             conversation(new FlxPoint(offerBubble.x+35, offerBubble.y+40),
                          new FlxPoint(offerBubble.width-60, offerBubble.height),
-                         offerText, SEL_OFFER, offerChoices, this, true, 60)();
+                         offerText, this, SEL_OFFER, offerChoices, true, 60)();
         }
 
         override public function update():void{

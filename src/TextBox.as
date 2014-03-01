@@ -10,9 +10,15 @@ package{
         public var destination:FlxPoint;
         public var boxPoint:FlxPoint;
         public var debugText:FlxText;
+        public var _text:String;
+        public var _size:FlxPoint;
 
         public function TextBox(origin:FlxPoint, size:FlxPoint, _text:String){
             boxPoint = new FlxPoint(origin.x, origin.y);
+
+            this._text = _text;
+            this.origin = origin;
+            this._size = size;
 
             box = new FlxSprite(size.x, size.y);
             box.makeGraphic(size.x, size.y, 0x00BAF0FF);

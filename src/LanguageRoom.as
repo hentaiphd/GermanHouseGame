@@ -78,8 +78,8 @@ package
                 var randend:Number = Math.floor(Math.random()*wordList.length);
                 word = wordList[randend].toString();
                 boardText.text = word;
-                conversation(new FlxPoint(kidBubble.x, kidBubble.y), new FlxPoint(600,600),"", SEL_PROF,
-                         playerQuestions[word], this)();
+                conversation(new FlxPoint(kidBubble.x, kidBubble.y), new FlxPoint(600,600),"", this, SEL_PROF,
+                         playerQuestions[word])();
             } else {
                 this.setupBackground(ImgLanguageRoom);
                 this.addClickZone(new FlxPoint(100, 100), new FlxPoint(40, 40),
@@ -95,8 +95,8 @@ package
                 var rand:Number = Math.floor(Math.random()*wordList.length);
                 word = wordList[rand].toString();
                 boardText.text = word;
-                conversation(new FlxPoint(kidBubble.x, kidBubble.y), new FlxPoint(600,600),"", SEL_PROF,
-                         playerQuestions[word], this)();
+                conversation(new FlxPoint(kidBubble.x, kidBubble.y), new FlxPoint(600,600),"", this, SEL_PROF,
+                         playerQuestions[word])();
             }
         }
 

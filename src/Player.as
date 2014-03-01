@@ -11,7 +11,7 @@ package{
         private var walking:Boolean = false;
         private var walkSpeed:Number = 4;
         private var footPos:FlxPoint;
-        private var heightDivisor:Number = 2;
+        private var heightDivisor:Number = 3;
         private var debugText:FlxText;
 
         public var shouldMove:Boolean = true;

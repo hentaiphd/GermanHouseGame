@@ -75,6 +75,9 @@ package
                 kidBubble.loadGraphic(ImgKidBubble, true, true, 329, 144, true);
                 kidBubble.alpha = 0;
                 add(kidBubble);
+
+                conversation(new FlxPoint(kidBubble.x+40, kidBubble.y),new FlxPoint(250, 100),
+                             "", this,SEL_LANG, new Array("Yes!","Kannst du auch Deutsch?"), true)();
             }
 
             FlxG.mouse.show();
@@ -90,15 +93,16 @@ package
 
             this.addClickZone(new FlxPoint(350, 0), new FlxPoint(300, 10),
                               null, doorWasClicked);
-            this.addClickZone(new FlxPoint(0, 0), new FlxPoint(200, 200),
+            this.addClickZone(new FlxPoint(0, 0), new FlxPoint(200, 270),
                               null, stairsTouched);
+            this.addClickZone(new FlxPoint(240, 50), new FlxPoint(80, 160),
+                              null, null);
+            this.addClickZone(new FlxPoint(FlxG.width-80, 70), new FlxPoint(100, 180),
+                              null, null);
 
             debugText = new FlxText(200,200,FlxG.width,"");
             debugText.color = 0xff000000;
             add(debugText);
-
-            conversation(new FlxPoint(kidBubble.x+40, kidBubble.y),new FlxPoint(250, 100),
-                         "", this,SEL_LANG, new Array("Yes!","Kannst du auch Deutsch?"), true)();
 
             this.addClickZone(
                 new FlxPoint(400,280), new FlxPoint(200,200), null,

@@ -54,7 +54,9 @@ package
             {
                 if (_clickZone.wasClicked) {
                     player.collideFn();
-                    contactFn(a, b);
+                    if (contactFn != null) {
+                        contactFn(a, b);
+                    }
                 }
             }
             FlxG.collide(player,_clickZone,_callback);

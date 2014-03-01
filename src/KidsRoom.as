@@ -19,6 +19,7 @@ package
         [Embed(source="../assets/05-Thing-03.png")] private var ImgThing3:Class;
         [Embed(source="../assets/05-Thing-04.png")] private var ImgThing4:Class;
         [Embed(source="../assets/05-Thing-05.png")] private var ImgThing5:Class;
+        [Embed(source="../assets/05-Thing-06.png")] private var ImgThing6:Class;
         [Embed(source="../assets/Bubble-11.png")] private var ImgBubble11:Class;
         [Embed(source="../assets/Bubble-12.png")] private var ImgBubble12:Class;
 
@@ -83,7 +84,23 @@ package
                 new KidsGuess(ImgThing2, new FlxPoint(251, 65), new FlxPoint(99, 104),
                     new Array("Grill", "Hund", "Boot", "Kalium", "Fotoapparat", "Menü"),
                     new Array("barbeque", "dog", "boat", "potassium", "scanner", "menu"),
-                    0)
+                    0),
+                new KidsGuess(ImgThing3, new FlxPoint(261, 89), new FlxPoint(93, 73),
+                    new Array("Haus", "Hai", "Garage", "Fruchtfleisch", "Erdnuss", "Becher"),
+                    new Array("house", "shark", "garage", "pulp", "peanut", "beaker"),
+                    4),
+                new KidsGuess(ImgThing4, new FlxPoint(231, 63), new FlxPoint(139, 114),
+                    new Array("Drucker", "Regal", "Tapete", "Flüssigkeit", "Kanarienvogel", "Vorhänge"),
+                    new Array("printer", "shelf", "wallpaper", "liquid", "canary", "curtains"),
+                    5),
+                new KidsGuess(ImgThing5, new FlxPoint(252, 76), new FlxPoint(109, 150),
+                    new Array("Geldbeutel", "Wolkenkratzer", "Guave", "Spargel", "Pampelmuse", "Handtuch"),
+                    new Array("purse", "skyscraper", "guava", "asparagus", "grapefruit", "towel"),
+                    5),
+                new KidsGuess(ImgThing6, new FlxPoint(252, 76), new FlxPoint(112, 138),
+                    new Array("Banane", "Sorbet", "Kopftuch", "Gasse", "Hocker", "Rampe"),
+                    new Array("banana", "sherbet", "bandana", "alley", "stool", "ramp"),
+                    5)
             );
             thisGuess = guessOptions[Math.floor(Math.random() * guessOptions.length)];
             thisGuess.alpha = 0;
@@ -155,21 +172,21 @@ package
             bubble12.loadGraphic(ImgBubble12, true, true, 573, 123, true);
             bubble12.alpha = 0;
             add(bubble12);
-            bubble12Text1 = new TextBox(new FlxPoint(bubble12.x+10, bubble12.y+40),
+            bubble12Text1 = new TextBox(new FlxPoint(bubble12.x+10, bubble12.y+50),
                                         new FlxPoint(bubble12.width-20, bubble12.height-50),
-                                        bubble12String1);
+                                        bubble12String1, "center");
             bubble12Text1.alpha = 0;
             add(bubble12Text1);
 
-            bubble12Text2 = new TextBox(new FlxPoint(bubble12.x+10, bubble12.y+40),
+            bubble12Text2 = new TextBox(new FlxPoint(bubble12.x+10, bubble12.y+50),
                                         new FlxPoint(bubble12.width-20, bubble12.height-50),
-                                        bubble12String2);
+                                        bubble12String2, "center");
             bubble12Text2.alpha = 0;
             add(bubble12Text2);
 
-            bubble12Text3 = new TextBox(new FlxPoint(bubble12.x+10, bubble12.y+40),
+            bubble12Text3 = new TextBox(new FlxPoint(bubble12.x+10, bubble12.y+50),
                                         new FlxPoint(bubble12.width-20, bubble12.height-50),
-                                        bubble12String3);
+                                        bubble12String3, "center");
             bubble12Text3.alpha = 0;
             add(bubble12Text3);
 
@@ -177,9 +194,9 @@ package
             bubble11.loadGraphic(ImgBubble11, true, true, 626, 139, true);
             bubble11.alpha = 0;
             add(bubble11);
-            bubble11Text1 = new TextBox(new FlxPoint(bubble11.x+20, bubble11.y+20),
+            bubble11Text1 = new TextBox(new FlxPoint(bubble11.x+20, bubble11.y+40),
                                         new FlxPoint(bubble11.width, bubble11.height-60),
-                                        bubble11String1);
+                                        bubble11String1, "center");
             bubble11Text1.alpha = 0;
             add(bubble11Text1);
 

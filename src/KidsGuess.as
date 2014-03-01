@@ -10,7 +10,7 @@ package
         public var correct_idx:Number;
 
         public function KidsGuess(img:Class, origin:FlxPoint, size:FlxPoint,
-                                  choices_en:Array, choices_de:Array,
+                                  choices_de:Array, choices_en:Array,
                                   correct_idx:Number)
         {
             super(origin.x, origin.y);

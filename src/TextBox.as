@@ -14,7 +14,7 @@ package{
         public var _size:FlxPoint;
         public var _origin:FlxPoint;
 
-        public function TextBox(origin:FlxPoint, size:FlxPoint, _text:String){
+        public function TextBox(origin:FlxPoint, size:FlxPoint, _text:String, alignment:String="left"){
             boxPoint = new FlxPoint(origin.x, origin.y);
 
             this._text = _text;
@@ -29,7 +29,7 @@ package{
             }
 
             super(origin.x, origin.y, size.x, _text);
-            this.setFormat("LeaBlock-Regular",18,0xff000000,"left");
+            this.setFormat("LeaBlock-Regular",18,0xff000000,alignment);
 
             debugText = new FlxText(10,10,100,"move damn it");
             debugText.color = 0xff000000;

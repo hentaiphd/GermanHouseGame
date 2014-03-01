@@ -12,16 +12,17 @@ package{
         public var debugText:FlxText;
         public var _text:String;
         public var _size:FlxPoint;
+        public var _origin:FlxPoint;
 
         public function TextBox(origin:FlxPoint, size:FlxPoint, _text:String){
             boxPoint = new FlxPoint(origin.x, origin.y);
 
             this._text = _text;
-            this.origin = origin;
+            this._origin = origin;
             this._size = size;
 
-            box = new FlxSprite(size.x, size.y);
-            box.makeGraphic(size.x, size.y, 0x00BAF0FF);
+            box = new FlxSprite(origin.x, origin.y);
+            box.makeGraphic(size.x, size.y, 0x77BAF0FF);
             box.immovable = true;
             FlxG.state.add(box);
 

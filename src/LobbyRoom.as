@@ -96,6 +96,9 @@ package
             debugText.color = 0xff000000;
             add(debugText);
 
+            conversation(new FlxPoint(kidBubble.x+40, kidBubble.y),new FlxPoint(250, 100),
+                         "", this,SEL_LANG, new Array("Yes!","Kannst du auch Deutsch?"), true)();
+
             this.addClickZone(
                 new FlxPoint(400,280), new FlxPoint(200,200), null,
                 makeTextBoxCallback(
@@ -116,8 +119,6 @@ package
                 )
             );
 
-            conversation(new FlxPoint(kidBubble.x+40, kidBubble.y),new FlxPoint(250, 100),
-                         "", this,SEL_LANG, new Array("Yes!","Kannst du auch Deutsch?"), true)();
         }
 
         override public function update():void{

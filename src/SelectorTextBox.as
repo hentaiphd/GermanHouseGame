@@ -5,6 +5,7 @@ package{
         [Embed(source="../assets/Select.png")] private var ImgSelector:Class;
 
         public var answers:FlxGroup;
+        public var answerImages:Array;
         public var mouseRect:FlxRect;
         public var selector:FlxSprite;
         public var transparent:Boolean;
@@ -21,18 +22,36 @@ package{
 
         public function setup(label:String,
                               opts:Array=null, transparent:Boolean=false,
-                              lineHeight:Number=25):void
+                              lineHeight:Number=25, images:Array=null):void
         {
+            var box:FlxSprite = new FlxSprite(_origin.x, _origin.y);
+            box.makeGraphic(_size.x, _size.y, 0x7700FF00);
+            box.immovable = true;
+            FlxG.state.add(box);
+
             answers = new FlxGroup();
+            if (images != null) {
+                answerImages = new Array();
+            }
             for(var i:Number = 0; i < opts.length; i++){
                 var t:FlxText = new FlxText(
-                    this.origin.x,this.origin.y+((i*lineHeight)+lineHeight),
+                    this._origin.x,this._origin.y+((i*lineHeight)+lineHeight*.7),
                     this._size.x,opts[i]);
                 t.setFormat("LeaBlock-Regular",18,0xff000000,"left");
                 answers.add(t);
                 FlxG.state.add(t);
                 if (transparent) {
                     t.alpha = 0;
+                }
+                if (images != null) {
+                    var spr:FlxSprite = images[i];
+                    spr.x = t.x + 180;
+                    spr.y = t.y - 20;
+                    if (transparent) {
+                        spr.alpha = 0;
+                    }
+                    FlxG.state.add(spr);
+                    answerImages.push(spr);
                 }
             }
             this._label = label;
@@ -54,6 +73,9 @@ package{
             this.selector.alpha += inc;
             for(var u:Number = 0; u < answers.length; u++){
                 answers.members[u].alpha += inc;
+                if (answerImages != null) {
+                    answerImages[u].alpha += inc;
+                }
             }
         }
 

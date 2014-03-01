@@ -195,9 +195,11 @@ package
             cutOption3 = new FlxSprite(0, 0);
             cutOption3.loadGraphic(ImgScissors3, true, true, 81, 108, true);
 
-            conversation(new FlxPoint(offerBubble.x+35, offerBubble.y+40),
-                         new FlxPoint(offerBubble.width-60, offerBubble.height),
-                         offerText, this, SEL_OFFER, offerChoices, true, 60)();
+            var choiceImages:Array = new Array(cutOption1, cutOption2, cutOption3);
+
+            conversation(new FlxPoint(offerBubble.x+30, offerBubble.y+30),
+                         new FlxPoint(offerBubble.width-80, offerBubble.height),
+                         offerText, this, SEL_OFFER, offerChoices, true, 120, choiceImages)();
         }
 
         override public function update():void{

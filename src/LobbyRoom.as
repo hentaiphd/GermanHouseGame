@@ -44,7 +44,7 @@ package
             }
 
             // DEBUG
-            //currentState = STATE_MAIN;
+            currentState = STATE_MAIN;
 
             stairs = new FlxSprite(0, 0);
             stairs.loadGraphic(ImgStairs, true, true, 243, 475, true);

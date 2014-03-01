@@ -22,7 +22,8 @@ package{
 
         public function setup(label:String,
                               opts:Array=null, transparent:Boolean=false,
-                              lineHeight:Number=25, images:Array=null):void
+                              lineHeight:Number=25, images:Array=null,
+                              optPositions:Array=null):void
         {
             var box:FlxSprite = new FlxSprite(_origin.x, _origin.y);
             box.makeGraphic(_size.x, _size.y, 0x7700FF00);
@@ -34,9 +35,11 @@ package{
                 answerImages = new Array();
             }
             for(var i:Number = 0; i < opts.length; i++){
-                var t:FlxText = new FlxText(
-                    this._origin.x,this._origin.y+((i*lineHeight)+lineHeight*.7),
-                    this._size.x,opts[i]);
+                var pos:FlxPoint = new FlxPoint(this._origin.x,this._origin.y+((i*lineHeight)+lineHeight*.7));
+                if (optPositions != null) {
+                    pos = new FlxPoint(this._origin.x+optPositions[i].x, this._origin.y+optPositions[i].y);
+                }
+                var t:FlxText = new FlxText(pos.x, pos.y, this._size.x, opts[i]);
                 t.setFormat("LeaBlock-Regular",18,0xff000000,"left");
                 answers.add(t);
                 FlxG.state.add(t);

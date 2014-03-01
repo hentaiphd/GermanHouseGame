@@ -286,11 +286,6 @@ package
             }
         }
 
-        private function doorWasClicked(a:FlxSprite, b:FlxSprite):void
-        {
-            FlxG.switchState(new LobbyRoom());
-        }
-
         override public function didSelectTextOption(idx:Number, item:FlxText,
                                                      selector:SelectorTextBox):void
         {

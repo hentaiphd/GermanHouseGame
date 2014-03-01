@@ -20,6 +20,9 @@ package
         [Embed(source="../assets/05-Thing-04.png")] private var ImgThing4:Class;
         [Embed(source="../assets/05-Thing-05.png")] private var ImgThing5:Class;
         [Embed(source="../assets/05-Thing-06.png")] private var ImgThing6:Class;
+        [Embed(source="../assets/05-Dad-01.png")] private var ImgDad:Class;
+        [Embed(source="../assets/05-Mom-01.png")] private var ImgMom:Class;
+        [Embed(source="../assets/Bubble-02.png")] private var ImgBubble2:Class;
         [Embed(source="../assets/Bubble-11.png")] private var ImgBubble11:Class;
         [Embed(source="../assets/Bubble-12.png")] private var ImgBubble12:Class;
 
@@ -33,12 +36,15 @@ package
 
         private var kasperle1:FlxSprite, kasperle2:FlxSprite;
         private var oma1:FlxSprite, oma2:FlxSprite;
+        private var mom:FlxSprite, dad:FlxSprite;
         private var kid1:FlxSprite, kid2:FlxSprite, kid3:FlxSprite, kid4:FlxSprite, kid5:FlxSprite;
+        private var bubble2:FlxSprite, bubble2Text:FlxText;
         private var bubble12:FlxSprite, bubble12Text1:FlxText;
         private var bubble12Text2:FlxText;
         private var bubble12Text3:FlxText;
         private var bubble11:FlxSprite, bubble11Text1:FlxText;
 
+        private var bubble2String1:String;
         private var bubble12String1:String, bubble12String1P2:String;
         private var bubble11String1:String;
         private var bubble12String2:String;
@@ -46,12 +52,20 @@ package
         private var bubble12String3B:String;
         private var bubble12String3C:String;
         private var bubble12String3D:String;
+        private var bubble12String4:String;
+        private var bubble12String4B:String;
+        private var bubble12String5:String;
+        private var guessCorrectString:String, guessIncorrectString:String;
 
         private static const STATE_INTRO:int = 1;
         private static const STATE_CHOICE:int = 2;
         private static const STATE_RESULT:int = 3;
         private var currentState:int = STATE_INTRO;
         public var current_scene:Number = 0;
+
+        private static const GUESS_CORRECT:int = 69;
+        private static const GUESS_INCORRECT:int = 420;
+        private var guessResult:int = GUESS_INCORRECT;
 
         private const ALPHA_DELTA:Number = .04;
 
@@ -67,13 +81,13 @@ package
 
             super.create();
 
-            this.setupBackground(ImgKidsRoom);
-
-            if(this.ending){
-                var t:FlxText = new FlxText(10,10,100,"end");
-                add(t);
-            } else {
+            CONFIG::debugging {
+                this.ending = true;
+                currentState = STATE_RESULT;
+                current_scene = 1;
             }
+
+            this.setupBackground(ImgKidsRoom);
 
             guessOptions = new Array(
                 new KidsGuess(ImgThing1, new FlxPoint(246, 64), new FlxPoint(126, 125),
@@ -118,6 +132,12 @@ package
                 bubble12String3B = "Does it even matter to any of you?";
                 bubble12String3C = "We recommend that you now go out…";
                 bubble12String3D = "…and discover what Deutsches Haus’s all about!";
+                bubble12String4 = "Not you, darling! This game has come to an end…";
+                bubble12String4B = "…because you found your parents!";
+                bubble2String1 = "Mom and Dad!";
+                guessCorrectString = "Yes, Kid, it’s us! And, by the way, you were right:";
+                guessIncorrectString = "Yes, Kid, it’s us! And, by the way, you were wrong:";
+                bubble12String5 = "This thing is called " + thisGuess.choices_de[thisGuess.correct_idx] + ". Now let's go home.";
             } else if (HouseMap.getInstance().currentLanguage == HouseMap.LANG_DE) {
                 bubble12String1 = "Hallo Kinder!";
                 bubble12String1P2 = "Wir sind das Kasperletheater!";
@@ -128,6 +148,12 @@ package
                 bubble12String3B = "Aber ob einer stimmt, ist doch einerlei.";
                 bubble12String3C = "Ihr solltet jetzt wieder weiter gehn…";
                 bubble12String3D = "… und euch noch mehr im Deutschen Haus umsehn.";
+                bubble12String4 = "Du musst aber nicht gehen, denn du bist jetzt am Ziel…";
+                bubble12String4B = "…wir Eltern haben die Puppen gespielt!";
+                bubble2String1 = "Mama und Papa!";
+                guessCorrectString = "Du hast und gefunden! Und du hattest übrigens recht:";
+                guessIncorrectString = "Du hast und gefunden! Und du lagst übrigens falsch:";
+                bubble12String5 = "Diese Sache heißt " + thisGuess.choices_en[thisGuess.correct_idx] + ". Und jetzt gehn wir heim!";
             }
 
             kasperle2 = new FlxSprite(154, 96);
@@ -168,6 +194,16 @@ package
             kid2.loadGraphic(ImgKid1, true, true, 109, 102, true);
             add(kid2);
 
+            mom = new FlxSprite(-81, 75);
+            mom.loadGraphic(ImgMom, true, true, 381, 450, true);
+            mom.alpha = 0;
+            add(mom);
+
+            dad = new FlxSprite(330, 68);
+            dad.loadGraphic(ImgDad, true, true, 395, 433, true);
+            dad.alpha = 0;
+            add(dad);
+
             bubble12 = new FlxSprite(32, 214);
             bubble12.loadGraphic(ImgBubble12, true, true, 573, 123, true);
             bubble12.alpha = 0;
@@ -200,6 +236,16 @@ package
             bubble11Text1.alpha = 0;
             add(bubble11Text1);
 
+            bubble2 = new FlxSprite(107, 214);
+            bubble2.loadGraphic(ImgBubble2, true, true, 329, 144, true);
+            bubble2.alpha = 0;
+            add(bubble2);
+            bubble2Text = new TextBox(new FlxPoint(bubble2.x+20, bubble2.y+40),
+                                      new FlxPoint(bubble2.width, bubble2.height-60),
+                                      bubble2String1, "center");
+            bubble2Text.alpha = 0;
+            add(bubble2Text);
+
             conversation(new FlxPoint(bubble11.x+30, bubble11.y),
                          new FlxPoint(bubble11.width, bubble11.height),
                          "", this, SEL_QUES, options, true, 25, null,
@@ -208,12 +254,19 @@ package
                                    new FlxPoint(319, 55), new FlxPoint(459, 56))
                         )();
 
-            debugText = new FlxText(100,100,FlxG.width,"");
-            debugText.color = 0xff000000;
+            CONFIG::debugging {
+                debugText = new FlxText(100,100,FlxG.width,"");
+                debugText.color = 0xff000000;
+                add(debugText);
+            }
         }
 
         override public function update():void{
             super.update();
+
+            CONFIG::debugging {
+                debugText.text = current_scene + "";
+            }
 
             if (currentState == STATE_INTRO) {
                 if (current_scene == 0 && timeFrame == 1) {
@@ -243,8 +296,29 @@ package
                     current_scene += 1;
                 } else if (current_scene == 4 && timeFrame == lastStateChangeTimeFrame+8*TimedState.fpSec) {
                     current_scene += 1;
-                } else if (current_scene == 5 && timeFrame == lastStateChangeTimeFrame+10*TimedState.fpSec) {
-                    FlxG.switchState(new UpstairsRoom());
+                    if (!this.ending) {
+                        FlxG.switchState(new UpstairsRoom());
+                    }
+                } else if (current_scene == 5) {
+                    if (timeFrame == lastStateChangeTimeFrame+10*TimedState.fpSec) {
+                        current_scene += 1;
+                        bubble12Text3.text = bubble12String4;
+                    }
+                } else if (current_scene == 6 && timeFrame == lastStateChangeTimeFrame+14*TimedState.fpSec) {
+                    current_scene += 1;
+                    bubble12Text3.text = bubble12String4B;
+                } else if (current_scene == 7 && timeFrame == lastStateChangeTimeFrame+16*TimedState.fpSec) {
+                    current_scene += 1;
+                } else if (current_scene == 8 && timeFrame == lastStateChangeTimeFrame+17*TimedState.fpSec) {
+                    current_scene += 1;
+                    if (guessResult == GUESS_CORRECT) {
+                        bubble12Text3.text = guessCorrectString;
+                    } else if (guessResult == GUESS_INCORRECT) {
+                        bubble12Text3.text = guessIncorrectString;
+                    }
+                } else if (current_scene == 9 && timeFrame == lastStateChangeTimeFrame+19*TimedState.fpSec) {
+                    current_scene += 1;
+                    bubble12Text3.text = bubble12String5;
                 }
             }
 
@@ -294,6 +368,33 @@ package
                     bubble12Text3.text = bubble12String3C;
                 } else if (current_scene == 4) {
                     bubble12Text3.text = bubble12String3D;
+                } else if (current_scene == 5) {
+                    kid2.alpha -= ALPHA_DELTA;
+                    kid3.alpha -= ALPHA_DELTA;
+                    kid4.alpha -= ALPHA_DELTA;
+                    kid5.alpha -= ALPHA_DELTA;
+                    kasperle2.alpha -= ALPHA_DELTA;
+                    oma1.alpha -= ALPHA_DELTA;
+                    bubble12.alpha -= ALPHA_DELTA;
+                    bubble12Text3.alpha -= ALPHA_DELTA;
+                    mom.alpha += ALPHA_DELTA;
+                    dad.alpha += ALPHA_DELTA;
+                } else if (current_scene == 6) {
+                    bubble12.alpha += ALPHA_DELTA;
+                    bubble12Text3.alpha += ALPHA_DELTA;
+                } else if (current_scene == 7) {
+                } else if (current_scene == 8) {
+                    bubble12.alpha -= ALPHA_DELTA;
+                    bubble12Text3.alpha -= ALPHA_DELTA;
+                    bubble2.alpha += ALPHA_DELTA;
+                    bubble2Text.alpha += ALPHA_DELTA;
+                } else if (current_scene == 9) {
+                    bubble12.alpha += ALPHA_DELTA;
+                    bubble12Text3.alpha += ALPHA_DELTA;
+                    bubble2.alpha -= ALPHA_DELTA;
+                    bubble2Text.alpha -= ALPHA_DELTA;
+                } else if (current_scene == 10) {
+
                 }
             }
         }
@@ -310,9 +411,9 @@ package
                 lastStateChangeTimeFrame = timeFrame;
 
                 if (idx == thisGuess.correct_idx) {
-
+                    guessResult = GUESS_CORRECT;
                 } else {
-
+                    guessResult = GUESS_INCORRECT;
                 }
             }
         }

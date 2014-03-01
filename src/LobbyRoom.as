@@ -43,8 +43,9 @@ package
                 currentState = STATE_INTRO;
             }
 
-            // DEBUG
-            //currentState = STATE_MAIN;
+            CONFIG::debugging {
+                currentState = STATE_MAIN;
+            }
 
             stairs = new FlxSprite(0, 0);
             stairs.loadGraphic(ImgStairs, true, true, 243, 475, true);

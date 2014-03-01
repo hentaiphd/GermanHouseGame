@@ -61,7 +61,7 @@ package{
             }
             this._label = label;
 
-            selector = new FlxSprite(t.x-20,t.y);
+            selector = new FlxSprite(t.x-20,t.y+5);
             selector.loadGraphic(ImgSelector, true, true, 16, 21, true);
             FlxG.state.add(selector);
             if (transparent) {
@@ -103,12 +103,13 @@ package{
             var choice:FlxText = this.getChoiceAtCursor();
             if (choice != null) {
                 selector.y = choice.y + 5;
+                selector.x = choice.x - 20;
             }
         }
 
         private function getChoiceAtCursor():FlxText
         {
-            for(var u:Number = 0; u < answers.length; u++){
+            for(var u:Number = answers.length-1; u >= 0; u--){
                 var r:FlxRect = new FlxRect(
                     answers.members[u].x,
                     answers.members[u].y,

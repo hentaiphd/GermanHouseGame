@@ -200,9 +200,13 @@ package
             bubble11Text1.alpha = 0;
             add(bubble11Text1);
 
-            conversation(new FlxPoint(bubble11.x+30, bubble11.y+30),
+            conversation(new FlxPoint(bubble11.x+30, bubble11.y),
                          new FlxPoint(bubble11.width, bubble11.height),
-                         "", this, SEL_QUES, options, true, 25, null)();
+                         "", this, SEL_QUES, options, true, 25, null,
+                         new Array(new FlxPoint(30, 20), new FlxPoint(208, 23),
+                                   new FlxPoint(393, 23), new FlxPoint(93, 58),
+                                   new FlxPoint(319, 55), new FlxPoint(459, 56))
+                        )();
 
             debugText = new FlxText(100,100,FlxG.width,"");
             debugText.color = 0xff000000;

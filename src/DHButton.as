@@ -9,10 +9,12 @@ package
         public function DHButton(x:Number=0,y:Number=0,Label:String=null,OnClick:Function=null)
         {
             super(x, y, Label, OnClick);
-            function _callback():void
+            var _callback:Function = function __callback():void
             {
                 wasClicked = true;
-                OnClick();
+                if (OnClick != null) {
+                    OnClick();
+                }
             }
             onUp = _callback;
         }

@@ -11,6 +11,7 @@ package
         [Embed(source="../assets/Bubble-01.png")] private var ImgWorkerBubble:Class;
         [Embed(source="../assets/Bubble-02.png")] private var ImgKidBubble:Class;
         [Embed(source="../assets/Bubble-03.png")] private var ImgBubble3:Class;
+        [Embed(source="../assets/language.mp3")] private var SndBGM:Class;
 
         public var worker:FlxSprite;
         public var stairs:FlxSprite;
@@ -124,6 +125,7 @@ package
                 )
             );
 
+            FlxG.playMusic(SndBGM);
         }
 
         override public function update():void{

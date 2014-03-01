@@ -191,7 +191,7 @@ package
             add(kid1);
 
             kid2 = new FlxSprite(519, 375);
-            kid2.loadGraphic(ImgKid1, true, true, 109, 102, true);
+            kid2.loadGraphic(ImgKid2, true, true, 109, 102, true);
             add(kid2);
 
             mom = new FlxSprite(-81, 75);

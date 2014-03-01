@@ -5,17 +5,40 @@ package
 
     public class LanguageRoom extends MapRoom
     {
-        [Embed(source="../assets/Room-4-Language.png")] private var ImgLanguageRoom:Class;
-        [Embed(source="../assets/Bubble-02.png")] private var ImgKidBubble:Class;
+        [Embed(source="../assets/04-BG-01.png")] private var ImgBg:Class;
+        [Embed(source="../assets/04-Kid-01.png")] private var ImgKidRight:Class;
+        [Embed(source="../assets/04-Kid-02.png")] private var ImgKidLeft:Class;
+        [Embed(source="../assets/04-Teacher-01.png")] private var ImgProfFront:Class;
+        [Embed(source="../assets/04-Teacher-02.png")] private var ImgProfSide:Class;
+        [Embed(source="../assets/Bubble-09.png")] private var ImgBubbleOne:Class;
+        [Embed(source="../assets/Bubble-10.png")] private var ImgBubbleTwo:Class;
         [Embed(source="../assets/LeaBlock-Regular.ttf", fontFamily="LeaBlock-Regular", embedAsCFF="false")] public var FontLea:String;
         private static const SEL_PROF:String = "prof_sel";
-        public var wordList:Array;
-        public var playerQuestions:Dictionary;
-        public var playerAnswers:Dictionary;
-        public var boardText:FlxText;
-        public var word:String;
+        private var wordList:Array;
+        private var playerQuestions:Dictionary;
+        private var playerAnswers:Dictionary;
+        private var boardText:FlxText;
+        private var word:String;
 
-        public var kidBubble:FlxSprite;
+        private var profBubbleOne:FlxSprite;
+        private var profBubbleTwo:FlxSprite;
+        private var profFront:FlxSprite;
+        private var profSide:FlxSprite;
+        private var kidLeft:FlxSprite;
+        private var kidRight:FlxSprite;
+
+        private static const CHOICE_SHORT:int = 1;
+        private static const CHOICE_MED:int = 2;
+        private static const CHOICE_LONG:int = 3;
+        private var cutChoice:Number;
+
+        private static const STATE_INTRO:int = 1;
+        private static const STATE_CHOICE:int = 2;
+        private static const STATE_RESULT:int = 3;
+        private var currentState:int = STATE_INTRO;
+        public var current_scene:Number = 0;
+
+        private const ALPHA_DELTA:Number = .04;
 
         //german player version
         //Earful - (1) An empty waste basket. (2) A lot of angry talk. (3) A good dancer.
@@ -64,38 +87,54 @@ package
             debugText.size = 18;
 
             if(this.ending){
-                this.setupBackground(ImgLanguageRoom);
-                this.addClickZone(new FlxPoint(100, 100), new FlxPoint(40, 40),
-                    null, doorWasClicked);
+                this.setupBackground(ImgBg);
+                //this.addClickZone(new FlxPoint(100, 100), new FlxPoint(40, 40),
+                //    null, doorWasClicked);
 
                 add(debugText);
                 add(boardText);
-
-                kidBubble = new FlxSprite(7, 130);
-                kidBubble.loadGraphic(ImgKidBubble, true, true, 329, 144, true);
-                add(kidBubble);
 
                 var randend:Number = Math.floor(Math.random()*wordList.length);
                 word = wordList[randend].toString();
                 boardText.text = word;
-                conversation(new FlxPoint(kidBubble.x, kidBubble.y), new FlxPoint(600,600),"", this, SEL_PROF,
+                conversation(new FlxPoint(profBubbleOne.x, profBubbleOne.y), new FlxPoint(600,600),"", this, SEL_PROF,
                          playerQuestions[word])();
             } else {
-                this.setupBackground(ImgLanguageRoom);
-                this.addClickZone(new FlxPoint(100, 100), new FlxPoint(40, 40),
-                    null, doorWasClicked);
+                this.setupBackground(ImgBg);
+                //this.addClickZone(new FlxPoint(100, 100), new FlxPoint(40, 40),
+                //    null, doorWasClicked);
+
+                profFront = new FlxSprite(343, 49);
+                profFront.loadGraphic(ImgProfFront, true, true, 271, 429, true);
+                add(profFront);
+
+                profSide = new FlxSprite(490, 76);
+                profSide.loadGraphic(ImgProfSide, true, true, 138, 404, true);
+                add(profSide);
+
+                kidRight = new FlxSprite(262, 340);
+                kidRight.loadGraphic(ImgKidRight, true, true, 130, 135, true);
+                add(kidRight);
+
+                kidLeft = new FlxSprite(262, 340);
+                kidLeft.loadGraphic(ImgKidLeft, true, true, 132, 136, true);
+                add(kidLeft);
+
+                profBubbleOne = new FlxSprite(63, 30);
+                profBubbleOne.loadGraphic(ImgBubbleOne, true, true, 254, 137, true);
+                add(profBubbleOne);
+
+                profBubbleTwo = new FlxSprite(12, 10);
+                profBubbleTwo.loadGraphic(ImgBubbleTwo, true, true, 319, 389, true);
+                add(profBubbleTwo);
 
                 add(debugText);
                 add(boardText);
 
-                kidBubble = new FlxSprite(7, 130);
-                kidBubble.loadGraphic(ImgKidBubble, true, true, 329, 144, true);
-                add(kidBubble);
-
                 var rand:Number = Math.floor(Math.random()*wordList.length);
                 word = wordList[rand].toString();
                 boardText.text = word;
-                conversation(new FlxPoint(kidBubble.x, kidBubble.y), new FlxPoint(600,600),"", this, SEL_PROF,
+                conversation(new FlxPoint(profBubbleOne.x, profBubbleOne.y), new FlxPoint(600,600),"", this, SEL_PROF,
                          playerQuestions[word])();
             }
         }

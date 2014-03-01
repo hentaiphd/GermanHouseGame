@@ -16,6 +16,7 @@ package
         [Embed(source="../assets/Bubble-05.png")] private var ImgFriseurBubble1:Class;
         [Embed(source="../assets/Bubble-06.png")] private var ImgPhotographerBubble1:Class;
         [Embed(source="../assets/Bubble-07.png")] private var ImgOfferBubble1:Class;
+        [Embed(source="../assets/Bubble-08.png")] private var ImgOfferBubble2:Class;
         [Embed(source="../assets/02-Customer-1.png")] private var ImgCustomer1:Class;
         [Embed(source="../assets/02-Customer-2.png")] private var ImgCustomer2:Class;
         [Embed(source="../assets/02-Customer-3.png")] private var ImgCustomer3:Class;
@@ -162,10 +163,10 @@ package
             add(kid3);
 
             resultBubble1 = new FlxSprite(57, 15);
-            resultBubble1.loadGraphic(ImgPhotographerBubble1, true, true, 236, 160, true);
+            resultBubble1.loadGraphic(ImgOfferBubble2, true, true, 396, 75, true);
             resultBubble1.alpha = 0;
             add(resultBubble1);
-            resultText1 = new TextBox(new FlxPoint(resultBubble1.x+10, resultBubble1.y+40),
+            resultText1 = new TextBox(new FlxPoint(resultBubble1.x+10, resultBubble1.y+20),
                                              new FlxPoint(resultBubble1.width-20, resultBubble1.height),
                                              resultText);
             resultText1.alpha = 0;

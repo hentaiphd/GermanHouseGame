@@ -1,3 +1,3 @@
 #!/bin/bash
 
-mxmlc src/germanhousegame.as -o deutsches_haus.swf -verbose-stacktraces=true -define=CONFIG::debugging,true
+mxmlc src/germanhousegame.as -o deutsches_haus.swf -verbose-stacktraces=true -define=CONFIG::debugging,false

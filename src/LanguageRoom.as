@@ -18,6 +18,7 @@ package
         private var playerAnswers:Dictionary;
         private var boardText:FlxText;
         private var word:String;
+        private var retry:Boolean = false;
 
         private var profTextOne:FlxText;
         private var profTextTwo:FlxText;
@@ -28,6 +29,7 @@ package
         private var profTextDefinition:FlxText;
         private var profTextWrong:FlxText;
         private var profTextRight:FlxText;
+        private var profTextGuess:FlxText;
 
         private var profBubbleOne:FlxSprite;
         private var profBubbleTwo:FlxSprite;
@@ -64,15 +66,13 @@ package
             HouseMap.getInstance().LangRoom = true;
             HouseMap.getInstance().endingCounter++;
 
+            HouseMap.getInstance().currentLanguage = HouseMap.LANG_DE;
+
             super.create();
 
-            wordList = getKeys(playerQuestions);
-            boardText = new FlxText(230,100,500,"");
-            boardText.setFormat("LeaBlock-Regular",18,0xff000000,"center");
-
-            debugText = new FlxText(10,10,100,"");
+            debugText = new FlxText(300,10,300,"");
             debugText.color = 0xff000000;
-            debugText.size = 18;
+            debugText.size = 8;
 
             this.setupBackground(ImgBg);
             //this.addClickZone(new FlxPoint(100, 100), new FlxPoint(40, 40),
@@ -93,15 +93,6 @@ package
             profSide.alpha = 0;
             add(profSide);
 
-            kidRight = new FlxSprite(262, 340);
-            kidRight.loadGraphic(ImgKidRight, true, true, 130, 135, true);
-            add(kidRight);
-
-            kidLeft = new FlxSprite(262, 340);
-            kidLeft.loadGraphic(ImgKidLeft, true, true, 132, 136, true);
-            kidLeft.alpha = 0;
-            add(kidLeft);
-
             profBubbleOne = new FlxSprite(63, 30);
             profBubbleOne.loadGraphic(ImgBubbleOne, true, true, 254, 137, true);
             profBubbleOne.alpha = 0;
@@ -111,6 +102,15 @@ package
             profBubbleTwo.loadGraphic(ImgBubbleTwo, true, true, 319, 389, true);
             profBubbleTwo.alpha = 0;
             add(profBubbleTwo);
+
+            kidRight = new FlxSprite(262, 340);
+            kidRight.loadGraphic(ImgKidRight, true, true, 130, 135, true);
+            add(kidRight);
+
+            kidLeft = new FlxSprite(262, 340);
+            kidLeft.loadGraphic(ImgKidLeft, true, true, 132, 136, true);
+            kidLeft.alpha = 0;
+            add(kidLeft);
 
             playerQuestions = new Dictionary();
             playerAnswers = new Dictionary();
@@ -135,27 +135,32 @@ package
             profTextFour.alpha = 0;
             add(profTextFour)
 
-            profTextWrong = new FlxText(12, 12, 315, "");
+            profTextWrong = new FlxText(30, 30, 270, "");
             profTextWrong.setFormat("LeaBlock-Regular",18,0xff000000,"left");
             profTextWrong.alpha = 0;
             add(profTextWrong);
 
-            profTextRight = new FlxText(12, 12, 315, "");
+            profTextRight = new FlxText(30, 30, 270, "");
             profTextRight.setFormat("LeaBlock-Regular",18,0xff000000,"left");
             profTextRight.alpha = 0;
             add(profTextRight);
 
-            profTextDefinition = new FlxText(12, 17, 315, "");
+            profTextGuess = new FlxText(30, 30, 315, "");
+            profTextGuess.setFormat("LeaBlock-Regular",18,0xff000000,"left");
+            profTextGuess.alpha = 0;
+            add(profTextGuess);
+
+            profTextDefinition = new FlxText(30, 85, 250, "");
             profTextDefinition.setFormat("LeaBlock-Regular",18,0xff000000,"left");
             profTextDefinition.alpha = 0;
             add(profTextDefinition);
 
-            profTextFive = new FlxText(12, 27, 315, "");
+            profTextFive = new FlxText(30, 190, 250, "");
             profTextFive.setFormat("LeaBlock-Regular",18,0xff000000,"left");
             profTextFive.alpha = 0;
             add(profTextFive)
 
-            profTextSix = new FlxText(12, 27, 315, "");
+            profTextSix = new FlxText(30, 55, 270, "");
             profTextSix.setFormat("LeaBlock-Regular",18,0xff000000,"left");
             profTextSix.alpha = 0;
             add(profTextSix)
@@ -197,7 +202,7 @@ package
                 playerQuestions['Earful'] = new Array("An empty waste basket.", "A lot of angry talk.", "A good dancer.");
                 playerQuestions['Cushy'] = new Array("Something easy or comfortable.", "A freshly baked pie.", "The color of a sunset.");
                 playerQuestions['Wide-eyed'] = new Array("A juicy conversation.", "Being unsophisticated or innocent.", "Large flocks of geese.");
-                playerQuestions['Weathervane'] = new Array("Used to measure wind direction.", "A mountable screen.", "A recruiter for an orchestra.");
+                playerQuestions['Weathervane'] = new Array("A thing used to measure wind direction.", "A mountable screen.", "A recruiter for an orchestra.");
                 playerQuestions['Facetious'] = new Array("Soft, swishy or sweeping.", "Supportive or like a boulder.", "Joking about serious issues.");
                 playerQuestions['Knee-slapper'] = new Array("A very funny joke.", "A fast-food restaurant.", "A very slippery slope.");
                 playerQuestions['Canoodle'] = new Array("Hugging and kissing.", "Getting ready for bed.", "Wrapping a present.");
@@ -205,24 +210,29 @@ package
                 playerAnswers['Earful'] = new String("A lot of angry talk.");
                 playerAnswers['Cushy'] = new String("Something easy or comfortable.");
                 playerAnswers['Wide-eyed'] = new String("Being unsophisticated or innocent.");
-                playerAnswers['Weathervane'] = new String("Used to measure wind direction.");
+                playerAnswers['Weathervane'] = new String("A thing used to measure wind direction.");
                 playerAnswers['Facetious'] = new String("Joking about serious issues.");
                 playerAnswers['Knee-slapper'] = new String("A very funny joke.");
                 playerAnswers['Canoodle'] = new Array("Hugging and kissing.");
             }
 
-            add(debugText);
+            wordList = getKeys(playerQuestions);
+            boardText = new FlxText(40,50,500,"");
+            boardText.setFormat("LeaBlock-Regular",24,0xff000000,"center");
+            boardText.alpha = 0;
             add(boardText);
 
             var rand:Number = Math.floor(Math.random()*wordList.length);
             word = wordList[rand].toString();
             boardText.text = word;
-            conversation(new FlxPoint(profBubbleOne.x, profBubbleOne.y), new FlxPoint(600,600),"", this, SEL_PROF,
-                     playerQuestions[word])();
+
+            conversation(new FlxPoint(40, 100), new FlxPoint(450,230),"", this, SEL_PROF,
+                         playerQuestions[word], true)();
         }
 
         override public function update():void{
             super.update();
+            debugText.text = "current scene: " + current_scene.toString() + " and current state: " + currentState.toString() + "retry: " + retry.toString();
 
             if (currentState == STATE_INTRO) {
                 if (current_scene == 0 && timeFrame == 1) {
@@ -245,13 +255,18 @@ package
                     current_scene += 1;
                 }
             } else if (currentState == STATE_RESULT) {
-                if (current_scene == 1 && timeFrame == lastStateChangeTimeFrame+3*TimedState.fpSec) {
+                if (current_scene == 1 && timeFrame == lastStateChangeTimeFrame+2*TimedState.fpSec) {
                     current_scene += 1;
-                } else if (current_scene == 2 && timeFrame == lastStateChangeTimeFrame+5*TimedState.fpSec) {
+                } else if (current_scene == 2 && timeFrame == lastStateChangeTimeFrame+4*TimedState.fpSec) {
                     current_scene += 1;
-                } else if (current_scene == 3 && timeFrame == lastStateChangeTimeFrame+7*TimedState.fpSec) {
+                } else if (current_scene == 3 && timeFrame == lastStateChangeTimeFrame+6*TimedState.fpSec) {
                     current_scene += 1;
-                    FlxG.switchState(new LobbyRoom());
+                } else if (current_scene == 4 && timeFrame == lastStateChangeTimeFrame+8*TimedState.fpSec){
+                    current_scene += 1;
+                } else if (current_scene == 5 && timeFrame == lastStateChangeTimeFrame+12*TimedState.fpSec){
+                    if(!retry){
+                        FlxG.switchState(new UpstairsRoom());
+                    }
                 }
             }
 
@@ -269,6 +284,55 @@ package
                 } else if(current_scene == 5){
                     profTextFour.alpha += ALPHA_DELTA;
                 }
+            } else if(currentState == STATE_CHOICE){
+                if(current_scene == 1){
+                    if(retry){
+                        profFront.alpha -= ALPHA_DELTA;
+                        profBubbleTwo.alpha -= ALPHA_DELTA;
+                        profTextWrong.alpha -= ALPHA_DELTA;
+                        profTextSix.alpha -= ALPHA_DELTA;
+                    } else {
+                        profTextThree.alpha -= ALPHA_DELTA;
+                        profTextFour.alpha -= ALPHA_DELTA;
+                        profBubbleOne.alpha -= ALPHA_DELTA;
+                        kidRight.alpha -= ALPHA_DELTA;
+                        profFront.alpha -= ALPHA_DELTA;
+                    }
+                    kidLeft.alpha += ALPHA_DELTA;
+                    profSide.alpha += ALPHA_DELTA;
+                } else if(current_scene == 2){
+                    boardText.alpha += ALPHA_DELTA;
+                    this.activeSelectorBox.incrementAlpha(ALPHA_DELTA);
+                }
+            } else if(currentState == STATE_RESULT){
+                if(current_scene == 1){
+                    this.activeSelectorBox.incrementAlpha(-ALPHA_DELTA);
+                    boardText.alpha -= ALPHA_DELTA;
+                    profSide.alpha -= ALPHA_DELTA;
+                    profFront.alpha += ALPHA_DELTA;
+                    profBubbleTwo.alpha += ALPHA_DELTA;
+                    kidLeft.alpha += ALPHA_DELTA;
+                } else if(current_scene >= 2){
+                    if(profTextGuess.text == profTextRight.text){
+                        if(current_scene == 2){
+                            profTextRight.alpha += ALPHA_DELTA;
+                        } else if(current_scene == 3){
+                            profTextDefinition.alpha += ALPHA_DELTA
+                        } else if(current_scene == 4){
+                            profTextFive.alpha += ALPHA_DELTA;
+                        }
+                    } else if(profTextGuess.text == profTextWrong.text){
+                        if(current_scene == 2){
+                            profTextWrong.alpha += ALPHA_DELTA;
+                        } else if(current_scene == 3){
+                            profTextSix.alpha += ALPHA_DELTA;
+                        } else if(current_scene == 4){
+                            current_scene = 1;
+                            currentState = STATE_CHOICE;
+                            lastStateChangeTimeFrame = timeFrame;
+                        }
+                    }
+                }
             }
         }
 
@@ -282,12 +346,6 @@ package
         {
             if (currentState == STATE_CHOICE && current_scene == 2
                 && selector._label == SEL_PROF){
-
-                current_scene = 1;
-                currentState = STATE_RESULT;
-                lastSelectionTimeFrame = timeFrame;
-                lastStateChangeTimeFrame = timeFrame;
-
                 //if (this.ending) {
                 //} else if(!this.ending){
                 //}
@@ -295,10 +353,24 @@ package
                 //allow player to guess until they get the right one
 
                 if(item.text == playerAnswers[word]){
-                    debugText.text = "win";
+                    profTextGuess.text = profTextRight.text;
+
+                    if(HouseMap.getInstance().currentLanguage == HouseMap.LANG_DE){
+                        profTextDefinition.text = boardText.text + " bedeutet " + "\"" + playerAnswers[word] + "\"";
+                    } else if(HouseMap.getInstance().currentLanguage == HouseMap.LANG_EN) {
+                        profTextDefinition.text = boardText.text + " means " + "\"" + playerAnswers[word] + "\"";
+                    }
+                    retry = false;
                 } else {
-                    debugText.text = "lose";
+                    profTextGuess.text = profTextWrong.text;
+                    retry = true;
                 }
+
+                current_scene = 1;
+                lastSelectionTimeFrame = timeFrame;
+                lastStateChangeTimeFrame = timeFrame;
+                currentState = STATE_RESULT;
+
             }
         }
     }

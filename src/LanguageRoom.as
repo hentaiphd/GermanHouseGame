@@ -66,7 +66,7 @@ package
             HouseMap.getInstance().LangRoom = true;
             HouseMap.getInstance().endingCounter++;
 
-            HouseMap.getInstance().currentLanguage = HouseMap.LANG_DE;
+            //HouseMap.getInstance().currentLanguage = HouseMap.LANG_DE;
 
             super.create();
 
@@ -75,8 +75,6 @@ package
             debugText.size = 8;
 
             this.setupBackground(ImgBg);
-            //this.addClickZone(new FlxPoint(100, 100), new FlxPoint(40, 40),
-            //    null, doorWasClicked);
 
             if(this.ending){
                 add(debugText);

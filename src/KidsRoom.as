@@ -27,6 +27,7 @@ package
         private var oma1:FlxSprite;
         private var kid1:FlxSprite, kid2:FlxSprite, kid3:FlxSprite, kid4:FlxSprite, kid5:FlxSprite;
         private var bubble12:FlxSprite, bubble12Text1:FlxText;
+        private var bubble12Text2:FlxText;
         private var bubble11:FlxSprite, bubble11Text1:FlxText;
 
         private var bubble12String1:String, bubble12String1P2:String;
@@ -60,12 +61,12 @@ package
 
             if (HouseMap.getInstance().currentLanguage == HouseMap.LANG_EN) {
                 bubble12String1 = "Hello kids!";
-                bubble12String1P2 = "Welcome to Kasperletheater";
+                bubble12String1P2 = "Welcome to Kasperletheater!";
                 bubble11String1 = "HEEEEEEEEELLLLLLLLLLLLLLOOOOOOOOOOO!!!!!!!!!";
                 bubble12String2 = "Well, dear kids, today we practice some German!";
             } else if (HouseMap.getInstance().currentLanguage == HouseMap.LANG_DE) {
                 bubble12String1 = "Hallo Kinder!";
-                bubble12String1P2 = "Wir sind das Kasperletheater";
+                bubble12String1P2 = "Wir sind das Kasperletheater!";
                 bubble11String1 = "HAAAAAAAAALLLLLLLLLLLLLLOOOOOOOOOOO!!!!!!!!!";
                 bubble12String2 = "So meine lieben Kinder, heute wird Englisch geübt!";
             }
@@ -100,18 +101,26 @@ package
 
             bubble12 = new FlxSprite(32, 214);
             bubble12.loadGraphic(ImgBubble12, true, true, 573, 123, true);
+            bubble12.alpha = 0;
             add(bubble12);
-            bubble12Text1 = new TextBox(new FlxPoint(bubble12.x+20, bubble12.y+20),
-                                        new FlxPoint(bubble12.width, bubble12.height),
+            bubble12Text1 = new TextBox(new FlxPoint(bubble12.x+10, bubble12.y+40),
+                                        new FlxPoint(bubble12.width-20, bubble12.height-50),
                                         bubble12String1);
             bubble12Text1.alpha = 0;
             add(bubble12Text1);
 
+            bubble12Text2 = new TextBox(new FlxPoint(bubble12.x+10, bubble12.y+40),
+                                        new FlxPoint(bubble12.width-20, bubble12.height-50),
+                                        bubble12String2);
+            bubble12Text2.alpha = 0;
+            add(bubble12Text2);
+
             bubble11 = new FlxSprite(5, 234);
             bubble11.loadGraphic(ImgBubble11, true, true, 626, 139, true);
+            bubble11.alpha = 0;
             add(bubble11);
             bubble11Text1 = new TextBox(new FlxPoint(bubble11.x+20, bubble11.y+20),
-                                        new FlxPoint(bubble11.width, bubble11.height),
+                                        new FlxPoint(bubble11.width, bubble11.height-60),
                                         bubble11String1);
             bubble11Text1.alpha = 0;
             add(bubble11Text1);
@@ -119,6 +128,46 @@ package
 
         override public function update():void{
             super.update();
+
+            if (currentState == STATE_INTRO) {
+                if (current_scene == 0 && timeFrame == 1) {
+                    current_scene += 1;
+                } else if (current_scene == 1 && timeFrame == 2*TimedState.fpSec) {
+                    current_scene += 1;
+                    bubble12Text1.text += " " + bubble12String1P2;
+                } else if (current_scene == 2 && timeFrame == 4*TimedState.fpSec) {
+                    current_scene += 1;
+                } else if (current_scene == 3 && timeFrame == 6*TimedState.fpSec) {
+                    current_scene += 1;
+                } else if (current_scene == 4 && timeFrame == 8*TimedState.fpSec) {
+                    current_scene = 1;
+                    currentState = STATE_CHOICE;
+                    lastStateChangeTimeFrame = timeFrame;
+                }
+            } else if (currentState == STATE_CHOICE) {
+            } else if (currentState == STATE_RESULT) {
+            }
+
+            if (currentState == STATE_INTRO) {
+                if (current_scene == 1) {
+                    bubble12.alpha += ALPHA_DELTA;
+                    bubble12Text1.alpha += ALPHA_DELTA;
+                } else if (current_scene == 2) {
+
+                } else if (current_scene == 3) {
+                    bubble12.alpha -= ALPHA_DELTA;
+                    bubble12Text1.alpha -= ALPHA_DELTA;
+                    bubble11.alpha += ALPHA_DELTA;
+                    bubble11Text1.alpha += ALPHA_DELTA;
+                } else if (current_scene == 4) {
+                    bubble12.alpha += ALPHA_DELTA;
+                    bubble12Text2.alpha += ALPHA_DELTA;
+                    bubble11.alpha -= ALPHA_DELTA;
+                    bubble11Text1.alpha -= ALPHA_DELTA;
+                }
+            } else if (currentState == STATE_CHOICE) {
+            } else if (currentState == STATE_RESULT) {
+            }
         }
 
         private function doorWasClicked(a:FlxSprite, b:FlxSprite):void

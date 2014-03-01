@@ -24,7 +24,9 @@ package{
             box = new FlxSprite(origin.x, origin.y);
             box.makeGraphic(size.x, size.y, 0x77BAF0FF);
             box.immovable = true;
-            FlxG.state.add(box);
+            if (HouseMap.getInstance().DEBUG){
+                FlxG.state.add(box);
+            }
 
             super(origin.x, origin.y, size.x, _text);
             this.setFormat("LeaBlock-Regular",18,0xff000000,"left");

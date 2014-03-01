@@ -28,7 +28,9 @@ package{
             var box:FlxSprite = new FlxSprite(_origin.x, _origin.y);
             box.makeGraphic(_size.x, _size.y, 0x7700FF00);
             box.immovable = true;
-            FlxG.state.add(box);
+            if (HouseMap.getInstance().DEBUG) {
+                FlxG.state.add(box);
+            }
 
             answers = new FlxGroup();
             if (images != null) {

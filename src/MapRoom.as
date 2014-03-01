@@ -71,7 +71,11 @@ package
                                      clickFn:Function, contactFn:Function):DHButton
         {
             var _clickZone:DHButton = new DHButton(origin.x, origin.y, "", clickFn);
-            _clickZone.makeGraphic(size.x, size.y, 0x77FF0000);
+            var _color:uint = 0x77FF0000;
+            if (!HouseMap.getInstance().DEBUG) {
+                _color = 0x00000000;
+            }
+            _clickZone.makeGraphic(size.x, size.y, _color);
             _clickZone.immovable = true;
             add(_clickZone);
             this.zones[_clickZone] = contactFn;

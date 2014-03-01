@@ -11,6 +11,7 @@ package
         public var LangRoom:Boolean = false;
         public var endingCounter:Number = 0;
         public var hasSeenIntroSequence:Boolean = false;
+        public var DEBUG:Boolean = true;
 
         private var exitPoints:Array;
 

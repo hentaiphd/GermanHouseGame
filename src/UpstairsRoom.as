@@ -43,6 +43,8 @@ package
             this.addClickZone(new FlxPoint(door2.x, door2.y), new FlxPoint(door2.width, door2.height),
                 null, kidsDoorTouched);
 
+            this.addClickZone(new FlxPoint(400, 100), new FlxPoint(150, 150),
+                null, null);
 
             FlxG.mouse.show();
 

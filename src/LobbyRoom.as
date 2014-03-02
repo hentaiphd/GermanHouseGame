@@ -86,10 +86,10 @@ package
             FlxG.mouse.show();
 
             var entryPoint:FlxPoint = mainEntryPoint;
-            var lastExitPoint:FlxPoint = HouseMap.getInstance().popExitPoint();
+            /*var lastExitPoint:FlxPoint = HouseMap.getInstance().popExitPoint();
             if (lastExitPoint != null) {
                 entryPoint = lastExitPoint;
-            }
+            }*/
             player = new Player(entryPoint.x, entryPoint.y);
             player.shouldMove = false;
             add(player);

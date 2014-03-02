@@ -12,7 +12,7 @@ package
         [Embed(source="../assets/language.mp3")] private var SndBGM:Class;
 
         {
-            public static var mainEntryPoint:FlxPoint = new FlxPoint(20, 350);
+            public static var mainEntryPoint:FlxPoint = new FlxPoint(250, 170);
         }
 
         private var door1:FlxSprite, door2:FlxSprite, stairs:FlxSprite, table:FlxSprite;
@@ -50,8 +50,6 @@ package
             FlxG.mouse.show();
 
             var entryPoint:FlxPoint = mainEntryPoint;
-            var lastExitPoint:FlxPoint = HouseMap.getInstance().popExitPoint();
-            entryPoint = lastExitPoint;
             player = new Player(entryPoint.x, entryPoint.y);
             add(player);
 

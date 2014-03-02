@@ -13,6 +13,7 @@ package
         [Embed(source="../assets/04-Parents-01.png")] private var ImgParents:Class;
         [Embed(source="../assets/04-Teacher-01.png")] private var ImgProfFront:Class;
         [Embed(source="../assets/04-Teacher-02.png")] private var ImgProfSide:Class;
+        [Embed(source="../assets/04-Finger-01.png")] private var ImgProfFinger:Class;
         [Embed(source="../assets/Bubble-17.png")] private var ImgBubbleOne:Class;
         [Embed(source="../assets/Bubble-10.png")] private var ImgBubbleTwo:Class;
         [Embed(source="../assets/Bubble-02.png")] private var ImgBubbleThree:Class;
@@ -44,6 +45,7 @@ package
         private var profBubbleTwo:FlxSprite;
         private var profFront:FlxSprite;
         private var profSide:FlxSprite;
+        private var profFinger:FlxSprite;
         private var kidLeft:FlxSprite;
         private var kidRight:FlxSprite;
         private var kidBubble:FlxSprite;
@@ -58,6 +60,9 @@ package
         private static const SEL_PROF:String = "prof_sel";
         private static const STATE_CHOICE:int = 2;
         private static const STATE_RESULT:int = 3;
+
+        private var lastFingerAnimationTime:Number;
+        private var fingerLock:Boolean = false;
 
         override public function create():void
         {
@@ -95,6 +100,14 @@ package
             profFront = new FlxSprite(343, 49);
             profFront.loadGraphic(ImgProfFront, true, true, 271, 429, true);
             add(profFront);
+
+            profFinger = new FlxSprite(343, 69);
+            profFinger.loadGraphic(ImgProfFinger, true, true, 75, 80, true);
+            profFinger.addAnimation("0", [0, 1, 2, 3, 4, 5, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 5, 4, 3, 2, 1, 0, 8], 12, false);
+            profFinger.addAnimation("1", [9, 10, 10, 11, 11, 11, 11, 12, 10, 10, 11, 11, 11, 11, 12, 9, 8], 12, false);
+            profFinger.addAnimation("2", [13, 14, 15, 16, 17, 13, 14, 15, 16, 17, 13, 14, 15, 16, 17, 13, 14, 15, 16, 17, 13, 14, 15, 16, 17, 8], 12, false);
+            profFinger.addAnimation("still", [8], 12);
+            add(profFinger);
 
             profSide = new FlxSprite(490, 76);
             profSide.loadGraphic(ImgProfSide, true, true, 138, 404, true);
@@ -349,6 +362,7 @@ package
                         profBubbleOne.alpha += ALPHA_DELTA;
                     } else if(current_scene == 2){
                         profTextOne.alpha += ALPHA_DELTA;
+                        fingerAnimate();
                     } else if(current_scene == 3){
                         profTextOne.alpha -= ALPHA_DELTA;
                         profTextTwo.alpha += ALPHA_DELTA;
@@ -357,11 +371,13 @@ package
                         profTextThree.alpha += ALPHA_DELTA;
                     } else if(current_scene == 5){
                         profTextFour.alpha += ALPHA_DELTA;
+                        fingerAnimate();
                     }
                 } else if(currentState == STATE_CHOICE){
                     if(current_scene == 1){
                         if(retry){
                             profFront.alpha -= ALPHA_DELTA;
+                            profFinger.alpha -= ALPHA_DELTA;
                             profBubbleTwo.alpha -= ALPHA_DELTA;
                             profTextWrong.alpha -= ALPHA_DELTA;
                             profTextSix.alpha -= ALPHA_DELTA;
@@ -371,7 +387,9 @@ package
                             profBubbleOne.alpha -= ALPHA_DELTA;
                             kidRight.alpha -= ALPHA_DELTA;
                             profFront.alpha -= ALPHA_DELTA;
+                            profFinger.alpha -= ALPHA_DELTA;
                         }
+                        unlockFinger();
                         kidLeft.alpha += ALPHA_DELTA;
                         profSide.alpha += ALPHA_DELTA;
                     } else if(current_scene == 2){
@@ -384,12 +402,14 @@ package
                         boardText.alpha -= ALPHA_DELTA;
                         profSide.alpha -= ALPHA_DELTA;
                         profFront.alpha += ALPHA_DELTA;
+                        profFinger.alpha += ALPHA_DELTA;
                         profBubbleTwo.alpha += ALPHA_DELTA;
                         kidLeft.alpha += ALPHA_DELTA;
                     } else if(current_scene >= 2){
                         if(profTextGuess.text == profTextRight.text){
                             if(current_scene == 2){
                                 profTextRight.alpha += ALPHA_DELTA;
+                                fingerAnimate();
                             } else if(current_scene == 3){
                                 profTextDefinition.alpha += ALPHA_DELTA
                             } else if(current_scene == 4){
@@ -398,6 +418,7 @@ package
                         } else if(profTextGuess.text == profTextWrong.text){
                             if(current_scene == 2){
                                 profTextWrong.alpha += ALPHA_DELTA;
+                                fingerAnimate();
                             } else if(current_scene == 3){
                                 profTextSix.alpha += ALPHA_DELTA;
                             } else if(current_scene == 4){
@@ -454,9 +475,11 @@ package
                         profBubbleOne.alpha += ALPHA_DELTA;
                     } else if(current_scene == 2){
                         profTextOne.alpha += ALPHA_DELTA;
+                        fingerAnimate();
                     } else if(current_scene == 3){
                         profTextOne.alpha -= ALPHA_DELTA;
                         profBubbleOne.alpha -= ALPHA_DELTA;
+                        unlockFinger();
                         kidBubble.alpha += ALPHA_DELTA;
                         kidTextOne.alpha += ALPHA_DELTA;
                     } else if(current_scene == 4){
@@ -464,12 +487,14 @@ package
                         kidTextOne.alpha -= ALPHA_DELTA;
                         profBubbleOne.alpha += ALPHA_DELTA;
                         profTextTwo.alpha += ALPHA_DELTA;
+                        fingerAnimate();
                     } else if(current_scene == 5){
                         profTextTwo.alpha -= ALPHA_DELTA;
                         profTextSeven.alpha += ALPHA_DELTA;
                     } else if(current_scene == 6){
                         profTextSeven.alpha -= ALPHA_DELTA;
                         profBubbleOne.alpha -= ALPHA_DELTA;
+                        unlockFinger();
                         kidBubble.alpha += ALPHA_DELTA;
                         kidTextTwo.alpha += ALPHA_DELTA;
                     } else if(current_scene == 7){
@@ -477,6 +502,7 @@ package
                         kidTextTwo.alpha -= ALPHA_DELTA;
                         profBubbleOne.alpha += ALPHA_DELTA;
                         profTextThree.alpha += ALPHA_DELTA;
+                        fingerAnimate();
                     } else if(current_scene == 8){
                         profTextFour.alpha += ALPHA_DELTA;
                     }
@@ -484,6 +510,8 @@ package
                     if(current_scene == 1){
                         if(retry){
                             profFront.alpha -= ALPHA_DELTA;
+                            unlockFinger();
+                            profFinger.alpha -= ALPHA_DELTA;
                             profBubbleTwo.alpha -= ALPHA_DELTA;
                             profTextWrong.alpha -= ALPHA_DELTA;
                             profTextSix.alpha -= ALPHA_DELTA;
@@ -493,6 +521,8 @@ package
                             profBubbleOne.alpha -= ALPHA_DELTA;
                             kidLeft.alpha -= ALPHA_DELTA;
                             profFront.alpha -= ALPHA_DELTA;
+                            unlockFinger();
+                            profFinger.alpha -= ALPHA_DELTA;
                         }
                         kidRight.alpha += ALPHA_DELTA;
                         profSide.alpha += ALPHA_DELTA;
@@ -506,12 +536,14 @@ package
                         boardText.alpha -= ALPHA_DELTA;
                         profSide.alpha -= ALPHA_DELTA;
                         profFront.alpha += ALPHA_DELTA;
+                        profFinger.alpha += ALPHA_DELTA;
                         profBubbleTwo.alpha += ALPHA_DELTA;
                         kidRight.alpha += ALPHA_DELTA;
                     } else if(current_scene >= 2){
                         if(profTextGuess.text == profTextRight.text){
                             if(current_scene == 2){
                                 profTextRight.alpha += ALPHA_DELTA;
+                                fingerAnimate();
                             } else if(current_scene == 3){
                                 profTextDefinition.alpha += ALPHA_DELTA
                             } else if(current_scene == 4){
@@ -526,6 +558,7 @@ package
                             }
                         } else if(profTextGuess.text == profTextWrong.text){
                             if(current_scene == 2){
+                                fingerAnimate();
                                 profTextWrong.alpha += ALPHA_DELTA;
                             } else if(current_scene == 3){
                                 profTextSix.alpha += ALPHA_DELTA;
@@ -536,6 +569,20 @@ package
                     }
                 }
             }
+        }
+
+        private function fingerAnimate():void{
+            if(!fingerLock){
+                fingerLock = true;
+                lastFingerAnimationTime = timeFrame;
+                var rand:Number = Math.floor(Math.random()*3);
+                profFinger.play(rand.toString());
+            }
+        }
+
+        private function unlockFinger():void{
+            profFinger.play("still");
+            fingerLock = false;
         }
 
         private function doorWasClicked(a:FlxSprite, b:FlxSprite):void

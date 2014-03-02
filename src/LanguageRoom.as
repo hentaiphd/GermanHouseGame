@@ -270,8 +270,8 @@ package
                     familyText.text = "Danke, Herr Lehrer, wir haben heute viel gelernt! Nächstes Mal kommen wir auf jeden Fall wieder!";
                 }
 
-                playerQuestions['Earful'] = new Array("An empty waste basket.", "A lot of angry talk.", "A good dancer.");
-                playerQuestions['Cushy'] = new Array("Something easy or comfortable.", "A freshly baked pie.", "The color of a sunset.");
+                playerQuestions['Earful'] = new Array("Ein leerer Papierkorb.", "viele wütend Gerede.", "Ein guter Tänzer.");
+                playerQuestions['Cushy'] = new Array("Etwas leicht oder gemütlich.", "Eine frisch gebackene Torte.", "Die Farbe des Sonnenuntergangs.");
                 playerQuestions['Wide-eyed'] = new Array("A juicy conversation.", "Being unsophisticated or innocent.", "Large flocks of geese.");
                 playerQuestions['Weathervane'] = new Array("A thing used to measure wind direction.", "A mountable screen.", "A recruiter for an orchestra.");
                 playerQuestions['Facetious'] = new Array("Soft, swishy or sweeping.", "Supportive or like a boulder.", "Joking about serious issues.");

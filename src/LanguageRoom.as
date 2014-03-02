@@ -278,13 +278,13 @@ package
                 playerQuestions['Knee-slapper'] = new Array("Ein sehr lustiger Witze.", "Ein Schnell-Restaurant.", "Abwärtspfad.");
                 playerQuestions['Canoodle'] = new Array("Umarmen und küssen.", "Immer bereit zu schlafen.", "Ein Geschenk einpacken.");
 
-                playerAnswers['Earful'] = new String("A lot of angry talk.");
-                playerAnswers['Cushy'] = new String("Something easy or comfortable.");
-                playerAnswers['Wide-eyed'] = new String("Being unsophisticated or innocent.");
-                playerAnswers['Weathervane'] = new String("A thing used to measure wind direction.");
-                playerAnswers['Facetious'] = new String("Joking about serious issues.");
-                playerAnswers['Knee-slapper'] = new String("A very funny joke.");
-                playerAnswers['Canoodle'] = new Array("Hugging and kissing.");
+                playerAnswers['Earful'] = new String("viel wütendes Gerede.");
+                playerAnswers['Cushy'] = new String("Etwas leichtes oder gemütliches.");
+                playerAnswers['Wide-eyed'] = new String("Ungekünstelt oder treuherzig.");
+                playerAnswers['Weathervane'] = new String("Gegenstand um die Windrichtung zu messen.");
+                playerAnswers['Facetious'] = new String("Über etwas Ernstes spaßend.");
+                playerAnswers['Knee-slapper'] = new String("Ein sehr lustiger Witze.");
+                playerAnswers['Canoodle'] = new Array("Umarmen und küssen.");
             }
 
             wordList = getKeys(playerQuestions);

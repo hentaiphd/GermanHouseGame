@@ -255,7 +255,15 @@ package
         }
 
         public function theEnd():void{
-            FlxG.switchState(new TextState("You found your parents! Time to go home!", new TextState("The end.", new MenuState())));
+            var s1:String, s2:String;
+            if (HouseMap.getInstance().currentLanguage == HouseMap.LANG_EN) {
+                s1 = "You found your parents! Time to go home!";
+                s2 = "The end.";
+            } else if (HouseMap.getInstance().currentLanguage == HouseMap.LANG_DE) {
+                s1 = "Du hast deine Eltern gefunden! Zeit nach Hause zu gehen.";
+                s2 = "Ende.";
+            }
+            FlxG.switchState(new TextState(s1, new TextState(s2, new MenuState())));
         }
     }
 }

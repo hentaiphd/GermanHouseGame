@@ -58,12 +58,6 @@ package
         private static const SEL_PROF:String = "prof_sel";
         private static const STATE_CHOICE:int = 2;
         private static const STATE_RESULT:int = 3;
-<<<<<<< Updated upstream
-=======
-        private var currentState:int = STATE_INTRO;
-        public var current_scene:Number = 0;
-        private const ALPHA_DELTA:Number = .04;
->>>>>>> Stashed changes
 
         override public function create():void
         {

@@ -44,10 +44,12 @@ package
         private var endText2:String;
         private var cutOption1:FlxSprite, cutOption2:FlxSprite, cutOption3:FlxSprite;
 
-        private var kidText1:String, friseurText1:String, photographerText1:String,
+        private var kidText1:String, kidText2:String;
+        private var friseurText1:String,
                 offerText:String, resultText:String, endText1:String;
+        private var photographerText1:String, photographerText1B:String,
+            photographerText1C:String,photographerText1D:String,photographerText1E:String;
         private var offerChoices:Array = new Array();
-
 
         private static const CHOICE_SHORT:int = 1;
         private static const CHOICE_MED:int = 2;
@@ -182,7 +184,12 @@ package
             if (HouseMap.getInstance().currentLanguage == HouseMap.LANG_EN) {
                 kidText1 = "What are you doing?";
                 friseurText1 = "I'm cutting her hair!";
-                photographerText1 = "I'm a photographer and there will be an exhibition afterwards.";
+                photographerText1 = "I'm a photographer as you can see.";
+                photographerText1B = "See the photos in the back?";
+                photographerText1C = "That’s my exhibition.";
+                photographerText1D = "I’m taking photos of hair cutting performances!";
+                photographerText1E = "We’re the cultural program, you know!";
+                kidText2 = "OK.";
                 offerText = "You wanna try for yourself, sweetie?";
                 offerChoices = new Array("Cut a little", "Cut something", "Cut a lot");
                 resultText = "That's not bad, kid!";
@@ -191,7 +198,12 @@ package
             } else if (HouseMap.getInstance().currentLanguage == HouseMap.LANG_DE) {
                 kidText1 = "Was machst du denn da?";
                 friseurText1 = "Ich verpass ihr einen hippen Haarschnitt!";
-                photographerText1 = "Ich mache Fotos, für eine Ausstellung, die es darüber geben wird!";
+                photographerText1 = "Ich bin Fotograf, wie du siehst!";
+                photographerText1B = "Siehst du die Bilder an der Wand?";
+                photographerText1C = "Das ist eine Ausstellung von mir.";
+                photographerText1D = "Ich fotografiere Performances übers Haareschneiden!";
+                photographerText1E = "Wir sind hier das Cultural Program, verstehst du!";
+                kidText2 = "Verstehe.";
                 offerText = "Willstes mal selber probieren?";
                 offerChoices = new Array("Wenig abschneiden", "Etwas abschneiden", "Viel abschneiden");
                 resultText = "Wow! Gar nicht schlecht ist das!";
@@ -211,7 +223,21 @@ package
                 } else if (current_scene == 2 && startAgo(4)) {
                     current_scene += 1;
                 } else if (current_scene == 3 && startAgo(6)) {
-                    current_scene = 1;
+                    current_scene += 1;
+                    photographerBubble1Text.text = photographerText1B;
+                } else if (current_scene == 4 && startAgo(8)) {
+                    current_scene += 1;
+                    photographerBubble1Text.text = photographerText1C;
+                } else if (current_scene == 5 && startAgo(10)) {
+                    current_scene += 1;
+                    photographerBubble1Text.text = photographerText1D;
+                } else if (current_scene == 6 && startAgo(12)) {
+                    current_scene += 1;
+                    photographerBubble1Text.text = photographerText1E;
+                } else if (current_scene == 7 && startAgo(14)) {
+                    current_scene += 1;
+                    kidBubble1Text.text = kidText2;
+                } else if (current_scene == 8 && startAgo(16)) {
                     switchState(STATE_CHOICE);
                 }
             } else if (currentState == STATE_CHOICE) {
@@ -239,15 +265,21 @@ package
                 } else if (current_scene == 2) {
                     kidBubble1.alpha -= ALPHA_DELTA;
                     kidBubble1Text.alpha -= ALPHA_DELTA;
-                    friseurBubble1.alpha += ALPHA_DELTA;
-                    friseurBubble1Text.alpha += ALPHA_DELTA;
-                } else if (current_scene == 3) {
-                    kid.alpha -= ALPHA_DELTA;
-                    kid2.alpha += ALPHA_DELTA;
-                    friseurBubble1.alpha -= ALPHA_DELTA;
-                    friseurBubble1Text.alpha -= ALPHA_DELTA;
                     photographerBubble1.alpha += ALPHA_DELTA;
                     photographerBubble1Text.alpha += ALPHA_DELTA;
+                    kid.alpha -= ALPHA_DELTA;
+                    kid2.alpha += ALPHA_DELTA;
+                } else if (current_scene == 3) {
+                } else if (current_scene == 4) {
+                } else if (current_scene == 5) {
+                } else if (current_scene == 6) {
+                } else if (current_scene == 7) {
+                } else if (current_scene == 8) {
+                    kidBubble1.alpha += ALPHA_DELTA;
+                    kidBubble1Text.alpha += ALPHA_DELTA;
+                    photographerBubble1.alpha -= ALPHA_DELTA;
+                    photographerBubble1Text.alpha -= ALPHA_DELTA;
+                } else if (current_scene == 9) {
                 }
             } else if (currentState == STATE_CHOICE) {
                 if (current_scene == 1) {

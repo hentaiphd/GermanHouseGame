@@ -216,18 +216,18 @@ package
                     switchState(STATE_CHOICE);
                 }
             } else if (currentState == STATE_CHOICE) {
-                if (current_scene == 1 && timeFrame == lastStateChangeTimeFrame+1*TimedState.fpSec) {
+                if (current_scene == 1 && lastStateAgo(1)) {
                     current_scene += 1;
                 }
             } else if (currentState == STATE_RESULT) {
-                if (current_scene == 1 && timeFrame == lastStateChangeTimeFrame+3*TimedState.fpSec) {
+                if (current_scene == 1 && lastStateAgo(3)) {
                     current_scene += 1;
-                } else if (current_scene == 2 && timeFrame == lastStateChangeTimeFrame+5*TimedState.fpSec) {
+                } else if (current_scene == 2 && lastStateAgo(5)) {
                     current_scene += 1;
-                } else if (current_scene == 3 && timeFrame == lastStateChangeTimeFrame+7*TimedState.fpSec) {
+                } else if (current_scene == 3 && lastStateAgo(7)) {
                     current_scene += 1;
                     resultText2.text = endText2;
-                } else if (current_scene == 4 && timeFrame == lastStateChangeTimeFrame+10*TimedState.fpSec) {
+                } else if (current_scene == 4 && lastStateAgo(10)) {
                     current_scene += 1;
                     FlxG.switchState(new LobbyRoom());
                 }

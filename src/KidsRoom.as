@@ -281,39 +281,39 @@ package
                     switchState(STATE_CHOICE);
                 }
             } else if (currentState == STATE_CHOICE) {
-                if (current_scene == 1 && timeFrame == lastStateChangeTimeFrame+2*TimedState.fpSec) {
+                if (current_scene == 1 && lastStateAgo(2)) {
                     current_scene += 1;
                 }
             } else if (currentState == STATE_RESULT) {
-                if (current_scene == 1 && timeFrame == lastStateChangeTimeFrame+2*TimedState.fpSec) {
+                if (current_scene == 1 && lastStateAgo(2)) {
                     current_scene += 1;
-                } else if (current_scene == 2 && timeFrame == lastStateChangeTimeFrame+4*TimedState.fpSec) {
+                } else if (current_scene == 2 && lastStateAgo(4)) {
                     current_scene += 1;
-                } else if (current_scene == 3 && timeFrame == lastStateChangeTimeFrame+6*TimedState.fpSec) {
+                } else if (current_scene == 3 && lastStateAgo(6)) {
                     current_scene += 1;
-                } else if (current_scene == 4 && timeFrame == lastStateChangeTimeFrame+8*TimedState.fpSec) {
+                } else if (current_scene == 4 && lastStateAgo(8)) {
                     current_scene += 1;
                     if (!this.ending) {
                         FlxG.switchState(new UpstairsRoom());
                     }
                 } else if (current_scene == 5) {
-                    if (timeFrame == lastStateChangeTimeFrame+10*TimedState.fpSec) {
+                    if (lastStateAgo(10)) {
                         current_scene += 1;
                         bubble12Text3.text = bubble12String4;
                     }
-                } else if (current_scene == 6 && timeFrame == lastStateChangeTimeFrame+14*TimedState.fpSec) {
+                } else if (current_scene == 6 && lastStateAgo(14)) {
                     current_scene += 1;
                     bubble12Text3.text = bubble12String4B;
-                } else if (current_scene == 7 && timeFrame == lastStateChangeTimeFrame+16*TimedState.fpSec) {
+                } else if (current_scene == 7 && lastStateAgo(16)) {
                     current_scene += 1;
-                } else if (current_scene == 8 && timeFrame == lastStateChangeTimeFrame+17*TimedState.fpSec) {
+                } else if (current_scene == 8 && lastStateAgo(17)) {
                     current_scene += 1;
                     if (guessResult == GUESS_CORRECT) {
                         bubble12Text3.text = guessCorrectString;
                     } else if (guessResult == GUESS_INCORRECT) {
                         bubble12Text3.text = guessIncorrectString;
                     }
-                } else if (current_scene == 9 && timeFrame == lastStateChangeTimeFrame+19*TimedState.fpSec) {
+                } else if (current_scene == 9 && lastStateAgo(19)) {
                     current_scene += 1;
                     bubble12Text3.text = bubble12String5;
                 }

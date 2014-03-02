@@ -57,6 +57,29 @@ package
             lastStateChangeTimeFrame = timeFrame;
         }
 
+        public function framesSinceLastState():Number
+        {
+            return timeFrame - lastStateChangeTimeFrame;
+        }
+
+        public function lastStateAgo(sec:Number):Boolean
+        {
+            /* return true if the last state happened exactly 'sec' seconds ago */
+            if (sec*TimedState.fpSec + lastStateChangeTimeFrame == timeFrame) {
+                return true;
+            }
+            return false;
+        }
+
+        public function startAgo(sec:Number):Boolean
+        {
+            /* return true if the flxstate started exactly 'sec' seconds ago */
+            if (sec*TimedState.fpSec == timeFrame) {
+                return true;
+            }
+            return false;
+        }
+
         private function doContact(_clickZone:DHButton, contactFn:Function):void
         {
             function _callback(a:FlxSprite, b:FlxSprite):void

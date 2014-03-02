@@ -62,15 +62,21 @@ package
                     clickzone.height = _clickZone.height;
 
                     if(mouse.rect.overlaps(clickzone)) {
-                        if (!this.activeSelectorBox.shown) {
+                        if (this.activeSelectorBox == null) {
                             mouse.hovering = true;
-                        } else if (!this.activeSelectorBox.optionIsHovered) {
-                            mouse.hovering = false;
+                        } else {
+                            if (!this.activeSelectorBox.shown) {
+                                mouse.hovering = true;
+                            } else if (!this.activeSelectorBox.optionIsHovered) {
+                                mouse.hovering = true;
+                            }
                         }
-                    } else if (this.activeSelectorBox.optionIsHovered && this.activeSelectorBox.shown) {
-                        mouse.optionHover = true;
                     }
                 }
+            }
+
+            if (this.activeSelectorBox != null && this.activeSelectorBox.optionIsHovered && this.activeSelectorBox.shown) {
+                mouse.optionHover = true;
             }
 
             CONFIG::debugging {

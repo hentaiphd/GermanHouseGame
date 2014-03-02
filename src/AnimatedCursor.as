@@ -14,7 +14,7 @@ package
         {
             super();
             loadGraphic(ImgCursor, true, true, 47, 41);
-            rect = new FlxRect(x, y, width, height);
+            rect = new FlxRect(x, y, 1, 1);
             addAnimation("normal", [0], 12);
             addAnimation("hover", [1,2,3,4], 12);
             addAnimation("pressed", [5], 12);

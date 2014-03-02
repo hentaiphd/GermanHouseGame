@@ -25,6 +25,7 @@ package
         [Embed(source="../assets/Bubble-02.png")] private var ImgBubble2:Class;
         [Embed(source="../assets/Bubble-11.png")] private var ImgBubble11:Class;
         [Embed(source="../assets/Bubble-12.png")] private var ImgBubble12:Class;
+        [Embed(source="../assets/kids.mp3")] private var SndBGM:Class;
 
         private var kasperle1:FlxSprite, kasperle2:FlxSprite;
         private var oma1:FlxSprite, oma2:FlxSprite;
@@ -246,6 +247,8 @@ package
                 debugText.color = 0xff000000;
                 add(debugText);
             }
+
+            HouseMap.getInstance().playLoopingBGM(SndBGM, "kids");
         }
 
         override public function update():void{

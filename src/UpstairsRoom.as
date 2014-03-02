@@ -9,6 +9,7 @@ package
         [Embed(source="../assets/03-Door-02.png")] private var ImgDoor2:Class;
         [Embed(source="../assets/03-Stairs-01.png")] private var ImgStairs:Class;
         [Embed(source="../assets/03-Table-01.png")] private var ImgTable:Class;
+        [Embed(source="../assets/language.mp3")] private var SndBGM:Class;
 
         {
             public static var mainEntryPoint:FlxPoint = new FlxPoint(20, 350);
@@ -53,6 +54,8 @@ package
             entryPoint = lastExitPoint;
             player = new Player(entryPoint.x, entryPoint.y);
             add(player);
+
+            HouseMap.getInstance().playLoopingBGM(SndBGM, "overworld");
         }
 
         private function stairsTouched(a:FlxSprite, b:FlxSprite):void

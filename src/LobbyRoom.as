@@ -120,7 +120,7 @@ package
                 )
             );
 
-            FlxG.playMusic(SndBGM);
+            HouseMap.getInstance().playLoopingBGM(SndBGM, "overworld");
         }
 
         override public function update():void{

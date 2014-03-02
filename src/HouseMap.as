@@ -19,9 +19,34 @@ package
         public static const LANG_EN:int = 2;
         public var currentLanguage:int = LANG_DE;
 
+        private var musicTags:Array;
+        private var currentMusicTag:String;
+
         public function setup():void
         {
             this.exitPoints = new Array();
+            this.musicTags = new Array();
+        }
+
+        public function playLoopingBGM(audio:Class, tag:String):void
+        {
+            if (this.musicTags.indexOf(tag) == -1) {
+                this.musicTags.push(tag);
+            }
+
+            if(FlxG.music == null){
+                FlxG.playMusic(audio);
+            } else {
+                if (tag == currentMusicTag) {
+                    FlxG.music.resume();
+                    if(!FlxG.music.active){
+                        FlxG.playMusic(audio);
+                    }
+                } else {
+                    FlxG.playMusic(audio);
+                }
+            }
+            currentMusicTag = tag;
         }
 
         public function HouseMap(){

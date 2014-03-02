@@ -68,15 +68,14 @@ package
 
             CONFIG::debugging {
                 this.ending = true;
+                debugText = new FlxText(300,10,300,"");
+                debugText.color = 0xff000000;
+                debugText.size = 11;
+                add(debugText);
             }
-
-            debugText = new FlxText(300,10,300,"");
-            debugText.color = 0xff000000;
-            debugText.size = 8;
 
             this.setupBackground(ImgBg);
 
-            add(debugText);
 
             profBubbleOne = new FlxSprite(63, 30);
             profBubbleOne.loadGraphic(ImgBubbleOne, true, true, 254, 186, true);

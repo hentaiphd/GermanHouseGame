@@ -6,17 +6,25 @@ package
     {
         [Embed(source="../assets/0201-BG.png")] private var ImgBG:Class;
         [Embed(source="../assets/02-BG-1.png")] private var ImgBGOffer:Class;
+        [Embed(source="../assets/02-BG-3.png")] private var ImgBGOfferEnd:Class;
         [Embed(source="../assets/02-BG-2.png")] private var ImgBGResult:Class;
+        [Embed(source="../assets/02-BG-4.png")] private var ImgBGResultEnd:Class;
         [Embed(source="../assets/0202-Photographer.png")] private var ImgPhotographer:Class;
         [Embed(source="../assets/0203-Friseurin.png")] private var ImgFriseurin:Class;
         [Embed(source="../assets/0204-Kid.png")] private var ImgKid1:Class;
         [Embed(source="../assets/0204-Kid-1.png")] private var ImgKid2:Class;
         [Embed(source="../assets/02-Kid-2.png")] private var ImgKid3:Class;
+        [Embed(source="../assets/02-Kid-3.png")] private var ImgKid4:Class;
+        [Embed(source="../assets/02-Kid-4.png")] private var ImgKid5:Class;
+        [Embed(source="../assets/02-Kid-5.png")] private var ImgKid6:Class;
         [Embed(source="../assets/Bubble-04.png")] private var ImgKidBubble1:Class;
         [Embed(source="../assets/Bubble-05.png")] private var ImgFriseurBubble1:Class;
         [Embed(source="../assets/Bubble-06.png")] private var ImgPhotographerBubble1:Class;
         [Embed(source="../assets/Bubble-07.png")] private var ImgOfferBubble1:Class;
         [Embed(source="../assets/Bubble-08.png")] private var ImgOfferBubble2:Class;
+        [Embed(source="../assets/Bubble-14.png")] private var ImgBubble14:Class;
+        [Embed(source="../assets/Bubble-15.png")] private var ImgBubble15:Class;
+        [Embed(source="../assets/Bubble-16.png")] private var ImgBubble16:Class;
         [Embed(source="../assets/02-Customer-1.png")] private var ImgCustomer1:Class;
         [Embed(source="../assets/02-Customer-2.png")] private var ImgCustomer2:Class;
         [Embed(source="../assets/02-Customer-3.png")] private var ImgCustomer3:Class;
@@ -41,14 +49,22 @@ package
         private var customer:FlxSprite;
         private var resultBubble1:FlxSprite, resultText1:FlxText;
         private var resultBubble2:FlxSprite, resultText2:FlxText;
+        private var bubble16:FlxSprite, bubble16Text:FlxText;
+        private var bubble15:FlxSprite, bubble15Text:FlxText;
+        private var bubble14:FlxSprite, bubble14Text:FlxText;
         private var endText2:String;
         private var cutOption1:FlxSprite, cutOption2:FlxSprite, cutOption3:FlxSprite;
 
-        private var kidText1:String, kidText2:String;
+        private var kidText1:String, kidText2:String, kidText2End:String, kidText3End:String,
+            kidText4End:String;
+        private var momText1:String, momText2:String, momText3:String;
         private var friseurText1:String,
-                offerText:String, resultText:String, endText1:String;
+            offerText:String, offerTextEnd:String, resultText:String, endText1:String,
+            resultTextEnd:String, resultText1End:String, resultText2End:String,
+            resultText3End:String;
         private var photographerText1:String, photographerText1B:String,
             photographerText1C:String,photographerText1D:String,photographerText1E:String;
+        private var photographerText1End:String;
         private var offerChoices:Array = new Array();
 
         private static const CHOICE_SHORT:int = 1;
@@ -71,6 +87,10 @@ package
             this.setupBackground(ImgBG);
 
             this.switchLanguage();
+
+            CONFIG::debugging {
+                this.ending = true;
+            }
 
             photographer = new FlxSprite(34, 96);
             photographer.loadGraphic(ImgPhotographer, true, true, 235, 220, true);
@@ -113,14 +133,22 @@ package
             photographerBubble1.loadGraphic(ImgPhotographerBubble1, true, true, 236, 160, true);
             photographerBubble1.alpha = 0;
             add(photographerBubble1);
+            var photogString:String = photographerText1;
+            if (this.ending) {
+                photogString = photographerText1End;
+            }
             photographerBubble1Text = new TextBox(new FlxPoint(photographerBubble1.x+10, photographerBubble1.y+40),
                                              new FlxPoint(photographerBubble1.width-20, photographerBubble1.height),
-                                             photographerText1);
+                                             photogString);
             photographerBubble1Text.alpha = 0;
             add(photographerBubble1Text);
 
             offerBackground = new FlxSprite(0, 0);
-            offerBackground.loadGraphic(ImgBGOffer, true, true, 640, 480, true);
+            if (this.ending) {
+                offerBackground.loadGraphic(ImgBGOfferEnd, true, true, 640, 480, true);
+            } else {
+                offerBackground.loadGraphic(ImgBGOffer, true, true, 640, 480, true);
+            }
             offerBackground.alpha = 0;
             add(offerBackground);
 
@@ -130,7 +158,11 @@ package
             add(offerBubble);
 
             resultBackground = new FlxSprite(0, 0);
-            resultBackground.loadGraphic(ImgBGResult, true, true, 640, 480, true);
+            if (this.ending) {
+                resultBackground.loadGraphic(ImgBGResultEnd, true, true, 640, 480, true);
+            } else {
+                resultBackground.loadGraphic(ImgBGResult, true, true, 640, 480, true);
+            }
             resultBackground.alpha = 0;
             add(resultBackground);
 
@@ -163,6 +195,36 @@ package
             resultText2.alpha = 0;
             add(resultText2);
 
+            bubble16 = new FlxSprite(338, 228);
+            bubble16.loadGraphic(ImgBubble16, true, true, 280, 240, true);
+            bubble16.alpha = 0;
+            add(bubble16);
+            bubble16Text = new TextBox(new FlxPoint(bubble16.x+60, bubble16.y+110),
+                                       new FlxPoint(bubble16.width-60, bubble16.height),
+                                       momText1);
+            bubble16Text.alpha = 0;
+            add(bubble16Text);
+
+            bubble14 = new FlxSprite(46, 340);
+            bubble14.loadGraphic(ImgBubble14, true, true, 564, 127, true);
+            bubble14.alpha = 0;
+            add(bubble14);
+            bubble14Text = new TextBox(new FlxPoint(bubble14.x+10, bubble14.y+30),
+                                       new FlxPoint(bubble14.width-20, bubble14.height),
+                                       resultTextEnd);
+            bubble14Text.alpha = 0;
+            add(bubble14Text);
+
+            bubble15 = new FlxSprite(131, 385);
+            bubble15.loadGraphic(ImgBubble15, true, true, 396, 75, true);
+            bubble15.alpha = 0;
+            add(bubble15);
+            bubble15Text = new TextBox(new FlxPoint(bubble15.x+10, bubble15.y+30),
+                                       new FlxPoint(bubble15.width-20, bubble15.height),
+                                       resultText1End);
+            bubble15Text.alpha = 0;
+            add(bubble15Text);
+
             cutOption1 = new FlxSprite(0, 0);
             cutOption1.loadGraphic(ImgScissors1, true, true, 70, 76, true);
 
@@ -174,9 +236,20 @@ package
 
             var choiceImages:Array = new Array(cutOption1, cutOption2, cutOption3);
 
+            var _offerText:String = offerText;
+            if (this.ending) {
+                _offerText = offerTextEnd;
+            }
             conversation(new FlxPoint(offerBubble.x+30, offerBubble.y+30),
                          new FlxPoint(offerBubble.width-80, offerBubble.height),
-                         offerText, this, SEL_OFFER, offerChoices, true, 120, choiceImages)();
+                         _offerText, this, SEL_OFFER, offerChoices, true, 120, choiceImages)();
+
+            CONFIG::debugging {
+                debugText = new FlxText(300,10,300,"");
+                debugText.color = 0xff000000;
+                debugText.size = 11;
+                add(debugText);
+            }
         }
 
         override public function switchLanguage():void
@@ -189,10 +262,22 @@ package
                 photographerText1C = "That’s my exhibition.";
                 photographerText1D = "I’m taking photos of hair cutting performances!";
                 photographerText1E = "We’re the cultural program, you know!";
+                photographerText1End = "I’m taking photos of hair cutting performances!";
                 kidText2 = "OK.";
+                kidText2End = "Mom,is that you?";
+                momText1 = "Yes! I’m part of the performance!";
+                kidText3End = "And where is dad?";
+                momText2 = "He’s here in the picture. He had his hair cut already!";
+                momText3 = "And now, it’s your turn!";
+                kidText4End = "What?";
                 offerText = "You wanna try for yourself, sweetie?";
+                offerTextEnd = "Ok, sweetie, how much do you want me to cut off?";
                 offerChoices = new Array("Cut a little", "Cut something", "Cut a lot");
                 resultText = "That's not bad, kid!";
+                resultTextEnd = "You look so pretty! Thank you very much!";   /////////////////
+                resultText1End = "It was my pleasure!";
+                resultText2End = "I’ve learned so much and it was really fun!";
+                resultText3End = "I’ll come back tomorrow, that’s for sure.";
                 endText1 = "But your parents are not here, at the cultural program.";
                 endText2 = "You will have to find them in another part of Deutsches Haus";
             } else if (HouseMap.getInstance().currentLanguage == HouseMap.LANG_DE) {
@@ -203,10 +288,22 @@ package
                 photographerText1C = "Das ist eine Ausstellung von mir.";
                 photographerText1D = "Ich fotografiere Performances übers Haareschneiden!";
                 photographerText1E = "Wir sind hier das Cultural Program, verstehst du!";
+                photographerText1End = "Ich fotografiere Performances übers Haareschneiden!";
                 kidText2 = "Verstehe.";
+                kidText2End = "Bist du das Mama?";
+                momText1 = "Ja, ich mach mit, bei der Performance!";
+                kidText3End = "Und wo ist der Papa?";
+                momText2 = "Er ist hier, auf dem Foto. Er hat schon einen neuen Haarschnitt bekommen!";
+                momText3 = "Und jetzt bist du dran!";
+                kidText4End = "Wie bitte?";
                 offerText = "Willstes mal selber probieren?";
+                offerTextEnd = "Du hast es ja gehört, wie viel soll ich dir abschneiden?";
                 offerChoices = new Array("Wenig abschneiden", "Etwas abschneiden", "Viel abschneiden");
                 resultText = "Wow! Gar nicht schlecht ist das!";
+                resultTextEnd = "Das sieht ja super aus! Tausend Dank!";
+                resultText1End = "Da nich für! War mir eine Ehre.";
+                resultText2End = "Ich hab viel gelernt heute, das war echt lustig.";
+                resultText3End = "Morgen komme ich auf jeden Fall wieder!";
                 endText1 = "Aber deine Eltern sind leider nicht hier, im Kulturprogramm!";
                 endText2 = "Die müssen irgendwo anders im Deutschen Haus sein.";
             }
@@ -215,101 +312,262 @@ package
         override public function update():void{
             super.update();
 
-            if (currentState == STATE_INTRO) {
-                if (current_scene == 0 && timeFrame == 1) {
-                    current_scene += 1;
-                } else if (current_scene == 1 && startAgo(2)) {
-                    current_scene += 1;
-                } else if (current_scene == 2 && startAgo(4)) {
-                    current_scene += 1;
-                } else if (current_scene == 3 && startAgo(6)) {
-                    current_scene += 1;
-                    photographerBubble1Text.text = photographerText1B;
-                } else if (current_scene == 4 && startAgo(8)) {
-                    current_scene += 1;
-                    photographerBubble1Text.text = photographerText1C;
-                } else if (current_scene == 5 && startAgo(10)) {
-                    current_scene += 1;
-                    photographerBubble1Text.text = photographerText1D;
-                } else if (current_scene == 6 && startAgo(12)) {
-                    current_scene += 1;
-                    photographerBubble1Text.text = photographerText1E;
-                } else if (current_scene == 7 && startAgo(14)) {
-                    current_scene += 1;
-                    kidBubble1Text.text = kidText2;
-                } else if (current_scene == 8 && startAgo(16)) {
-                    switchState(STATE_CHOICE);
-                }
-            } else if (currentState == STATE_CHOICE) {
-                if (current_scene == 1 && lastStateAgo(1)) {
-                    current_scene += 1;
-                }
-            } else if (currentState == STATE_RESULT) {
-                if (current_scene == 1 && lastStateAgo(3)) {
-                    current_scene += 1;
-                } else if (current_scene == 2 && lastStateAgo(5)) {
-                    current_scene += 1;
-                } else if (current_scene == 3 && lastStateAgo(7)) {
-                    current_scene += 1;
-                    resultText2.text = endText2;
-                } else if (current_scene == 4 && lastStateAgo(10)) {
-                    current_scene += 1;
-                    FlxG.switchState(new LobbyRoom());
-                }
+            CONFIG::debugging {
+                debugText.text = "" + current_scene;
             }
 
-            if (currentState == STATE_INTRO) {
-                if (current_scene == 1) {
-                    kidBubble1.alpha += ALPHA_DELTA;
-                    kidBubble1Text.alpha += ALPHA_DELTA;
-                } else if (current_scene == 2) {
-                    kidBubble1.alpha -= ALPHA_DELTA;
-                    kidBubble1Text.alpha -= ALPHA_DELTA;
-                    photographerBubble1.alpha += ALPHA_DELTA;
-                    photographerBubble1Text.alpha += ALPHA_DELTA;
-                    kid.alpha -= ALPHA_DELTA;
-                    kid2.alpha += ALPHA_DELTA;
-                } else if (current_scene == 3) {
-                } else if (current_scene == 4) {
-                } else if (current_scene == 5) {
-                } else if (current_scene == 6) {
-                } else if (current_scene == 7) {
-                } else if (current_scene == 8) {
-                    kidBubble1.alpha += ALPHA_DELTA;
-                    kidBubble1Text.alpha += ALPHA_DELTA;
-                    photographerBubble1.alpha -= ALPHA_DELTA;
-                    photographerBubble1Text.alpha -= ALPHA_DELTA;
-                } else if (current_scene == 9) {
+            if (!this.ending) {
+                if (currentState == STATE_INTRO) {
+                    if (current_scene == 0 && timeFrame == 1) {
+                        current_scene += 1;
+                    } else if (current_scene == 1 && startAgo(2)) {
+                        current_scene += 1;
+                    } else if (current_scene == 2 && startAgo(4)) {
+                        current_scene += 1;
+                    } else if (current_scene == 3 && startAgo(6)) {
+                        current_scene += 1;
+                        photographerBubble1Text.text = photographerText1B;
+                    } else if (current_scene == 4 && startAgo(8)) {
+                        current_scene += 1;
+                        photographerBubble1Text.text = photographerText1C;
+                    } else if (current_scene == 5 && startAgo(10)) {
+                        current_scene += 1;
+                        photographerBubble1Text.text = photographerText1D;
+                    } else if (current_scene == 6 && startAgo(12)) {
+                        current_scene += 1;
+                        photographerBubble1Text.text = photographerText1E;
+                    } else if (current_scene == 7 && startAgo(14)) {
+                        current_scene += 1;
+                        kidBubble1Text.text = kidText2;
+                    } else if (current_scene == 8 && startAgo(16)) {
+                        switchState(STATE_CHOICE);
+                    }
+                } else if (currentState == STATE_CHOICE) {
+                    if (current_scene == 1 && lastStateAgo(1)) {
+                        current_scene += 1;
+                    }
+                } else if (currentState == STATE_RESULT) {
+                    if (current_scene == 1 && lastStateAgo(3)) {
+                        current_scene += 1;
+                    } else if (current_scene == 2 && lastStateAgo(5)) {
+                        current_scene += 1;
+                    } else if (current_scene == 3 && lastStateAgo(7)) {
+                        current_scene += 1;
+                        resultText2.text = endText2;
+                    } else if (current_scene == 4 && lastStateAgo(10)) {
+                        current_scene += 1;
+                        FlxG.switchState(new LobbyRoom());
+                    }
                 }
-            } else if (currentState == STATE_CHOICE) {
-                if (current_scene == 1) {
-                    bgImage.alpha -= ALPHA_DELTA;
-                    kid2.alpha -= ALPHA_DELTA;
-                    friseurin.alpha -= ALPHA_DELTA;
-                    photographer.alpha -= ALPHA_DELTA;
-                    photographerBubble1.alpha -= ALPHA_DELTA;
-                    photographerBubble1Text.alpha -= ALPHA_DELTA;
-                    offerBackground.alpha += ALPHA_DELTA;
-                } else if (current_scene == 2) {
-                    offerBubble.alpha += ALPHA_DELTA;
-                    this.activeSelectorBox.incrementAlpha(ALPHA_DELTA);
+
+                if (currentState == STATE_INTRO) {
+                    if (current_scene == 1) {
+                        kidBubble1.alpha += ALPHA_DELTA;
+                        kidBubble1Text.alpha += ALPHA_DELTA;
+                    } else if (current_scene == 2) {
+                        kidBubble1.alpha -= ALPHA_DELTA;
+                        kidBubble1Text.alpha -= ALPHA_DELTA;
+                        photographerBubble1.alpha += ALPHA_DELTA;
+                        photographerBubble1Text.alpha += ALPHA_DELTA;
+                        kid.alpha -= ALPHA_DELTA;
+                        kid2.alpha += ALPHA_DELTA;
+                    } else if (current_scene == 3) {
+                    } else if (current_scene == 4) {
+                    } else if (current_scene == 5) {
+                    } else if (current_scene == 6) {
+                    } else if (current_scene == 7) {
+                    } else if (current_scene == 8) {
+                        kidBubble1.alpha += ALPHA_DELTA;
+                        kidBubble1Text.alpha += ALPHA_DELTA;
+                        photographerBubble1.alpha -= ALPHA_DELTA;
+                        photographerBubble1Text.alpha -= ALPHA_DELTA;
+                    } else if (current_scene == 9) {
+                    }
+                } else if (currentState == STATE_CHOICE) {
+                    if (current_scene == 1) {
+                        bgImage.alpha -= ALPHA_DELTA;
+                        kid2.alpha -= ALPHA_DELTA;
+                        friseurin.alpha -= ALPHA_DELTA;
+                        photographer.alpha -= ALPHA_DELTA;
+                        photographerBubble1.alpha -= ALPHA_DELTA;
+                        photographerBubble1Text.alpha -= ALPHA_DELTA;
+                        offerBackground.alpha += ALPHA_DELTA;
+                    } else if (current_scene == 2) {
+                        offerBubble.alpha += ALPHA_DELTA;
+                        this.activeSelectorBox.incrementAlpha(ALPHA_DELTA);
+                    }
+                } else if (currentState == STATE_RESULT) {
+                    if (current_scene == 1) {
+                        offerBubble.alpha -= ALPHA_DELTA;
+                        offerBackground.alpha -= ALPHA_DELTA;
+                        this.activeSelectorBox.incrementAlpha(-ALPHA_DELTA);
+                        resultBackground.alpha += ALPHA_DELTA;
+                        kid3.alpha += ALPHA_DELTA;
+                        customer.alpha += ALPHA_DELTA;
+                    } else if (current_scene == 2) {
+                        resultBubble1.alpha += ALPHA_DELTA;
+                        resultText1.alpha += ALPHA_DELTA;
+                    } else if (current_scene == 3) {
+                        resultBubble1.alpha -= ALPHA_DELTA;
+                        resultText1.alpha -= ALPHA_DELTA;
+                        resultBubble2.alpha += ALPHA_DELTA;
+                        resultText2.alpha += ALPHA_DELTA;
+                    }
                 }
-            } else if (currentState == STATE_RESULT) {
-                if (current_scene == 1) {
-                    offerBubble.alpha -= ALPHA_DELTA;
-                    offerBackground.alpha -= ALPHA_DELTA;
-                    this.activeSelectorBox.incrementAlpha(-ALPHA_DELTA);
-                    resultBackground.alpha += ALPHA_DELTA;
-                    kid3.alpha += ALPHA_DELTA;
-                    customer.alpha += ALPHA_DELTA;
-                } else if (current_scene == 2) {
-                    resultBubble1.alpha += ALPHA_DELTA;
-                    resultText1.alpha += ALPHA_DELTA;
-                } else if (current_scene == 3) {
-                    resultBubble1.alpha -= ALPHA_DELTA;
-                    resultText1.alpha -= ALPHA_DELTA;
-                    resultBubble2.alpha += ALPHA_DELTA;
-                    resultText2.alpha += ALPHA_DELTA;
+            } else {  // ending
+                if (currentState == STATE_INTRO) {
+                    if (current_scene == 0 && timeFrame == 1) {
+                        current_scene += 1;
+                    } else if (current_scene == 1 && startAgo(2)) {
+                        current_scene += 1;
+                    } else if (current_scene == 2 && startAgo(4)) {
+                        current_scene += 1;
+                        kidBubble1Text.text = kidText2End;
+                    } else if (current_scene == 3 && startAgo(6)) {
+                        current_scene += 1;
+                    } else if (current_scene == 4 && startAgo(8)) {
+                        current_scene += 1;
+                        kidBubble1Text.text = kidText3End;
+                    } else if (current_scene == 5 && startAgo(10)) {
+                        current_scene += 1;
+                        bubble16Text.text = momText2;
+                    } else if (current_scene == 6 && startAgo(12)) {
+                        current_scene += 1;
+                        photographerBubble1Text.text = photographerText1;
+                    } else if (current_scene == 7 && startAgo(14)) {
+                        current_scene += 1;
+                        photographerBubble1Text.text = photographerText1B;
+                    } else if (current_scene == 8 && startAgo(16)) {
+                        current_scene += 1;
+                        photographerBubble1Text.text = photographerText1C;
+                    } else if (current_scene == 9 && startAgo(18)) {
+                        current_scene += 1;
+                        photographerBubble1Text.text = photographerText1E;
+                    } else if (current_scene == 10 && startAgo(20)) {
+                        current_scene += 1;
+                    } else if (current_scene == 11 && startAgo(22)) {
+                        current_scene += 1;
+                        bubble16Text.text = momText3;
+                    } else if (current_scene == 12 && startAgo(24)) {
+                        current_scene += 1;
+                        kidBubble1Text.text = kidText4End;
+                    } else if (current_scene == 13 && startAgo(26)) {
+                        switchState(STATE_CHOICE);
+                    }
+                } else if (currentState == STATE_CHOICE) {
+                    if (current_scene == 1 && lastStateAgo(2)) {
+                        current_scene += 1;
+                    }
+                } else if (currentState == STATE_RESULT) {
+                    if (current_scene == 1 && lastStateAgo(2)) {
+                        current_scene += 1;
+                    } else if(current_scene == 2 && lastStateAgo(4)) {
+                        current_scene += 1;
+                    } else if(current_scene == 3 && lastStateAgo(6)) {
+                        current_scene += 1;
+                    } else if(current_scene == 4 && lastStateAgo(8)) {
+                        current_scene += 1;
+                        kidBubble1Text.text = resultText3End;
+                    } else if(current_scene == 5 && lastStateAgo(10)) {
+                        current_scene += 1;
+                    } else if(current_scene == 6 && lastStateAgo(12)) {
+                        current_scene += 1;
+                    } else if(current_scene == 7 && lastStateAgo(14)) {
+                        current_scene += 1;
+                    } else if(current_scene == 8 && lastStateAgo(16)) {
+                        current_scene += 1;
+                    }
+                }
+
+                if (currentState == STATE_INTRO) {
+                    if (current_scene == 1) {
+                        kidBubble1.alpha += ALPHA_DELTA;
+                        kidBubble1Text.alpha += ALPHA_DELTA;
+                    } else if (current_scene == 2) {
+                        kidBubble1.alpha -= ALPHA_DELTA;
+                        kidBubble1Text.alpha -= ALPHA_DELTA;
+                        photographerBubble1.alpha += ALPHA_DELTA;
+                        photographerBubble1Text.alpha += ALPHA_DELTA;
+                        kid.alpha -= ALPHA_DELTA;
+                        kid2.alpha += ALPHA_DELTA;
+                    } else if (current_scene == 3) {
+                        photographerBubble1.alpha -= ALPHA_DELTA;
+                        photographerBubble1Text.alpha -= ALPHA_DELTA;
+                        kidBubble1.alpha += ALPHA_DELTA;
+                        kidBubble1Text.alpha += ALPHA_DELTA;
+                    } else if (current_scene == 4) {
+                        kidBubble1.alpha -= ALPHA_DELTA;
+                        kidBubble1Text.alpha -= ALPHA_DELTA;
+                        bubble16.alpha += ALPHA_DELTA;
+                        bubble16Text.alpha += ALPHA_DELTA;
+                    } else if (current_scene == 5) {
+                        kidBubble1.alpha += ALPHA_DELTA;
+                        kidBubble1Text.alpha += ALPHA_DELTA;
+                        bubble16.alpha -= ALPHA_DELTA;
+                        bubble16Text.alpha -= ALPHA_DELTA;
+                    } else if (current_scene == 6) {
+                        kidBubble1.alpha -= ALPHA_DELTA;
+                        kidBubble1Text.alpha -= ALPHA_DELTA;
+                        bubble16.alpha += ALPHA_DELTA;
+                        bubble16Text.alpha += ALPHA_DELTA;
+                    } else if (current_scene == 7) {
+                        bubble16.alpha -= ALPHA_DELTA;
+                        bubble16Text.alpha -= ALPHA_DELTA;
+                        photographerBubble1.alpha += ALPHA_DELTA;
+                        photographerBubble1Text.alpha += ALPHA_DELTA;
+                    } else if (current_scene == 8) {
+                    } else if (current_scene == 9) {
+                    } else if (current_scene == 10) {
+                    } else if (current_scene == 11) {
+                    } else if (current_scene == 12) {
+                        bubble16.alpha += ALPHA_DELTA;
+                        bubble16Text.alpha += ALPHA_DELTA;
+                        photographerBubble1.alpha -= ALPHA_DELTA;
+                        photographerBubble1Text.alpha -= ALPHA_DELTA;
+                    } else if (current_scene == 13) {
+                        bubble16.alpha -= ALPHA_DELTA;
+                        bubble16Text.alpha -= ALPHA_DELTA;
+                        kidBubble1.alpha += ALPHA_DELTA;
+                        kidBubble1Text.alpha += ALPHA_DELTA;
+                    } else if (current_scene == 14) {
+                    }
+                } else if (currentState == STATE_CHOICE) {
+                    if (current_scene == 1) {
+                        bgImage.alpha -= ALPHA_DELTA;
+                        kid2.alpha -= ALPHA_DELTA;
+                        friseurin.alpha -= ALPHA_DELTA;
+                        photographer.alpha -= ALPHA_DELTA;
+                        kidBubble1.alpha -= ALPHA_DELTA;
+                        kidBubble1Text.alpha -= ALPHA_DELTA;
+                        offerBackground.alpha += ALPHA_DELTA;
+                    } else if (current_scene == 2) {
+                        offerBubble.alpha += ALPHA_DELTA;
+                        this.activeSelectorBox.incrementAlpha(ALPHA_DELTA);
+                    }
+                } else if (currentState == STATE_RESULT) {
+                    if (current_scene == 1) {
+                        offerBubble.alpha -= ALPHA_DELTA;
+                        offerBackground.alpha -= ALPHA_DELTA;
+                        this.activeSelectorBox.incrementAlpha(-ALPHA_DELTA);
+                        resultBackground.alpha += ALPHA_DELTA;
+                        customer.alpha += ALPHA_DELTA;
+                    } else if (current_scene == 2) {
+                        bubble14.alpha += ALPHA_DELTA;
+                        bubble14Text.alpha += ALPHA_DELTA;
+                    } else if (current_scene == 3) {
+                        bubble14.alpha -= ALPHA_DELTA;
+                        bubble14Text.alpha -= ALPHA_DELTA;
+                        bubble15.alpha += ALPHA_DELTA;
+                        bubble15Text.alpha += ALPHA_DELTA;
+                    } else if (current_scene == 4) {
+                        bubble15.alpha -= ALPHA_DELTA;
+                        bubble15Text.alpha -= ALPHA_DELTA;
+                        kidBubble1.alpha += ALPHA_DELTA;
+                        kidBubble1Text.alpha += ALPHA_DELTA;
+                    } else if (current_scene == 5) {
+                    } else if (current_scene == 6) {
+                    } else if (current_scene == 7) {
+                    }
                 }
             }
         }
@@ -325,19 +583,37 @@ package
 
                 if (idx == 0) {
                     cutChoice = CHOICE_SHORT;
-                    customer.x = 44;
-                    customer.y = 14;
-                    customer.loadGraphic(ImgCustomer1, true, true, 425, 470, true);
+                    if (this.ending) {
+                        customer.x = 181;
+                        customer.y = 80;
+                        customer.loadGraphic(ImgKid4, true, true, 293, 376, true);
+                    } else {
+                        customer.x = 44;
+                        customer.y = 14;
+                        customer.loadGraphic(ImgCustomer1, true, true, 425, 470, true);
+                    }
                 } else if (idx == 1) {
                     cutChoice = CHOICE_MED;
-                    customer.x = 124;
-                    customer.y = 9;
-                    customer.loadGraphic(ImgCustomer2, true, true, 344, 468, true);
+                    if (this.ending) {
+                        customer.x = 181;
+                        customer.y = 20;
+                        customer.loadGraphic(ImgKid5, true, true, 293, 456, true);
+                    } else {
+                        customer.x = 124;
+                        customer.y = 9;
+                        customer.loadGraphic(ImgCustomer2, true, true, 344, 468, true);
+                    }
                 } else if (idx == 2) {
                     cutChoice = CHOICE_LONG;
-                    customer.x = 110;
-                    customer.y = 8;
-                    customer.loadGraphic(ImgCustomer3, true, true, 356, 470, true);
+                    if (this.ending) {
+                        customer.x = 181;
+                        customer.y = 101;
+                        customer.loadGraphic(ImgKid6, true, true, 293, 399, true);
+                    } else {
+                        customer.x = 110;
+                        customer.y = 8;
+                        customer.loadGraphic(ImgCustomer3, true, true, 356, 470, true);
+                    }
                 }
             }
         }

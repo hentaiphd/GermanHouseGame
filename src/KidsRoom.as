@@ -110,13 +110,17 @@ package
 
             this.switchLanguage();
 
-            kasperle2 = new FlxSprite(154, 96);
-            kasperle2.loadGraphic(ImgKasperle2, true, true, 152, 165, true);
+            kasperle2 = new FlxSprite(133, 99);
+            kasperle2.loadGraphic(ImgKasperle2, true, true, 516/3, 174, true);
+            kasperle2.addAnimation("run", [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 2, 1, 1], 12, true);
             add(kasperle2);
+            kasperle2.play("run");
 
-            oma1 = new FlxSprite(317, 105);
-            oma1.loadGraphic(ImgOma1, true, true, 168, 155, true);
+            oma1 = new FlxSprite(317, 97);
+            oma1.loadGraphic(ImgOma1, true, true, 567/3, 163, true);
+            oma1.addAnimation("run", [0, 0, 0, 1, 2, 2, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0], 12, true);
             add(oma1);
+            oma1.play("run");
 
             kasperle1 = new FlxSprite(135, 156);
             kasperle1.loadGraphic(ImgKasperle1, true, true, 105, 106, true);

@@ -13,7 +13,7 @@ package
         [Embed(source="../assets/04-Parents-01.png")] private var ImgParents:Class;
         [Embed(source="../assets/04-Teacher-01.png")] private var ImgProfFront:Class;
         [Embed(source="../assets/04-Teacher-02.png")] private var ImgProfSide:Class;
-        [Embed(source="../assets/Bubble-09.png")] private var ImgBubbleOne:Class;
+        [Embed(source="../assets/Bubble-17.png")] private var ImgBubbleOne:Class;
         [Embed(source="../assets/Bubble-10.png")] private var ImgBubbleTwo:Class;
         [Embed(source="../assets/Bubble-02.png")] private var ImgBubbleThree:Class;
         [Embed(source="../assets/Bubble-13.png")] private var ImgBubbleFour:Class;
@@ -68,7 +68,6 @@ package
 
             CONFIG::debugging {
                 this.ending = true;
-                HouseMap.getInstance().currentLanguage = HouseMap.LANG_DE;
             }
 
             debugText = new FlxText(300,10,300,"");
@@ -80,7 +79,7 @@ package
             add(debugText);
 
             profBubbleOne = new FlxSprite(63, 30);
-            profBubbleOne.loadGraphic(ImgBubbleOne, true, true, 254, 137, true);
+            profBubbleOne.loadGraphic(ImgBubbleOne, true, true, 254, 186, true);
             profBubbleOne.alpha = 0;
             add(profBubbleOne);
 
@@ -135,7 +134,7 @@ package
             playerQuestions = new Dictionary();
             playerAnswers = new Dictionary();
 
-            profTextOne = new FlxText(80, 46, 250, "");
+            profTextOne = new FlxText(80, 46, 200, "");
             profTextOne.setFormat("LeaBlock-Regular",18,0xff000000,"left");
             profTextOne.alpha = 0;
             add(profTextOne);
@@ -145,17 +144,17 @@ package
             profTextTwo.alpha = 0;
             add(profTextTwo);
 
-            profTextSeven = new FlxText(80, 46, 210, "");
+            profTextSeven = new FlxText(80, 46, 200, "");
             profTextSeven.setFormat("LeaBlock-Regular",18,0xff000000,"left");
             profTextSeven.alpha = 0;
             add(profTextSeven);
 
-            profTextThree = new FlxText(80, 46, 250, "");
+            profTextThree = new FlxText(80, 46, 200, "");
             profTextThree.setFormat("LeaBlock-Regular",18,0xff000000,"left");
             profTextThree.alpha = 0;
             add(profTextThree);
 
-            profTextFour = new FlxText(80, 73, 210, "");
+            profTextFour = new FlxText(80, 73, 200, "");
             profTextFour.setFormat("LeaBlock-Regular",18,0xff000000,"left");
             profTextFour.alpha = 0;
             add(profTextFour);
@@ -297,7 +296,7 @@ package
             word = wordList[rand].toString();
             boardText.text = word;
 
-            conversation(new FlxPoint(40, 100), new FlxPoint(450,230),"", this, SEL_PROF,
+            conversation(new FlxPoint(100, 100), new FlxPoint(450,230),"", this, SEL_PROF,
                          playerQuestions[word], true)();
         }
 

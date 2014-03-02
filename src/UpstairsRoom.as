@@ -47,13 +47,13 @@ package
             this.addClickZone(new FlxPoint(400, 100), new FlxPoint(150, 150),
                 null, null);
 
-            FlxG.mouse.show();
-
             var entryPoint:FlxPoint = mainEntryPoint;
             player = new Player(entryPoint.x, entryPoint.y);
             add(player);
 
             HouseMap.getInstance().playLoopingBGM(SndBGM, "overworld");
+
+            this.postCreate();
         }
 
         private function stairsTouched(a:FlxSprite, b:FlxSprite):void

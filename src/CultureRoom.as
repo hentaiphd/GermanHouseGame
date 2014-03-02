@@ -254,6 +254,8 @@ package
                 debugText.size = 11;
                 add(debugText);
             }
+
+            this.postCreate();
         }
 
         override public function switchLanguage():void

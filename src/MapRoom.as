@@ -5,6 +5,7 @@ package
 
     public class MapRoom extends TimedState
     {
+        public var mouse:AnimatedCursor;
         public var bgImage:FlxSprite;
         private var zones:Dictionary;
 
@@ -32,7 +33,6 @@ package
         override public function create():void
         {
             super.create();
-            FlxG.mouse.show();
             endingChecker();
         }
 
@@ -47,13 +47,35 @@ package
                 this.activeSelectorBox.update();
             }
 
+            mouse.hovering = false;
+            mouse.optionHover = false;
+            var clickzone:FlxRect = new FlxRect(0, 0, 0, 0);
             for (var k:Object in this.zones) {
                 var contactFn:Function = this.zones[k];
                 var _clickZone:DHButton = k as DHButton;
                 this.doContact(_clickZone, contactFn);
+
+                if(contactFn != null){
+                    clickzone.x = _clickZone.x;
+                    clickzone.y = _clickZone.y;
+                    clickzone.width = _clickZone.width;
+                    clickzone.height = _clickZone.height;
+
+                    if(mouse.rect.overlaps(clickzone)) {
+                        if (!this.activeSelectorBox.shown) {
+                            mouse.hovering = true;
+                        } else if (!this.activeSelectorBox.optionIsHovered) {
+                            mouse.hovering = false;
+                        }
+                    } else if (this.activeSelectorBox.optionIsHovered && this.activeSelectorBox.shown) {
+                        mouse.optionHover = true;
+                    }
+                }
             }
 
             CONFIG::debugging {
+                debugText.text = mouse.rect.x + " x " + mouse.rect.y;
+
                 if (FlxG.keys.justReleased("SPACE")) {
                     var _text:DHFadeText = new DHFadeText(new FlxPoint(100, 100), new FlxPoint(300, 100), "");
                     if (HouseMap.getInstance().currentLanguage == HouseMap.LANG_DE) {
@@ -66,6 +88,20 @@ package
                     this.switchLanguage();
                     FlxG.state.add(_text);
                 }
+            }
+        }
+
+        public function postCreate():void{
+            mouse = new AnimatedCursor();
+            add(mouse);
+            FlxG.mouse.hide();
+
+            CONFIG::debugging {
+                debugText = new FlxText(100,100,500,"");
+                debugText.size = 20;
+                debugText.color = 0xff000000;
+                add(debugText);
+                debugText.text = mouse.hovering.toString();
             }
         }
 
@@ -129,12 +165,25 @@ package
             var _clickZone:DHButton = new DHButton(origin.x, origin.y, "", clickFn);
             var _color:uint = 0x00000000;
             CONFIG::debugging {
-                _color = 0x77FF0000;
+                if (contactFn != null) {
+                    _color = 0x77FF0000;
+                } else {
+                    _color = 0x77FF00FF;
+                }
             }
             _clickZone.makeGraphic(size.x, size.y, _color);
             _clickZone.immovable = true;
             add(_clickZone);
             this.zones[_clickZone] = contactFn;
+
+            CONFIG::debugging {
+                var posText:FlxText = new FlxText(origin.x, origin.y, size.x,
+                    origin.x + " x " + origin.y + "\n" + size.x + " x " + size.y);
+                posText.size = 14;
+                posText.color = 0xff000000;
+                FlxG.state.add(posText);
+            }
+
             return _clickZone;
         }
 

@@ -53,8 +53,6 @@ package
         private static const STATE_RESULT:int = 3;
         public var current_scene:Number = 0;
 
-        private const ALPHA_DELTA:Number = .04;
-
         private static const SEL_OFFER:String = "offer_sel";
 
         override public function create():void

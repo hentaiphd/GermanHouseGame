@@ -48,8 +48,6 @@ package
         private static const STATE_RESULT:int = 3;
         public var current_scene:Number = 0;
 
-        private const ALPHA_DELTA:Number = .04;
-
         //german player version
         //Earful - (1) An empty waste basket. (2) A lot of angry talk. (3) A good dancer.
         //Cushy - (1) Something easy or comfortable. (2) A freshly baked pie. (3) The color of a sunset.

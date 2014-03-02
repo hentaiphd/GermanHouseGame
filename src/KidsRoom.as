@@ -65,8 +65,6 @@ package
         private static const GUESS_INCORRECT:int = 420;
         private var guessResult:int = GUESS_INCORRECT;
 
-        private const ALPHA_DELTA:Number = .04;
-
         private static const SEL_QUES:String = "question_sel";
 
         private static var guessOptions:Array;

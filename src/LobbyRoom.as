@@ -23,8 +23,6 @@ package
         private static const STATE_MAIN:int = 2;
         public var current_scene:Number = 1;
 
-        private const ALPHA_DELTA:Number = .04;
-
         private static const SEL_LANG:String = "lang_sel";
 
         {

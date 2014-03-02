@@ -21,6 +21,8 @@ package
         public static const STATE_INTRO:int = 1;
         public var currentState:int = STATE_INTRO;
 
+        public const ALPHA_DELTA:Number = .04;
+
         public function MapRoom()
         {
             this.zones = new Dictionary();

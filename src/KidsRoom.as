@@ -71,6 +71,10 @@ package
 
             super.create();
 
+            CONFIG::debugging {
+                this.ending = true;
+            }
+
             this.setupBackground(ImgKidsRoom);
 
             guessOptions = new Array(
@@ -288,8 +292,6 @@ package
                     current_scene += 1;
                     if (!this.ending) {
                         FlxG.switchState(new UpstairsRoom());
-                    } else if (this.ending){
-                        this.theEnd();
                     }
                 } else if (current_scene == 5) {
                     if (lastStateAgo(10)) {
@@ -311,6 +313,8 @@ package
                 } else if (current_scene == 9 && lastStateAgo(19)) {
                     current_scene += 1;
                     bubble12Text3.text = bubble12String5;
+                } else if (current_scene == 10 && lastStateAgo(21)) {
+                    this.theEnd();
                 }
             }
 

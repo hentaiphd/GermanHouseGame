@@ -22,6 +22,8 @@ package
             t = new FlxText(0,FlxG.height/2-10,FlxG.width,_text);
             t.setFormat("LeaBlock-Regular",18,0xff000000,"center");
             add(t);
+
+            FlxG.music.stop();
         }
 
         override public function update():void

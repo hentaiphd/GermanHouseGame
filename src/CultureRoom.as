@@ -479,6 +479,7 @@ package
                         kidBubble1Text.text = resultText3End;
                     } else if(current_scene == 5 && lastStateAgo(10)) {
                         current_scene += 1;
+                        this.theEnd();
                     } else if(current_scene == 6 && lastStateAgo(12)) {
                         current_scene += 1;
                     } else if(current_scene == 7 && lastStateAgo(14)) {

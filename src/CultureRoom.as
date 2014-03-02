@@ -109,16 +109,6 @@ package
             kid2.alpha = 0;
             add(kid2);
 
-            kidBubble1 = new FlxSprite(374, 332);
-            kidBubble1.loadGraphic(ImgKidBubble1, true, true, 254, 137, true);
-            kidBubble1.alpha = 0;
-            add(kidBubble1);
-            kidBubble1Text = new TextBox(new FlxPoint(kidBubble1.x+40, kidBubble1.y+10),
-                                         new FlxPoint(kidBubble1.width-40, kidBubble1.height),
-                                         kidText1);
-            kidBubble1Text.alpha = 0;
-            add(kidBubble1Text);
-
             friseurBubble1 = new FlxSprite(390, 308);
             friseurBubble1.loadGraphic(ImgFriseurBubble1, true, true, 236, 160, true);
             friseurBubble1.alpha = 0;
@@ -209,7 +199,7 @@ package
             bubble14.loadGraphic(ImgBubble14, true, true, 564, 127, true);
             bubble14.alpha = 0;
             add(bubble14);
-            bubble14Text = new TextBox(new FlxPoint(bubble14.x+10, bubble14.y+30),
+            bubble14Text = new TextBox(new FlxPoint(bubble14.x+10, bubble14.y+50),
                                        new FlxPoint(bubble14.width-20, bubble14.height),
                                        resultTextEnd);
             bubble14Text.alpha = 0;
@@ -224,6 +214,16 @@ package
                                        resultText1End);
             bubble15Text.alpha = 0;
             add(bubble15Text);
+
+            kidBubble1 = new FlxSprite(374, 332);
+            kidBubble1.loadGraphic(ImgKidBubble1, true, true, 254, 137, true);
+            kidBubble1.alpha = 0;
+            add(kidBubble1);
+            kidBubble1Text = new TextBox(new FlxPoint(kidBubble1.x+40, kidBubble1.y+10),
+                                         new FlxPoint(kidBubble1.width-40, kidBubble1.height),
+                                         kidText1);
+            kidBubble1Text.alpha = 0;
+            add(kidBubble1Text);
 
             cutOption1 = new FlxSprite(0, 0);
             cutOption1.loadGraphic(ImgScissors1, true, true, 70, 76, true);
@@ -391,6 +391,8 @@ package
                         photographer.alpha -= ALPHA_DELTA;
                         photographerBubble1.alpha -= ALPHA_DELTA;
                         photographerBubble1Text.alpha -= ALPHA_DELTA;
+                        kidBubble1.alpha -= ALPHA_DELTA;
+                        kidBubble1Text.alpha -= ALPHA_DELTA;
                         offerBackground.alpha += ALPHA_DELTA;
                     } else if (current_scene == 2) {
                         offerBubble.alpha += ALPHA_DELTA;
@@ -465,6 +467,7 @@ package
                         current_scene += 1;
                     } else if(current_scene == 3 && lastStateAgo(6)) {
                         current_scene += 1;
+                        kidBubble1Text.text = resultText2End;
                     } else if(current_scene == 4 && lastStateAgo(8)) {
                         current_scene += 1;
                         kidBubble1Text.text = resultText3End;
@@ -585,8 +588,8 @@ package
                     cutChoice = CHOICE_SHORT;
                     if (this.ending) {
                         customer.x = 181;
-                        customer.y = 80;
-                        customer.loadGraphic(ImgKid4, true, true, 293, 376, true);
+                        customer.y = 101;
+                        customer.loadGraphic(ImgKid6, true, true, 293, 399, true);
                     } else {
                         customer.x = 44;
                         customer.y = 14;
@@ -607,8 +610,8 @@ package
                     cutChoice = CHOICE_LONG;
                     if (this.ending) {
                         customer.x = 181;
-                        customer.y = 101;
-                        customer.loadGraphic(ImgKid6, true, true, 293, 399, true);
+                        customer.y = 100;
+                        customer.loadGraphic(ImgKid4, true, true, 293, 376, true);
                     } else {
                         customer.x = 110;
                         customer.y = 8;

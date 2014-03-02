@@ -76,8 +76,6 @@ package
                              "", this,SEL_LANG, new Array("Yes!","Kannst du auch Deutsch?"), true)();
             }
 
-            FlxG.mouse.show();
-
             var entryPoint:FlxPoint = mainEntryPoint;
             var lastExitPoint:FlxPoint = HouseMap.getInstance().popExitPoint();
             if (lastExitPoint != null) {
@@ -121,6 +119,8 @@ package
             );
 
             HouseMap.getInstance().playLoopingBGM(SndBGM, "overworld");
+
+            this.postCreate();
         }
 
         override public function update():void{

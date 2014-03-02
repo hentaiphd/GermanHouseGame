@@ -219,6 +219,8 @@ package
             conversation(new FlxPoint(100, 100), new FlxPoint(450,230),"", this, SEL_PROF,
                          playerQuestions[word], true)();
 
+            this.postCreate();
+
         }
 
         override public function switchLanguage():void

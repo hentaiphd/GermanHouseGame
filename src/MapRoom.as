@@ -5,6 +5,7 @@ package
 
     public class MapRoom extends TimedState
     {
+        public var mouse:AnimatedCursor;
         public var bgImage:FlxSprite;
         private var zones:Dictionary;
 
@@ -32,7 +33,6 @@ package
         override public function create():void
         {
             super.create();
-            FlxG.mouse.show();
             endingChecker();
         }
 
@@ -47,10 +47,27 @@ package
                 this.activeSelectorBox.update();
             }
 
+            var clickzone:FlxRect = new FlxRect(0, 0, 0, 0);
             for (var k:Object in this.zones) {
                 var contactFn:Function = this.zones[k];
                 var _clickZone:DHButton = k as DHButton;
                 this.doContact(_clickZone, contactFn);
+                //if(contactFn != null){
+                    clickzone.x = _clickZone.x;
+                    clickzone.y = _clickZone.y;
+                    clickzone.width = _clickZone.width;
+                    clickzone.height = _clickZone.height;
+
+                    if(mouse.rect.overlaps(clickzone)){
+                        mouse.hovering = true
+                        debugText.text = mouse.hovering.toString();
+                    }else{
+                        debugText.text = mouse.hovering.toString();
+                        mouse.hovering = false;
+                    }
+                /*}else{
+                    mouse.hovering = false;
+                }*/
             }
 
             CONFIG::debugging {
@@ -67,6 +84,18 @@ package
                     FlxG.state.add(_text);
                 }
             }
+        }
+
+        public function postCreate():void{
+            mouse = new AnimatedCursor();
+            add(mouse);
+            FlxG.mouse.hide();
+
+            debugText = new FlxText(10,10,500,"");
+            debugText.size = 20;
+            debugText.color = 0xff000000;
+            add(debugText);
+            debugText.text = mouse.hovering.toString();
         }
 
         public function switchLanguage():void

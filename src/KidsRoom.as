@@ -211,6 +211,8 @@ package
             }
 
             HouseMap.getInstance().playLoopingBGM(SndBGM, "kids");
+
+            this.postCreate();
         }
 
         override public function switchLanguage():void

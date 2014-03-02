@@ -21,7 +21,8 @@ package
             door.loadGraphic(ImgDoor, false, false, 222, 317);
             add(door);
 
-            FlxG.mouse.show();
+            add(new AnimatedCursor());
+            FlxG.mouse.hide();
         }
 
         override public function update():void

@@ -177,6 +177,8 @@ package
             conversation(new FlxPoint(offerBubble.x+30, offerBubble.y+30),
                          new FlxPoint(offerBubble.width-80, offerBubble.height),
                          offerText, this, SEL_OFFER, offerChoices, true, 120, choiceImages)();
+
+            this.postCreate();
         }
 
         override public function switchLanguage():void

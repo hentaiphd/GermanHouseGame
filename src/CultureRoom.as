@@ -280,7 +280,11 @@ package
                 offerTextEnd = "Ok, sweetie, how much do you want me to cut off?";
                 offerChoices = new Array("Cut a little", "Cut something", "Cut a lot");
                 resultText = "That's not bad, kid!";
-                resultTextEnd = "You look so pretty! Thank you very much!";   /////////////////
+                if (Math.floor(Math.random()*2) == 0) {
+                    resultTextEnd = "You look so handsome! Thank you very much!";
+                } else {
+                    resultTextEnd = "You look so pretty! Thank you very much!";
+                }
                 resultText1End = "It was my pleasure!";
                 resultText2End = "I’ve learned so much and it was really fun!";
                 resultText3End = "I’ll come back tomorrow, that’s for sure.";
@@ -299,7 +303,7 @@ package
                 kidText2End = "Bist du das Mama?";
                 momText1 = "Ja, ich mach mit, bei der Performance!";
                 kidText3End = "Und wo ist der Papa?";
-                momText2 = "Er ist hier, auf dem Foto. Er hat schon einen neuen Haarschnitt bekommen!";
+                momText2 = "Er ist hier, auf dem Foto. Er hat einen neuen Haarschnitt bekommen!";
                 momText3 = "Und jetzt bist du dran!";
                 kidText4End = "Wie bitte?";
                 offerText = "Willstes mal selber probieren?";

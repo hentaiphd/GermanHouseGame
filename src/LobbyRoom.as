@@ -27,7 +27,7 @@ package
         private static const SEL_LANG:String = "lang_sel";
 
         {
-            public static var mainEntryPoint:FlxPoint = new FlxPoint(320, 370);
+            public static var mainEntryPoint:FlxPoint = new FlxPoint(320, 403);
         }
 
         override public function create():void

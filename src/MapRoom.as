@@ -71,6 +71,10 @@ package
                                 mouse.hovering = true;
                             }
                         }
+                    } else {
+                        if (FlxG.mouse.justPressed()) {
+                            _clickZone.wasClicked = false;
+                        }
                     }
                 }
             }

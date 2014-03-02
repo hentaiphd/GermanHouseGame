@@ -263,6 +263,12 @@ package
                 s1 = "Du hast deine Eltern gefunden! Zeit nach Hause zu gehen.";
                 s2 = "Ende.";
             }
+
+            HouseMap.getInstance().endingCounter = 0;
+            HouseMap.getInstance().CultureRoom = false;
+            HouseMap.getInstance().KidsRoom = false;
+            HouseMap.getInstance().LangRoom = false;
+
             FlxG.switchState(new TextState(s1, new TextState(s2, new MenuState())));
         }
     }

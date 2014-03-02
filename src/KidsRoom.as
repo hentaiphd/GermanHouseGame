@@ -98,11 +98,11 @@ package
                 new KidsGuess(ImgThing5, new FlxPoint(252, 76), new FlxPoint(109, 150),
                     new Array("Geldbeutel", "Wolkenkratzer", "Guave", "Spargel", "Pampelmuse", "Handtuch"),
                     new Array("purse", "skyscraper", "guava", "asparagus", "grapefruit", "towel"),
-                    5),
+                    3),
                 new KidsGuess(ImgThing6, new FlxPoint(252, 76), new FlxPoint(112, 138),
                     new Array("Banane", "Sorbet", "Kopftuch", "Gasse", "Hocker", "Rampe"),
                     new Array("banana", "sherbet", "bandana", "alley", "stool", "ramp"),
-                    5)
+                    2)
             );
             thisGuess = guessOptions[Math.floor(Math.random() * guessOptions.length)];
             thisGuess.alpha = 0;

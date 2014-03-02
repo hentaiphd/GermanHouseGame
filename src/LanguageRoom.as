@@ -270,13 +270,13 @@ package
                     familyText.text = "Danke, Herr Lehrer, wir haben heute viel gelernt! Nächstes Mal kommen wir auf jeden Fall wieder!";
                 }
 
-                playerQuestions['Earful'] = new Array("Ein leerer Papierkorb.", "viele wütend Gerede.", "Ein guter Tänzer.");
-                playerQuestions['Cushy'] = new Array("Etwas leicht oder gemütlich.", "Eine frisch gebackene Torte.", "Die Farbe des Sonnenuntergangs.");
-                playerQuestions['Wide-eyed'] = new Array("A juicy conversation.", "Being unsophisticated or innocent.", "Large flocks of geese.");
-                playerQuestions['Weathervane'] = new Array("A thing used to measure wind direction.", "A mountable screen.", "A recruiter for an orchestra.");
-                playerQuestions['Facetious'] = new Array("Soft, swishy or sweeping.", "Supportive or like a boulder.", "Joking about serious issues.");
-                playerQuestions['Knee-slapper'] = new Array("A very funny joke.", "A fast-food restaurant.", "A very slippery slope.");
-                playerQuestions['Canoodle'] = new Array("Hugging and kissing.", "Getting ready for bed.", "Wrapping a present.");
+                playerQuestions['Earful'] = new Array("Ein leerer Papierkorb.", "viel wütendes Gerede.", "Ein guter Tänzer.");
+                playerQuestions['Cushy'] = new Array("Etwas leichtes oder gemütliches.", "Eine frisch gebackene Torte.", "Die Farbe des Sonnenuntergangs.");
+                playerQuestions['Wide-eyed'] = new Array("Verlockendes Gespräch.", "Ungekünstelt oder treuherzig.", "Scharen von Gänsen.");
+                playerQuestions['Weathervane'] = new Array("Gegenstand um die Windrichtung zu messen.", "Hängender Bildschirm.", "Werber für ein Orchester.");
+                playerQuestions['Facetious'] = new Array("Fließend oder weich.", "Fels in der Brandung.", "Über etwas Ernstes spaßend.");
+                playerQuestions['Knee-slapper'] = new Array("Ein sehr lustiger Witze.", "Ein Schnell-Restaurant.", "Abwärtspfad.");
+                playerQuestions['Canoodle'] = new Array("Umarmen und küssen.", "Immer bereit zu schlafen.", "Ein Geschenk einpacken.");
 
                 playerAnswers['Earful'] = new String("A lot of angry talk.");
                 playerAnswers['Cushy'] = new String("Something easy or comfortable.");
@@ -543,12 +543,8 @@ package
         {
             if (currentState == STATE_CHOICE && current_scene == 2
                 && selector._label == SEL_PROF){
-                //if (this.ending) {
-                //} else if(!this.ending){
-                //}
 
                 //allow player to guess until they get the right one
-
                 if(item.text == playerAnswers[word]){
                     profTextGuess.text = profTextRight.text;
 

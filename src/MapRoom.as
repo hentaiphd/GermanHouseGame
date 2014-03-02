@@ -18,6 +18,9 @@ package
         public var ending:Boolean = false;
         public var debugText:FlxText;
 
+        public static const STATE_INTRO:int = 1;
+        public var currentState:int = STATE_INTRO;
+
         public function MapRoom()
         {
             this.zones = new Dictionary();

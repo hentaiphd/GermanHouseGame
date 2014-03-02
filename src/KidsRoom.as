@@ -57,10 +57,8 @@ package
         private var bubble12String5:String;
         private var guessCorrectString:String, guessIncorrectString:String;
 
-        private static const STATE_INTRO:int = 1;
         private static const STATE_CHOICE:int = 2;
         private static const STATE_RESULT:int = 3;
-        private var currentState:int = STATE_INTRO;
         public var current_scene:Number = 0;
 
         private static const GUESS_CORRECT:int = 69;

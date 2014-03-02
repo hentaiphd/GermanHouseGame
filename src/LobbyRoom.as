@@ -20,9 +20,7 @@ package
         public var workerText:TextBox;
         public var kidBubble:FlxSprite;
 
-        private static const STATE_INTRO:int = 1;
         private static const STATE_MAIN:int = 2;
-        private var currentState:int = STATE_INTRO;
         public var current_scene:Number = 1;
 
         private const ALPHA_DELTA:Number = .04;

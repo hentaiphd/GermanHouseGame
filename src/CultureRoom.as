@@ -49,10 +49,8 @@ package
         private static const CHOICE_LONG:int = 3;
         private var cutChoice:Number;
 
-        private static const STATE_INTRO:int = 1;
         private static const STATE_CHOICE:int = 2;
         private static const STATE_RESULT:int = 3;
-        private var currentState:int = STATE_INTRO;
         public var current_scene:Number = 0;
 
         private const ALPHA_DELTA:Number = .04;

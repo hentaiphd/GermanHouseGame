@@ -207,11 +207,11 @@ package
             if (currentState == STATE_INTRO) {
                 if (current_scene == 0 && timeFrame == 1) {
                     current_scene += 1;
-                } else if (current_scene == 1 && timeFrame == 2*TimedState.fpSec) {
+                } else if (current_scene == 1 && startAgo(2)) {
                     current_scene += 1;
-                } else if (current_scene == 2 && timeFrame == 4*TimedState.fpSec) {
+                } else if (current_scene == 2 && startAgo(4)) {
                     current_scene += 1;
-                } else if (current_scene == 3 && timeFrame == 6*TimedState.fpSec) {
+                } else if (current_scene == 3 && startAgo(6)) {
                     current_scene = 1;
                     switchState(STATE_CHOICE);
                 }

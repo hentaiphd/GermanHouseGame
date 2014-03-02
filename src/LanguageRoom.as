@@ -442,7 +442,7 @@ package
                         current_scene += 1;
                     } else if (current_scene == 6 && lastStateAgo(12)){
                         if(!retry){
-                            FlxG.switchState(new UpstairsRoom());
+                            this.theEnd();
                         }
                     }
                 }

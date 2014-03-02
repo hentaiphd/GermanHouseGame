@@ -194,5 +194,9 @@ package
             for (var key:* in dictionary) keys.push(key);
             return keys;
         }
+
+        public function theEnd():void{
+            FlxG.switchState(new TextState("You found your parents! Time to go home!", new TextState("The end.", new MenuState())));
+        }
     }
 }

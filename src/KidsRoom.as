@@ -286,6 +286,8 @@ package
                     current_scene += 1;
                     if (!this.ending) {
                         FlxG.switchState(new UpstairsRoom());
+                    } else if (this.ending){
+                        this.theEnd();
                     }
                 } else if (current_scene == 5) {
                     if (lastStateAgo(10)) {

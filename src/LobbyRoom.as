@@ -11,6 +11,7 @@ package
         [Embed(source="../assets/Bubble-01.png")] private var ImgWorkerBubble:Class;
         [Embed(source="../assets/Bubble-02.png")] private var ImgKidBubble:Class;
         [Embed(source="../assets/Bubble-03.png")] private var ImgBubble3:Class;
+        [Embed(source="../assets/0105-Hair.png")] private var ImgHair:Class;
         [Embed(source="../assets/language.mp3")] private var SndBGM:Class;
 
         public var worker:FlxSprite;
@@ -19,6 +20,7 @@ package
         public var workerBubble:FlxSprite;
         public var workerText:TextBox;
         public var kidBubble:FlxSprite;
+        public var hairAnim:FlxSprite;
 
         private static const STATE_MAIN:int = 2;
 
@@ -59,6 +61,11 @@ package
             workerBubble.loadGraphic(ImgWorkerBubble, true, true, 249, 166, true);
             workerBubble.alpha = 0;
 
+            hairAnim = new FlxSprite(316,10);
+            hairAnim.loadGraphic(ImgHair, true, true, 246, 134, true);
+            hairAnim.addAnimation("loop", [0, 1, 1, 2, 3, 3, 3, 3, 4, 5, 5, 6, 7, 8, 8, 9, 10], 12);
+            add(hairAnim);
+
             workerText = new TextBox(new FlxPoint(399, 113), new FlxPoint(220, 100),
                                     "Hey kid, are you looking for your mom 'n dad?");
             workerText.alpha = 0;
@@ -87,7 +94,7 @@ package
             player.shouldMove = false;
             add(player);
 
-            this.addClickZone(new FlxPoint(350, 0), new FlxPoint(300, 10),
+            this.addClickZone(new FlxPoint(340, 0), new FlxPoint(300, 100),
                               null, doorWasClicked);
             this.addClickZone(new FlxPoint(0, 0), new FlxPoint(200, 270),
                               null, stairsTouched);
@@ -125,6 +132,7 @@ package
 
         override public function update():void{
             super.update();
+            hairAnim.play("loop");
 
             if (currentState == STATE_INTRO) {
                 if (current_scene == 0 && (timeFrame == 1*TimedState.fpSec)) {

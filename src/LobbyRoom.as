@@ -21,7 +21,6 @@ package
         public var kidBubble:FlxSprite;
 
         private static const STATE_MAIN:int = 2;
-        public var current_scene:Number = 1;
 
         private static const SEL_LANG:String = "lang_sel";
 
@@ -128,13 +127,13 @@ package
             super.update();
 
             if (currentState == STATE_INTRO) {
-                if (current_scene == 1 && (timeFrame == 1*TimedState.fpSec)) {
+                if (current_scene == 0 && (timeFrame == 1*TimedState.fpSec)) {
                     current_scene += 1;
-                } else if (current_scene == 2 && (timeFrame == 4*TimedState.fpSec)) {
+                } else if (current_scene == 1 && (timeFrame == 4*TimedState.fpSec)) {
                     current_scene += 1;
-                } else if (current_scene == 3) {
+                } else if (current_scene == 2) {
 
-                } else if (current_scene == 4
+                } else if (current_scene == 3
                     && ((timeFrame == lastSelectionTimeFrame+3*TimedState.fpSec)))
                 {
                     currentState = STATE_MAIN;
@@ -142,13 +141,13 @@ package
                     HouseMap.getInstance().hasSeenIntroSequence = true;
                 }
 
-                if (current_scene == 2) {
+                if (current_scene == 1) {
                     workerBubble.alpha += ALPHA_DELTA;
                     workerText.alpha += ALPHA_DELTA;
-                } else if (current_scene == 3) {
+                } else if (current_scene == 2) {
                     kidBubble.alpha += ALPHA_DELTA;
                     this.activeSelectorBox.incrementAlpha(ALPHA_DELTA);
-                } else if (current_scene == 4) {
+                } else if (current_scene == 3) {
 
                 }
             } else if (currentState == STATE_MAIN) {
@@ -156,7 +155,7 @@ package
                     current_scene = 102;
                 }
 
-                if (current_scene == 102 || current_scene == 4) {
+                if (current_scene == 102 || current_scene == 3) {
                     workerBubble.alpha -= ALPHA_DELTA;
                     workerText.alpha -= ALPHA_DELTA;
                     if (activeTextBox != null) {
@@ -188,7 +187,7 @@ package
         override public function didSelectTextOption(idx:Number, item:FlxText,
                                                      selector:SelectorTextBox):void
         {
-            if (currentState == STATE_INTRO && current_scene == 3
+            if (currentState == STATE_INTRO && current_scene == 2
                 && selector._label == SEL_LANG)
             {
                 current_scene += 1;

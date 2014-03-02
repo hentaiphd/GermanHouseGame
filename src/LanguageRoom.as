@@ -46,7 +46,6 @@ package
         private static const SEL_PROF:String = "prof_sel";
         private static const STATE_CHOICE:int = 2;
         private static const STATE_RESULT:int = 3;
-        public var current_scene:Number = 0;
 
         //german player version
         //Earful - (1) An empty waste basket. (2) A lot of angry talk. (3) A good dancer.
@@ -358,7 +357,6 @@ package
                     retry = true;
                 }
 
-                current_scene = 1;
                 lastSelectionTimeFrame = timeFrame;
                 switchState(STATE_RESULT);
             }

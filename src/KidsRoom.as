@@ -59,7 +59,6 @@ package
 
         private static const STATE_CHOICE:int = 2;
         private static const STATE_RESULT:int = 3;
-        public var current_scene:Number = 0;
 
         private static const GUESS_CORRECT:int = 69;
         private static const GUESS_INCORRECT:int = 420;
@@ -400,7 +399,6 @@ package
             if (currentState == STATE_CHOICE && current_scene == 2
                 && selector._label == SEL_QUES)
             {
-                current_scene = 1;
                 switchState(STATE_RESULT);
                 lastSelectionTimeFrame = timeFrame;
 

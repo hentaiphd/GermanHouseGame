@@ -20,6 +20,7 @@ package
 
         public static const STATE_INTRO:int = 1;
         public var currentState:int = STATE_INTRO;
+        public var current_scene:Number = 0;
 
         public const ALPHA_DELTA:Number = .04;
 
@@ -57,6 +58,7 @@ package
         {
             this.currentState = state;
             lastStateChangeTimeFrame = timeFrame;
+            current_scene = 1;
         }
 
         public function framesSinceLastState():Number

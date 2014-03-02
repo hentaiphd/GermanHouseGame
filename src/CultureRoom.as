@@ -51,7 +51,6 @@ package
 
         private static const STATE_CHOICE:int = 2;
         private static const STATE_RESULT:int = 3;
-        public var current_scene:Number = 0;
 
         private static const SEL_OFFER:String = "offer_sel";
 
@@ -287,7 +286,6 @@ package
             if (currentState == STATE_CHOICE && current_scene == 2
                 && selector._label == SEL_OFFER)
             {
-                current_scene = 1;
                 lastSelectionTimeFrame = timeFrame;
                 switchState(STATE_RESULT);
 

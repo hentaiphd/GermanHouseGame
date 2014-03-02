@@ -213,8 +213,7 @@ package
                     current_scene += 1;
                 } else if (current_scene == 3 && timeFrame == 6*TimedState.fpSec) {
                     current_scene = 1;
-                    currentState = STATE_CHOICE;
-                    lastStateChangeTimeFrame = timeFrame;
+                    switchState(STATE_CHOICE);
                 }
             } else if (currentState == STATE_CHOICE) {
                 if (current_scene == 1 && timeFrame == lastStateChangeTimeFrame+1*TimedState.fpSec) {
@@ -291,9 +290,8 @@ package
                 && selector._label == SEL_OFFER)
             {
                 current_scene = 1;
-                currentState = STATE_RESULT;
                 lastSelectionTimeFrame = timeFrame;
-                lastStateChangeTimeFrame = timeFrame;
+                switchState(STATE_RESULT);
 
                 if (idx == 0) {
                     cutChoice = CHOICE_SHORT;

@@ -243,8 +243,7 @@ package
                     current_scene += 1;
                 } else if (current_scene == 5 && timeFrame == 14*TimedState.fpSec) {
                     current_scene = 1;
-                    currentState = STATE_CHOICE;
-                    lastStateChangeTimeFrame = timeFrame;
+                    switchState(STATE_CHOICE);
                 }
             } else if (currentState == STATE_CHOICE) {
                 if (current_scene == 1 && timeFrame == lastStateChangeTimeFrame+1*TimedState.fpSec) {
@@ -324,8 +323,7 @@ package
                             profTextSix.alpha += ALPHA_DELTA;
                         } else if(current_scene == 4){
                             current_scene = 1;
-                            currentState = STATE_CHOICE;
-                            lastStateChangeTimeFrame = timeFrame;
+                            switchState(STATE_CHOICE);
                         }
                     }
                 }
@@ -364,9 +362,7 @@ package
 
                 current_scene = 1;
                 lastSelectionTimeFrame = timeFrame;
-                lastStateChangeTimeFrame = timeFrame;
-                currentState = STATE_RESULT;
-
+                switchState(STATE_RESULT);
             }
         }
     }

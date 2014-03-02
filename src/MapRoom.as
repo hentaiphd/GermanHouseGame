@@ -51,6 +51,12 @@ package
             }
         }
 
+        public function switchState(state:int):void
+        {
+            this.currentState = state;
+            lastStateChangeTimeFrame = timeFrame;
+        }
+
         private function doContact(_clickZone:DHButton, contactFn:Function):void
         {
             function _callback(a:FlxSprite, b:FlxSprite):void

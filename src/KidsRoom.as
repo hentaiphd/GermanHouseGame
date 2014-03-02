@@ -278,8 +278,7 @@ package
                     current_scene += 1;
                 } else if (current_scene == 4 && timeFrame == 8*TimedState.fpSec) {
                     current_scene = 1;
-                    currentState = STATE_CHOICE;
-                    lastStateChangeTimeFrame = timeFrame;
+                    switchState(STATE_CHOICE);
                 }
             } else if (currentState == STATE_CHOICE) {
                 if (current_scene == 1 && timeFrame == lastStateChangeTimeFrame+2*TimedState.fpSec) {
@@ -404,9 +403,8 @@ package
                 && selector._label == SEL_QUES)
             {
                 current_scene = 1;
-                currentState = STATE_RESULT;
+                switchState(STATE_RESULT);
                 lastSelectionTimeFrame = timeFrame;
-                lastStateChangeTimeFrame = timeFrame;
 
                 if (idx == thisGuess.correct_idx) {
                     guessResult = GUESS_CORRECT;

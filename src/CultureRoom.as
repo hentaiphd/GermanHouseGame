@@ -177,11 +177,6 @@ package
             resultText2.alpha = 0;
             add(resultText2);
 
-            if(this.ending){
-                var t:FlxText = new FlxText(10,10,100,"end");
-                add(t);
-            }
-
             cutOption1 = new FlxSprite(0, 0);
             cutOption1.loadGraphic(ImgScissors1, true, true, 70, 76, true);
 

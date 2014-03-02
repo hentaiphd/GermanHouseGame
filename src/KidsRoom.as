@@ -26,14 +26,6 @@ package
         [Embed(source="../assets/Bubble-11.png")] private var ImgBubble11:Class;
         [Embed(source="../assets/Bubble-12.png")] private var ImgBubble12:Class;
 
-        //german player version
-        //barbeque - dog, boat, potassium, scanner, menu
-        //peanut - house, shark, garage, pulp, beaker
-        //curtains - printer, shelf, wallpaper, liquid, canary
-        //chandelier - barcode, laser, comforter, outhouse, cot
-        //asparagus - purse, skyscraper, guava, grapefruit, towel
-        //bandana - banana, sherbet, alley, stool, ramp
-
         private var kasperle1:FlxSprite, kasperle2:FlxSprite;
         private var oma1:FlxSprite, oma2:FlxSprite;
         private var mom:FlxSprite, dad:FlxSprite;

@@ -92,13 +92,17 @@ package
                 this.ending = true;
             }
 
-            photographer = new FlxSprite(34, 96);
-            photographer.loadGraphic(ImgPhotographer, true, true, 235, 220, true);
+            photographer = new FlxSprite(34, 84);
+            photographer.loadGraphic(ImgPhotographer, true, true, 992/4, 231, true);
+            photographer.addAnimation("run", [0, 1, 2, 3, 0, 1, 2, 3, 3, 3, 3, 3, 3, 3, 3], 12, true);
             add(photographer);
+            photographer.play("run");
 
-            friseurin = new FlxSprite(325, 26);
-            friseurin.loadGraphic(ImgFriseurin, true, true, 288, 291, true);
+            friseurin = new FlxSprite(301, 26);
+            friseurin.loadGraphic(ImgFriseurin, true, true, 1560/5, 291, true);
+            friseurin.addAnimation("run", [1, 2, 3, 4, 0, 0, 0, 0, 0, 0], 12, true);
             add(friseurin);
+            friseurin.play("run");
 
             kid = new FlxSprite(248, 342);
             kid.loadGraphic(ImgKid1, true, true, 130, 133, true);

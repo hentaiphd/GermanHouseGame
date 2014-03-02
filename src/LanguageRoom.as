@@ -308,32 +308,31 @@ package
                 if (currentState == STATE_INTRO) {
                     if (current_scene == 0 && timeFrame == 1) {
                         current_scene += 1;
-                    } else if (current_scene == 1 && timeFrame == 2*TimedState.fpSec) {
+                    } else if (current_scene == 1 && startAgo(2)) {
                         current_scene += 1;
-                    } else if (current_scene == 2 && timeFrame == 5*TimedState.fpSec) {
+                    } else if (current_scene == 2 && startAgo(5)) {
                         current_scene += 1;
-                    } else if (current_scene == 3 && timeFrame == 8*TimedState.fpSec) {
+                    } else if (current_scene == 3 && startAgo(8)) {
                         current_scene += 1;
-                    } else if (current_scene == 4 && timeFrame == 11*TimedState.fpSec) {
+                    } else if (current_scene == 4 && startAgo(11)) {
                         current_scene += 1;
-                    } else if (current_scene == 5 && timeFrame == 14*TimedState.fpSec) {
-                        current_scene = 1;
+                    } else if (current_scene == 5 && startAgo(14)) {
                         switchState(STATE_CHOICE);
                     }
                 } else if (currentState == STATE_CHOICE) {
-                    if (current_scene == 1 && timeFrame == lastStateChangeTimeFrame+1*TimedState.fpSec) {
+                    if (current_scene == 1 && lastStateAgo(1)) {
                         current_scene += 1;
                     }
                 } else if (currentState == STATE_RESULT) {
-                    if (current_scene == 1 && timeFrame == lastStateChangeTimeFrame+2*TimedState.fpSec) {
+                    if (current_scene == 1 && lastStateAgo(2)) {
                         current_scene += 1;
-                    } else if (current_scene == 2 && timeFrame == lastStateChangeTimeFrame+4*TimedState.fpSec) {
+                    } else if (current_scene == 2 && lastStateAgo(4)) {
                         current_scene += 1;
-                    } else if (current_scene == 3 && timeFrame == lastStateChangeTimeFrame+6*TimedState.fpSec) {
+                    } else if (current_scene == 3 && lastStateAgo(6)) {
                         current_scene += 1;
-                    } else if (current_scene == 4 && timeFrame == lastStateChangeTimeFrame+8*TimedState.fpSec){
+                    } else if (current_scene == 4 && lastStateAgo(8)){
                         current_scene += 1;
-                    } else if (current_scene == 5 && timeFrame == lastStateChangeTimeFrame+12*TimedState.fpSec){
+                    } else if (current_scene == 5 && lastStateAgo(12)){
                         if(!retry){
                             FlxG.switchState(new UpstairsRoom());
                         }
@@ -397,9 +396,7 @@ package
                             } else if(current_scene == 3){
                                 profTextSix.alpha += ALPHA_DELTA;
                             } else if(current_scene == 4){
-                                current_scene = 1;
-                                currentState = STATE_CHOICE;
-                                lastStateChangeTimeFrame = timeFrame;
+                                switchState(STATE_CHOICE);
                             }
                         }
                     }
@@ -408,41 +405,39 @@ package
                 if (currentState == STATE_INTRO) {
                     if (current_scene == 0 && timeFrame == 1) {
                         current_scene += 1;
-                    } else if (current_scene == 1 && timeFrame == 2*TimedState.fpSec) {
+                    } else if (current_scene == 1 && startAgo(2)) {
                         current_scene += 1;
-                    } else if (current_scene == 2 && timeFrame == 5*TimedState.fpSec) {
+                    } else if (current_scene == 2 && startAgo(5)) {
                         current_scene += 1;
-                    } else if (current_scene == 3 && timeFrame == 8*TimedState.fpSec) {
+                    } else if (current_scene == 3 && startAgo(8)) {
                         current_scene += 1;
-                    } else if (current_scene == 4 && timeFrame == 11*TimedState.fpSec) {
+                    } else if (current_scene == 4 && startAgo(11)) {
                         current_scene += 1;
-                    } else if (current_scene == 5 && timeFrame == 13*TimedState.fpSec) {
+                    } else if (current_scene == 5 && startAgo(13)) {
                         current_scene += 1;
-                    } else if (current_scene == 6 && timeFrame == 17*TimedState.fpSec) {
+                    } else if (current_scene == 6 && startAgo(17)) {
                         current_scene += 1;
-                    } else if (current_scene == 7 && timeFrame == 20*TimedState.fpSec) {
+                    } else if (current_scene == 7 && startAgo(20)) {
                         current_scene += 1;
-                    } else if (current_scene == 8 && timeFrame == 23*TimedState.fpSec) {
-                        current_scene = 1;
-                        currentState = STATE_CHOICE;
-                        lastStateChangeTimeFrame = timeFrame;
+                    } else if (current_scene == 8 && startAgo(23)) {
+                        switchState(STATE_CHOICE);
                     }
                 } else if (currentState == STATE_CHOICE) {
-                    if (current_scene == 1 && timeFrame == lastStateChangeTimeFrame+1*TimedState.fpSec) {
+                    if (current_scene == 1 && lastStateAgo(1)) {
                         current_scene += 1;
                     }
                 } else if (currentState == STATE_RESULT) {
-                    if (current_scene == 1 && timeFrame == lastStateChangeTimeFrame+1*TimedState.fpSec) {
+                    if (current_scene == 1 && lastStateAgo(1)) {
                         current_scene += 1;
-                    } else if (current_scene == 2 && timeFrame == lastStateChangeTimeFrame+3*TimedState.fpSec) {
+                    } else if (current_scene == 2 && lastStateAgo(3)) {
                         current_scene += 1;
-                    } else if (current_scene == 3 && timeFrame == lastStateChangeTimeFrame+5*TimedState.fpSec) {
+                    } else if (current_scene == 3 && lastStateAgo(5)) {
                         current_scene += 1;
-                    } else if (current_scene == 4 && timeFrame == lastStateChangeTimeFrame+7*TimedState.fpSec){
+                    } else if (current_scene == 4 && lastStateAgo(7)){
                         current_scene += 1;
-                    } else if (current_scene == 5 && timeFrame == lastStateChangeTimeFrame+9*TimedState.fpSec){
+                    } else if (current_scene == 5 && lastStateAgo(9)){
                         current_scene += 1;
-                    } else if (current_scene == 6 && timeFrame == lastStateChangeTimeFrame+12*TimedState.fpSec){
+                    } else if (current_scene == 6 && lastStateAgo(12)){
                         if(!retry){
                             FlxG.switchState(new UpstairsRoom());
                         }
@@ -530,7 +525,6 @@ package
                             } else if(current_scene == 3){
                                 profTextSix.alpha += ALPHA_DELTA;
                             } else if(current_scene == 4){
-                                current_scene = 1;
                                 switchState(STATE_CHOICE);
                             }
                         }

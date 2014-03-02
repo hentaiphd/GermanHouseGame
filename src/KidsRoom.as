@@ -61,6 +61,8 @@ package
 
         private static var guessOptions:Array;
         private var thisGuess:KidsGuess;
+        private var options:Array;
+
 
         override public function create():void
         {
@@ -68,12 +70,6 @@ package
             HouseMap.getInstance().endingCounter++;
 
             super.create();
-
-            CONFIG::debugging {
-                this.ending = true;
-                currentState = STATE_RESULT;
-                current_scene = 1;
-            }
 
             this.setupBackground(ImgKidsRoom);
 
@@ -108,41 +104,7 @@ package
             thisGuess.alpha = 0;
             add(thisGuess);
 
-            var options:Array;
-
-            if (HouseMap.getInstance().currentLanguage == HouseMap.LANG_EN) {
-                bubble12String1 = "Hello kids!";
-                bubble12String1P2 = "Welcome to Kasperletheater!";
-                bubble11String1 = "HEEEEEEEEELLLLLLLLLLLLLLOOOOOOOOOOO!!!!!!!!!";
-                bubble12String2 = "Well, dear kids, today we practice some German!";
-                options = thisGuess.choices_de;
-                bubble12String3 = "You made a good guess, but who knows if it’s true!";
-                bubble12String3B = "Does it even matter to any of you?";
-                bubble12String3C = "We recommend that you now go out…";
-                bubble12String3D = "…and discover what Deutsches Haus’s all about!";
-                bubble12String4 = "Not you, darling! This game has come to an end…";
-                bubble12String4B = "…because you found your parents!";
-                bubble2String1 = "Mom and Dad!";
-                guessCorrectString = "Yes, Kid, it’s us! And, by the way, you were right:";
-                guessIncorrectString = "Yes, Kid, it’s us! And, by the way, you were wrong:";
-                bubble12String5 = "This thing is called " + thisGuess.choices_de[thisGuess.correct_idx] + ". Now let's go home.";
-            } else if (HouseMap.getInstance().currentLanguage == HouseMap.LANG_DE) {
-                bubble12String1 = "Hallo Kinder!";
-                bubble12String1P2 = "Wir sind das Kasperletheater!";
-                bubble11String1 = "HAAAAAAAAALLLLLLLLLLLLLLOOOOOOOOOOO!!!!!!!!!";
-                bubble12String2 = "So meine lieben Kinder, heute wird Englisch geübt!";
-                options = thisGuess.choices_en;
-                bubble12String3 = "Da warn schon sehr gute Vorschläge dabei!";
-                bubble12String3B = "Aber ob einer stimmt, ist doch einerlei.";
-                bubble12String3C = "Ihr solltet jetzt wieder weiter gehn…";
-                bubble12String3D = "… und euch noch mehr im Deutschen Haus umsehn.";
-                bubble12String4 = "Du musst aber nicht gehen, denn du bist jetzt am Ziel…";
-                bubble12String4B = "…wir Eltern haben die Puppen gespielt!";
-                bubble2String1 = "Mama und Papa!";
-                guessCorrectString = "Du hast und gefunden! Und du hattest übrigens recht:";
-                guessIncorrectString = "Du hast und gefunden! Und du lagst übrigens falsch:";
-                bubble12String5 = "Diese Sache heißt " + thisGuess.choices_en[thisGuess.correct_idx] + ". Und jetzt gehn wir heim!";
-            }
+            this.switchLanguage();
 
             kasperle2 = new FlxSprite(154, 96);
             kasperle2.loadGraphic(ImgKasperle2, true, true, 152, 165, true);
@@ -249,6 +211,43 @@ package
             }
 
             HouseMap.getInstance().playLoopingBGM(SndBGM, "kids");
+        }
+
+        override public function switchLanguage():void
+        {
+            if (HouseMap.getInstance().currentLanguage == HouseMap.LANG_EN) {
+                bubble12String1 = "Hello kids!";
+                bubble12String1P2 = "Welcome to Kasperletheater!";
+                bubble11String1 = "HEEEEEEEEELLLLLLLLLLLLLLOOOOOOOOOOO!!!!!!!!!";
+                bubble12String2 = "Well, dear kids, today we practice some German!";
+                options = thisGuess.choices_de;
+                bubble12String3 = "You made a good guess, but who knows if it’s true!";
+                bubble12String3B = "Does it even matter to any of you?";
+                bubble12String3C = "We recommend that you now go out…";
+                bubble12String3D = "…and discover what Deutsches Haus’s all about!";
+                bubble12String4 = "Not you, darling! This game has come to an end…";
+                bubble12String4B = "…because you found your parents!";
+                bubble2String1 = "Mom and Dad!";
+                guessCorrectString = "Yes, Kid, it’s us! And, by the way, you were right:";
+                guessIncorrectString = "Yes, Kid, it’s us! And, by the way, you were wrong:";
+                bubble12String5 = "This thing is called " + thisGuess.choices_de[thisGuess.correct_idx] + ". Now let's go home.";
+            } else if (HouseMap.getInstance().currentLanguage == HouseMap.LANG_DE) {
+                bubble12String1 = "Hallo Kinder!";
+                bubble12String1P2 = "Wir sind das Kasperletheater!";
+                bubble11String1 = "HAAAAAAAAALLLLLLLLLLLLLLOOOOOOOOOOO!!!!!!!!!";
+                bubble12String2 = "So meine lieben Kinder, heute wird Englisch geübt!";
+                options = thisGuess.choices_en;
+                bubble12String3 = "Da warn schon sehr gute Vorschläge dabei!";
+                bubble12String3B = "Aber ob einer stimmt, ist doch einerlei.";
+                bubble12String3C = "Ihr solltet jetzt wieder weiter gehn…";
+                bubble12String3D = "… und euch noch mehr im Deutschen Haus umsehn.";
+                bubble12String4 = "Du musst aber nicht gehen, denn du bist jetzt am Ziel…";
+                bubble12String4B = "…wir Eltern haben die Puppen gespielt!";
+                bubble2String1 = "Mama und Papa!";
+                guessCorrectString = "Du hast und gefunden! Und du hattest übrigens recht:";
+                guessIncorrectString = "Du hast und gefunden! Und du lagst übrigens falsch:";
+                bubble12String5 = "Diese Sache heißt " + thisGuess.choices_en[thisGuess.correct_idx] + ". Und jetzt gehn wir heim!";
+            }
         }
 
         override public function update():void{

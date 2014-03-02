@@ -54,15 +54,23 @@ package
             }
 
             CONFIG::debugging {
-                if (FlxG.keys.SPACE) {
+                if (FlxG.keys.justReleased("SPACE")) {
+                    var _text:DHFadeText = new DHFadeText(new FlxPoint(100, 100), new FlxPoint(300, 100), "");
                     if (HouseMap.getInstance().currentLanguage == HouseMap.LANG_DE) {
                         HouseMap.getInstance().currentLanguage = HouseMap.LANG_EN;
+                        _text.text = "ENGLISH";
                     } else if (HouseMap.getInstance().currentLanguage == HouseMap.LANG_EN) {
                         HouseMap.getInstance().currentLanguage = HouseMap.LANG_DE;
+                        _text.text = "DEUTSCH";
                     }
+                    this.switchLanguage();
+                    FlxG.state.add(_text);
                 }
             }
         }
+
+        public function switchLanguage():void
+        {}
 
         public function switchState(state:int):void
         {

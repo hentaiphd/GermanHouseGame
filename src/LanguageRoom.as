@@ -204,6 +204,25 @@ package
             familyText.alpha = 0;
             add(familyText);
 
+            this.switchLanguage();
+
+            wordList = getKeys(playerQuestions);
+            boardText = new FlxText(40,50,500,"");
+            boardText.setFormat("LeaBlock-Regular",24,0xff000000,"center");
+            boardText.alpha = 0;
+            add(boardText);
+
+            var rand:Number = Math.floor(Math.random()*wordList.length);
+            word = wordList[rand].toString();
+            boardText.text = word;
+
+            conversation(new FlxPoint(100, 100), new FlxPoint(450,230),"", this, SEL_PROF,
+                         playerQuestions[word], true)();
+
+        }
+
+        override public function switchLanguage():void
+        {
             if(HouseMap.getInstance().currentLanguage == HouseMap.LANG_EN){
                 if(!this.ending){
                     profTextOne.text = "Congratulations, you found the language program!";
@@ -228,7 +247,6 @@ package
                     profTextRight.text = "That was right!";
                     familyText.text = "Thank you, teacher, we learned so much today! We'll definitely come back soon!";
                 }
-
 
                 playerQuestions['Wanderlust'] = new Array("One skilled in various techniques of queuing.", "Desire to wander.", "Fool’s license.");
                 playerQuestions['Narrenfreiheit'] = new Array("Desire to wander.", "Supper.", "Fool’s license.");
@@ -285,19 +303,6 @@ package
                 playerAnswers['Knee-slapper'] = new String("Ein sehr lustiger Witze.");
                 playerAnswers['Canoodle'] = new Array("Umarmen und küssen.");
             }
-
-            wordList = getKeys(playerQuestions);
-            boardText = new FlxText(40,50,500,"");
-            boardText.setFormat("LeaBlock-Regular",24,0xff000000,"center");
-            boardText.alpha = 0;
-            add(boardText);
-
-            var rand:Number = Math.floor(Math.random()*wordList.length);
-            word = wordList[rand].toString();
-            boardText.text = word;
-
-            conversation(new FlxPoint(100, 100), new FlxPoint(450,230),"", this, SEL_PROF,
-                         playerQuestions[word], true)();
         }
 
         override public function update():void{

@@ -44,6 +44,11 @@ package
         private var endText2:String;
         private var cutOption1:FlxSprite, cutOption2:FlxSprite, cutOption3:FlxSprite;
 
+        private var kidText1:String, friseurText1:String, photographerText1:String,
+                offerText:String, resultText:String, endText1:String;
+        private var offerChoices:Array = new Array();
+
+
         private static const CHOICE_SHORT:int = 1;
         private static const CHOICE_MED:int = 2;
         private static const CHOICE_LONG:int = 3;
@@ -63,28 +68,7 @@ package
 
             this.setupBackground(ImgBG);
 
-            var kidText1:String, friseurText1:String, photographerText1:String,
-                offerText:String, resultText:String, endText1:String;
-            var offerChoices:Array = new Array();
-            if (HouseMap.getInstance().currentLanguage == HouseMap.LANG_EN) {
-                kidText1 = "What are you doing?";
-                friseurText1 = "I'm cutting her hair!";
-                photographerText1 = "I'm a photographer and there will be an exhibition afterwards.";
-                offerText = "You wanna try for yourself, sweetie?";
-                offerChoices = new Array("Cut a little", "Cut something", "Cut a lot");
-                resultText = "That's not bad, kid!";
-                endText1 = "But your parents are not here, at the cultural program.";
-                endText2 = "You will have to find them in another part of Deutsches Haus";
-            } else if (HouseMap.getInstance().currentLanguage == HouseMap.LANG_DE) {
-                kidText1 = "Was machst du denn da?";
-                friseurText1 = "Ich verpass ihr einen hippen Haarschnitt!";
-                photographerText1 = "Ich mache Fotos, für eine Ausstellung, die es darüber geben wird!";
-                offerText = "Willstes mal selber probieren?";
-                offerChoices = new Array("Wenig abschneiden", "Etwas abschneiden", "Viel abschneiden");
-                resultText = "Wow! Gar nicht schlecht ist das!";
-                endText1 = "Aber deine Eltern sind leider nicht hier, im Kulturprogramm!";
-                endText2 = "Die müssen irgendwo anders im Deutschen Haus sein.";
-            }
+            this.switchLanguage();
 
             photographer = new FlxSprite(34, 96);
             photographer.loadGraphic(ImgPhotographer, true, true, 235, 220, true);
@@ -191,6 +175,29 @@ package
             conversation(new FlxPoint(offerBubble.x+30, offerBubble.y+30),
                          new FlxPoint(offerBubble.width-80, offerBubble.height),
                          offerText, this, SEL_OFFER, offerChoices, true, 120, choiceImages)();
+        }
+
+        override public function switchLanguage():void
+        {
+            if (HouseMap.getInstance().currentLanguage == HouseMap.LANG_EN) {
+                kidText1 = "What are you doing?";
+                friseurText1 = "I'm cutting her hair!";
+                photographerText1 = "I'm a photographer and there will be an exhibition afterwards.";
+                offerText = "You wanna try for yourself, sweetie?";
+                offerChoices = new Array("Cut a little", "Cut something", "Cut a lot");
+                resultText = "That's not bad, kid!";
+                endText1 = "But your parents are not here, at the cultural program.";
+                endText2 = "You will have to find them in another part of Deutsches Haus";
+            } else if (HouseMap.getInstance().currentLanguage == HouseMap.LANG_DE) {
+                kidText1 = "Was machst du denn da?";
+                friseurText1 = "Ich verpass ihr einen hippen Haarschnitt!";
+                photographerText1 = "Ich mache Fotos, für eine Ausstellung, die es darüber geben wird!";
+                offerText = "Willstes mal selber probieren?";
+                offerChoices = new Array("Wenig abschneiden", "Etwas abschneiden", "Viel abschneiden");
+                resultText = "Wow! Gar nicht schlecht ist das!";
+                endText1 = "Aber deine Eltern sind leider nicht hier, im Kulturprogramm!";
+                endText2 = "Die müssen irgendwo anders im Deutschen Haus sein.";
+            }
         }
 
         override public function update():void{

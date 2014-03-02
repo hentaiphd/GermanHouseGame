@@ -52,6 +52,16 @@ package
                 var _clickZone:DHButton = k as DHButton;
                 this.doContact(_clickZone, contactFn);
             }
+
+            CONFIG::debugging {
+                if (FlxG.keys.SPACE) {
+                    if (HouseMap.getInstance().currentLanguage == HouseMap.LANG_DE) {
+                        HouseMap.getInstance().currentLanguage = HouseMap.LANG_EN;
+                    } else if (HouseMap.getInstance().currentLanguage == HouseMap.LANG_EN) {
+                        HouseMap.getInstance().currentLanguage = HouseMap.LANG_DE;
+                    }
+                }
+            }
         }
 
         public function switchState(state:int):void

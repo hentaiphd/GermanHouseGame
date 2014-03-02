@@ -10,6 +10,8 @@ package{
         public var selector:FlxSprite;
         public var transparent:Boolean;
         public var _label:String;
+        public var optionIsHovered:Boolean;
+        public var shown:Boolean;
 
         public var selectionDelegate:MapRoom;
 
@@ -82,6 +84,11 @@ package{
                     answerImages[u].alpha += inc;
                 }
             }
+            if (this.selector.alpha >= .95) {
+                this.shown = true;
+            } else {
+                this.shown = false;
+            }
         }
 
         override public function update():void{
@@ -109,6 +116,7 @@ package{
 
         private function getChoiceAtCursor():FlxText
         {
+            this.optionIsHovered = false;
             for(var u:Number = answers.length-1; u >= 0; u--){
                 var r:FlxRect = new FlxRect(
                     answers.members[u].x,
@@ -116,6 +124,7 @@ package{
                     boxWidth,
                     answers.members[u].height);
                 if(r.overlaps(mouseRect)){
+                    this.optionIsHovered = true;
                     return answers.members[u] as FlxText;
                 }
             }
@@ -124,6 +133,7 @@ package{
 
         override public function destroy():void
         {
+            this.shown = false;
             FlxG.state.remove(selector);
             for(var u:Number = 0; u < answers.length; u++){
                 FlxG.state.remove(answers.members[u]);

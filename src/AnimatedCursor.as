@@ -7,6 +7,7 @@ package
     {
     [Embed(source="../assets/Cursor.png")] private var ImgCursor:Class;
     public var hovering:Boolean = false;
+    public var optionHover:Boolean = false;
     public var rect:FlxRect;
 
         public function AnimatedCursor()
@@ -27,7 +28,7 @@ package
             rect.x = x;
             rect.y = y;
 
-            if(FlxG.mouse.pressed()){
+            if(FlxG.mouse.pressed() || this.optionHover){
                 play("pressed");
             } else if(hovering){
                 play("hover");

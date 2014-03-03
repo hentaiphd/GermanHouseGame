@@ -98,7 +98,7 @@ package
             add(photographer);
             photographer.play("run");
 
-            friseurin = new FlxSprite(301, 26);
+            friseurin = new FlxSprite(306, 31);
             friseurin.loadGraphic(ImgFriseurin, true, true, 1560/5, 291, true);
             friseurin.addAnimation("run", [1, 2, 3, 4, 0, 0, 0, 0, 0, 0], 12, true);
             add(friseurin);
@@ -223,7 +223,7 @@ package
             kidBubble1.loadGraphic(ImgKidBubble1, true, true, 254, 137, true);
             kidBubble1.alpha = 0;
             add(kidBubble1);
-            kidBubble1Text = new TextBox(new FlxPoint(kidBubble1.x+40, kidBubble1.y+10),
+            kidBubble1Text = new TextBox(new FlxPoint(kidBubble1.x+30, kidBubble1.y+10),
                                          new FlxPoint(kidBubble1.width-40, kidBubble1.height),
                                          kidText1);
             kidBubble1Text.alpha = 0;
@@ -244,7 +244,7 @@ package
             if (this.ending) {
                 _offerText = offerTextEnd;
             }
-            conversation(new FlxPoint(offerBubble.x+30, offerBubble.y+30),
+            conversation(new FlxPoint(offerBubble.x+40, offerBubble.y+30),
                          new FlxPoint(offerBubble.width-80, offerBubble.height),
                          _offerText, this, SEL_OFFER, offerChoices, true, 120, choiceImages)();
 
@@ -404,8 +404,8 @@ package
                         kidBubble1.alpha -= ALPHA_DELTA;
                         kidBubble1Text.alpha -= ALPHA_DELTA;
                         offerBackground.alpha += ALPHA_DELTA;
-                    } else if (current_scene == 2) {
                         offerBubble.alpha += ALPHA_DELTA;
+                    } else if (current_scene == 2) {
                         this.activeSelectorBox.incrementAlpha(ALPHA_DELTA);
                     }
                 } else if (currentState == STATE_RESULT) {
@@ -554,8 +554,8 @@ package
                         kidBubble1.alpha -= ALPHA_DELTA;
                         kidBubble1Text.alpha -= ALPHA_DELTA;
                         offerBackground.alpha += ALPHA_DELTA;
-                    } else if (current_scene == 2) {
                         offerBubble.alpha += ALPHA_DELTA;
+                    } else if (current_scene == 2) {
                         this.activeSelectorBox.incrementAlpha(ALPHA_DELTA);
                     }
                 } else if (currentState == STATE_RESULT) {

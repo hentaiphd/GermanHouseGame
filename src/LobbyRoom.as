@@ -106,7 +106,7 @@ package
             add(debugText);
 
             this.addClickZone(
-                new FlxPoint(400,330), new FlxPoint(200,150), null,
+                new FlxPoint(400,280), new FlxPoint(200,200), null,
                 makeTextBoxCallback(
                     new FlxPoint(399, 113), new FlxPoint(220, 100), "",
                     function _callback(box:TextBox):void

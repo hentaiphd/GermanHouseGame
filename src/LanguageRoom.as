@@ -230,7 +230,7 @@ package
             boardText.text = word;
 
             conversation(new FlxPoint(100, 100), new FlxPoint(450,230),"", this, SEL_PROF,
-                         playerQuestions[word], true)();
+                         playerQuestions[word], true, 40)();
 
             this.postCreate();
 
@@ -302,20 +302,20 @@ package
                     familyText.text = "Danke, Herr Lehrer, wir haben heute viel gelernt! Nächstes Mal kommen wir auf jeden Fall wieder!";
                 }
 
-                playerQuestions['Earful'] = new Array("Ein leerer Papierkorb.", "viel wütendes Gerede.", "Ein guter Tänzer.");
+                playerQuestions['Earful'] = new Array("Ein leerer Papierkorb.", "Lektion oder Zurechtweisung", "Ein guter Tänzer.");
                 playerQuestions['Cushy'] = new Array("Etwas leichtes oder gemütliches.", "Eine frisch gebackene Torte.", "Die Farbe des Sonnenuntergangs.");
                 playerQuestions['Wide-eyed'] = new Array("Verlockendes Gespräch.", "Ungekünstelt oder treuherzig.", "Scharen von Gänsen.");
                 playerQuestions['Weathervane'] = new Array("Gegenstand um die Windrichtung zu messen.", "Hängender Bildschirm.", "Werber für ein Orchester.");
                 playerQuestions['Facetious'] = new Array("Fließend oder weich.", "Fels in der Brandung.", "Über etwas Ernstes spaßend.");
-                playerQuestions['Knee-slapper'] = new Array("Ein sehr lustiger Witze.", "Ein Schnell-Restaurant.", "Abwärtspfad.");
+                playerQuestions['Knee-slapper'] = new Array("Ein sehr lustiger Witz.", "Ein Schnell-Restaurant.", "Abwärtspfad.");
                 playerQuestions['Canoodle'] = new Array("Umarmen und küssen.", "Immer bereit zu schlafen.", "Ein Geschenk einpacken.");
 
-                playerAnswers['Earful'] = new String("viel wütendes Gerede.");
+                playerAnswers['Earful'] = new String("Lektion oder Zurechtweisung");
                 playerAnswers['Cushy'] = new String("Etwas leichtes oder gemütliches.");
                 playerAnswers['Wide-eyed'] = new String("Ungekünstelt oder treuherzig.");
                 playerAnswers['Weathervane'] = new String("Gegenstand um die Windrichtung zu messen.");
                 playerAnswers['Facetious'] = new String("Über etwas Ernstes spaßend.");
-                playerAnswers['Knee-slapper'] = new String("Ein sehr lustiger Witze.");
+                playerAnswers['Knee-slapper'] = new String("Ein sehr lustiger Witz.");
                 playerAnswers['Canoodle'] = new Array("Umarmen und küssen.");
             }
         }

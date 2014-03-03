@@ -67,8 +67,8 @@ package
                         } else {
                             if (!this.activeSelectorBox.shown) {
                                 mouse.hovering = true;
-                            } else if (!this.activeSelectorBox.optionIsHovered) {
-                                mouse.hovering = true;
+                            } else {
+                                mouse.hovering = false;
                             }
                         }
                     } else {

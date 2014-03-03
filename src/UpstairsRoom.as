@@ -5,10 +5,7 @@ package
     public class UpstairsRoom extends MapRoom
     {
         [Embed(source="../assets/03-BG-01.png")] private var ImgBG:Class;
-        [Embed(source="../assets/03-Door-01.png")] private var ImgDoor1:Class;
-        [Embed(source="../assets/03-Door-02.png")] private var ImgDoor2:Class;
-        [Embed(source="../assets/03-Stairs-01.png")] private var ImgStairs:Class;
-        [Embed(source="../assets/03-Table-01.png")] private var ImgTable:Class;
+        [Embed(source="../assets/03-POPUP-01.png")] private var ImgPostcard:Class;
         [Embed(source="../assets/language.mp3")] private var SndBGM:Class;
 
         {
@@ -16,44 +13,57 @@ package
         }
 
         private var door1:FlxSprite, door2:FlxSprite, stairs:FlxSprite, table:FlxSprite;
+        private var postcardTouchTime:Number = -1;
+        private var postcard:FlxSprite;
 
         override public function create():void
         {
             super.create();
             this.setupBackground(ImgBG);
 
-            stairs = new FlxSprite(0, 287);
-            stairs.loadGraphic(ImgStairs, true, true, 218, 189, true);
-            add(stairs);
-            this.addClickZone(new FlxPoint(stairs.x, stairs.y), new FlxPoint(stairs.width, stairs.height),
+            this.addClickZone(new FlxPoint(0, 287), new FlxPoint(218, 189),
                 null, stairsTouched);
 
-            table = new FlxSprite(387, 61);
-            table.loadGraphic(ImgTable, true, true, 142, 243, true);
-            add(table);
-
-            door1 = new FlxSprite(42, 0);
-            door1.loadGraphic(ImgDoor1, true, true, 176, 21, true);
-            add(door1);
-            this.addClickZone(new FlxPoint(door1.x, door1.y), new FlxPoint(door1.width, door1.height),
+            this.addClickZone(new FlxPoint(42, 0), new FlxPoint(176, 21),
                 null, languageDoorTouched);
 
-            door2 = new FlxSprite(403, 449);
-            door2.loadGraphic(ImgDoor2, true, true, 202, 29, true);
-            add(door2);
-            this.addClickZone(new FlxPoint(door2.x, door2.y), new FlxPoint(door2.width, door2.height),
+            this.addClickZone(new FlxPoint(403, 29), new FlxPoint(202, 29),
                 null, kidsDoorTouched);
-
-            this.addClickZone(new FlxPoint(400, 100), new FlxPoint(150, 150),
-                null, null);
 
             var entryPoint:FlxPoint = mainEntryPoint;
             player = new Player(entryPoint.x, entryPoint.y);
             add(player);
 
+            postcard = new FlxSprite(20, 20);
+            postcard.loadGraphic(ImgPostcard, true, true, 595, 445);
+            postcard.alpha = 0;
+            add(postcard);
+            this.addClickZone(new FlxPoint(400, 100), new FlxPoint(150, 150),
+                null, postcardTouched);
+
             HouseMap.getInstance().playLoopingBGM(SndBGM, "overworld");
 
             this.postCreate();
+        }
+
+        override public function update():void
+        {
+            super.update();
+
+            if (postcardTouchTime != -1){
+                if (timeFrame > postcardTouchTime && timeFrame < postcardTouchTime+1*TimedState.fpSec) {
+                    postcard.alpha += ALPHA_DELTA;
+                } else if (timeFrame > postcardTouchTime+4*TimedState.fpSec) {
+                    postcard.alpha -= ALPHA_DELTA;
+                    player.shouldMove = true;
+                }
+            }
+        }
+
+        private function postcardTouched(a:FlxSprite, b:FlxSprite):void
+        {
+            postcardTouchTime = timeFrame;
+            player.shouldMove = false;
         }
 
         private function stairsTouched(a:FlxSprite, b:FlxSprite):void

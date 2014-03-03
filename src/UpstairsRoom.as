@@ -37,7 +37,7 @@ package
             kids.play("run");
 
             languageSprite = new FlxSprite(45, 29);
-            languageSprite.loadGraphic(ImgLanguage, true, true, 384/2, 71, true);
+            languageSprite.loadGraphic(ImgLanguage, true, true, 384/3, 71, true);
             languageSprite.addAnimation("run", [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], 12, true);
             add(languageSprite);
             languageSprite.play("run");

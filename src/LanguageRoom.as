@@ -98,7 +98,7 @@ package
             kidBubble.alpha = 0;
             add(kidBubble);
 
-            profFront = new FlxSprite(343, 49);
+            profFront = new FlxSprite(348, 49);
             profFront.loadGraphic(ImgProfFront, true, true, 271, 429, true);
             add(profFront);
 
@@ -270,12 +270,12 @@ package
                 playerQuestions['Mittelgebirge'] = new Array("Inner conflict.", "Low mountain range.", "Roofed wicker beach chair.");
                 playerQuestions['Strandkorb'] = new Array("Low mountain range.", "Roofed wicker beach chair.", "The urge to confess.");
 
-                playerAnswers['Wanderlust'] = new String("Desire to wander.");
-                playerAnswers['Narrenfreiheit'] = new String("Fool’s license.");
-                playerAnswers['Abendbrot'] = new String("Supper.");
-                playerAnswers['Zerrissenheit'] = new String("Inner conflict.");
-                playerAnswers['Mittelgebirge'] = new String("Low mountain range.");
-                playerAnswers['Strandkorb'] = new String("Roofed wicker beach chair.");
+                playerAnswers['Wanderlust'] = playerQuestions["Wanderlust"][1];
+                playerAnswers['Narrenfreiheit'] = playerQuestions["Narrenfreiheit"][2];
+                playerAnswers['Abendbrot'] = playerQuestions["Abendbrot"][1];
+                playerAnswers['Zerrissenheit'] = playerQuestions["Zerrissenheit"][1];
+                playerAnswers['Mittelgebirge'] = playerQuestions["Mittelgebirge"][1];
+                playerAnswers['Strandkorb'] = playerQuestions["Strandkorb"][1];
 
             } else if(HouseMap.getInstance().currentLanguage == HouseMap.LANG_DE){
                 if(!this.ending){
@@ -303,20 +303,20 @@ package
                 }
 
                 playerQuestions['Earful'] = new Array("Ein leerer Papierkorb.", "Lektion oder Zurechtweisung", "Ein guter Tänzer.");
-                playerQuestions['Cushy'] = new Array("Etwas leichtes oder gemütliches.", "Eine frisch gebackene Torte.", "Die Farbe des Sonnenuntergangs.");
-                playerQuestions['Wide-eyed'] = new Array("Verlockendes Gespräch.", "Ungekünstelt oder treuherzig.", "Scharen von Gänsen.");
-                playerQuestions['Weathervane'] = new Array("Gegenstand um die Windrichtung zu messen.", "Hängender Bildschirm.", "Werber für ein Orchester.");
+                playerQuestions['Cushy'] = new Array("Etwas Einfaches oder Bequemes.", "Eine frisch gebackene Torte.", "Die Farbe des Sonnenuntergangs.");
+                playerQuestions['Wide-eyed'] = new Array("Lustvolles Gespräch.", "Treuherzig und naiv.", "Scharen von Gänsen.");
+                playerQuestions['Weathervane'] = new Array("Gegenstand um die Windrichtung zu messen.", "Hängender Bildschirm.", "Angestellter bei einem Orchester.");
                 playerQuestions['Facetious'] = new Array("Fließend oder weich.", "Fels in der Brandung.", "Über etwas Ernstes spaßend.");
                 playerQuestions['Knee-slapper'] = new Array("Ein sehr lustiger Witz.", "Ein Schnell-Restaurant.", "Abwärtspfad.");
                 playerQuestions['Canoodle'] = new Array("Umarmen und küssen.", "Immer bereit zu schlafen.", "Ein Geschenk einpacken.");
 
-                playerAnswers['Earful'] = new String("Lektion oder Zurechtweisung");
-                playerAnswers['Cushy'] = new String("Etwas leichtes oder gemütliches.");
-                playerAnswers['Wide-eyed'] = new String("Ungekünstelt oder treuherzig.");
-                playerAnswers['Weathervane'] = new String("Gegenstand um die Windrichtung zu messen.");
-                playerAnswers['Facetious'] = new String("Über etwas Ernstes spaßend.");
-                playerAnswers['Knee-slapper'] = new String("Ein sehr lustiger Witz.");
-                playerAnswers['Canoodle'] = new Array("Umarmen und küssen.");
+                playerAnswers['Earful'] = playerQuestions["Earful"][1];
+                playerAnswers['Cushy'] = playerQuestions["Cushy"][0];
+                playerAnswers['Wide-eyed'] = playerQuestions["Wide-eyed"][1];
+                playerAnswers['Weathervane'] = playerQuestions["Weathervane"][0];
+                playerAnswers['Facetious'] = playerQuestions["Facetious"][2];
+                playerAnswers['Knee-slapper'] = playerQuestions["Knee-slapper"][0];
+                playerAnswers['Canoodle'] = playerQuestions["Canoodle"][0];
             }
         }
 

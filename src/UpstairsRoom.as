@@ -48,7 +48,7 @@ package
             this.addClickZone(new FlxPoint(42, 0), new FlxPoint(176, 21),
                 null, languageDoorTouched);
 
-            this.addClickZone(new FlxPoint(403, 449), new FlxPoint(202, 29),
+            this.addClickZone(new FlxPoint(403, 449-20), new FlxPoint(202, 29+20),
                 null, kidsDoorTouched);
 
             var entryPoint:FlxPoint = mainEntryPoint;

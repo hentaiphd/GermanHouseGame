@@ -307,17 +307,17 @@ package
                     bubble12Text3.text = bubble12String4B;
                 } else if (current_scene == 7 && lastStateAgo(16)) {
                     current_scene += 1;
-                } else if (current_scene == 8 && lastStateAgo(17)) {
+                } else if (current_scene == 8 && lastStateAgo(18)) {
                     current_scene += 1;
                     if (guessResult == GUESS_CORRECT) {
                         bubble12Text3.text = guessCorrectString;
                     } else if (guessResult == GUESS_INCORRECT) {
                         bubble12Text3.text = guessIncorrectString;
                     }
-                } else if (current_scene == 9 && lastStateAgo(19)) {
+                } else if (current_scene == 9 && lastStateAgo(20)) {
                     current_scene += 1;
                     bubble12Text3.text = bubble12String5;
-                } else if (current_scene == 10 && lastStateAgo(21)) {
+                } else if (current_scene == 10 && lastStateAgo(22)) {
                     this.theEnd();
                 }
             }

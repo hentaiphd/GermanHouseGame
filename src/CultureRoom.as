@@ -289,7 +289,7 @@ package
                 resultText2End = "I’ve learned so much and it was really fun!";
                 resultText3End = "I’ll come back tomorrow, that’s for sure.";
                 endText1 = "But your parents are not here, at the cultural program.";
-                endText2 = "You will have to find them in another part of Deutsches Haus";
+                endText2 = "You will have to find them in another part of Deutsches Haus.";
             } else if (HouseMap.getInstance().currentLanguage == HouseMap.LANG_DE) {
                 kidText1 = "Was machst du denn da?";
                 friseurText1 = "Ich verpass ihr einen hippen Haarschnitt!";

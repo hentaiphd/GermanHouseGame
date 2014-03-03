@@ -6,6 +6,8 @@ package
     {
         [Embed(source="../assets/03-BG-01.png")] private var ImgBG:Class;
         [Embed(source="../assets/03-POPUP-01.png")] private var ImgPostcard:Class;
+        [Embed(source="../assets/03-Kids.png")] private var ImgKids:Class;
+        [Embed(source="../assets/03-Language-01.png")] private var ImgLanguage:Class;
         [Embed(source="../assets/language.mp3")] private var SndBGM:Class;
 
         {
@@ -16,10 +18,29 @@ package
         private var postcardTouchTime:Number = -1;
         private var postcard:FlxSprite;
 
+        private var kids:FlxSprite, languageSprite:FlxSprite;
+
         override public function create():void
         {
             super.create();
             this.setupBackground(ImgBG);
+
+            kids = new FlxSprite(293, 364);
+            kids.loadGraphic(ImgKids, true, true, 1520/10, 111, true);
+            kids.addAnimation("run", [9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 8, 7, 6, 5,
+                4, 4, 3, 2, 1, 1, 0, 6, 5,
+                4, 4, 3, 2, 1, 1, 0, 6, 5,
+                4, 4, 3, 2, 1, 1, 0, 6, 5,
+                4, 4, 5, 5, 6, 7, 8
+                ], 12, true);
+            add(kids);
+            kids.play("run");
+
+            languageSprite = new FlxSprite(45, 29);
+            languageSprite.loadGraphic(ImgLanguage, true, true, 384/2, 71, true);
+            languageSprite.addAnimation("run", [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], 12, true);
+            add(languageSprite);
+            languageSprite.play("run");
 
             this.addClickZone(new FlxPoint(0, 287), new FlxPoint(218, 189),
                 null, stairsTouched);

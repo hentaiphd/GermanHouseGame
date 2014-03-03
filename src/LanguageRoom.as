@@ -367,9 +367,11 @@ package
                     } else if(current_scene == 3){
                         profTextOne.alpha -= ALPHA_DELTA;
                         profTextTwo.alpha += ALPHA_DELTA;
+                        fingerAnimate(current_scene);
                     } else if(current_scene == 4){
                         profTextTwo.alpha -= ALPHA_DELTA;
                         profTextThree.alpha += ALPHA_DELTA;
+                        fingerAnimate(current_scene);
                     } else if(current_scene == 5){
                         profTextFour.alpha += ALPHA_DELTA;
                         fingerAnimate(current_scene);
@@ -493,6 +495,7 @@ package
                     } else if(current_scene == 5){
                         profTextTwo.alpha -= ALPHA_DELTA;
                         profTextSeven.alpha += ALPHA_DELTA;
+                        fingerAnimate(current_scene);
                     } else if(current_scene == 6){
                         profTextSeven.alpha -= ALPHA_DELTA;
                         profBubbleOne.alpha -= ALPHA_DELTA;
@@ -506,6 +509,7 @@ package
                         fingerAnimate(current_scene);
                     } else if(current_scene == 8){
                         profTextFour.alpha += ALPHA_DELTA;
+                        fingerAnimate(current_scene);
                     }
                 } else if(currentState == STATE_CHOICE){
                     if(current_scene == 1){

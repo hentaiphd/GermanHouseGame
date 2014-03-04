@@ -269,55 +269,58 @@ package
 
             if (currentState == STATE_INTRO) {
                 if (current_scene == 0 && timeFrame == 1) {
-                    current_scene += 1;
-                } else if (current_scene == 1 && startAgo(2)) {
-                    current_scene += 1;
+                    this.incrementScene();
+                } else if (current_scene == 1 && shouldAdvanceScene(2)) {
+                    this.incrementScene();
                     bubble12Text1.text += " " + bubble12String1P2;
-                } else if (current_scene == 2 && startAgo(4)) {
-                    current_scene += 1;
-                } else if (current_scene == 3 && startAgo(6)) {
-                    current_scene += 1;
-                } else if (current_scene == 4 && startAgo(8)) {
+                } else if (current_scene == 2 && shouldAdvanceScene(2)) {
+                    this.incrementScene();
+                } else if (current_scene == 3 && shouldAdvanceScene(2)) {
+                    this.incrementScene();
+                } else if (current_scene == 4 && shouldAdvanceScene(2)) {
                     current_scene = 1;
                     switchState(STATE_CHOICE);
                 }
             } else if (currentState == STATE_CHOICE) {
-                if (current_scene == 1 && lastStateAgo(2)) {
-                    current_scene += 1;
+                if (current_scene == 1 && shouldAdvanceScene(2)) {
+                    this.incrementScene();
+                } else if (current_scene == 2) {
+                } else if (current_scene == 3 && shouldAdvanceScene(0)) {
+                    switchState(STATE_RESULT);
                 }
             } else if (currentState == STATE_RESULT) {
-                if (current_scene == 1 && lastStateAgo(2)) {
-                    current_scene += 1;
-                } else if (current_scene == 2 && lastStateAgo(4)) {
-                    current_scene += 1;
-                } else if (current_scene == 3 && lastStateAgo(6)) {
-                    current_scene += 1;
-                } else if (current_scene == 4 && lastStateAgo(8)) {
-                    current_scene += 1;
+                if (current_scene == 1 && shouldAdvanceScene(2)) {
+                    this.incrementScene();
+                } else if (current_scene == 2 && shouldAdvanceScene(2)) {
+                    this.incrementScene();
+                } else if (current_scene == 3 && shouldAdvanceScene(2)) {
+                    this.incrementScene();
+                } else if (current_scene == 4 && shouldAdvanceScene(2)) {
+                    this.incrementScene();
                     if (!this.ending) {
                         FlxG.switchState(new UpstairsRoom());
                     }
                 } else if (current_scene == 5) {
-                    if (lastStateAgo(10)) {
-                        current_scene += 1;
+                    if (shouldAdvanceScene(2)) {
+                        this.incrementScene();
                         bubble12Text3.text = bubble12String4;
                     }
-                } else if (current_scene == 6 && lastStateAgo(14)) {
-                    current_scene += 1;
+                } else if (current_scene == 6 && shouldAdvanceScene(4)) {
+                    this.incrementScene();
                     bubble12Text3.text = bubble12String4B;
-                } else if (current_scene == 7 && lastStateAgo(16)) {
-                    current_scene += 1;
-                } else if (current_scene == 8 && lastStateAgo(18)) {
-                    current_scene += 1;
+                } else if (current_scene == 7 && shouldAdvanceScene(2)) {
+                    this.incrementScene();
+                } else if (current_scene == 8 && shouldAdvanceScene(2)) {
+                    this.incrementScene();
                     if (guessResult == GUESS_CORRECT) {
                         bubble12Text3.text = guessCorrectString;
                     } else if (guessResult == GUESS_INCORRECT) {
                         bubble12Text3.text = guessIncorrectString;
                     }
-                } else if (current_scene == 9 && lastStateAgo(20)) {
-                    current_scene += 1;
+                } else if (current_scene == 9 && shouldAdvanceScene(2)) {
+                    this.incrementScene();
                     bubble12Text3.text = bubble12String5;
-                } else if (current_scene == 10 && lastStateAgo(22)) {
+                } else if (current_scene == 10 && shouldAdvanceScene(2)) {
                     this.theEnd();
                 }
             }
@@ -405,7 +408,7 @@ package
             if (currentState == STATE_CHOICE && current_scene == 2
                 && selector._label == SEL_QUES)
             {
-                switchState(STATE_RESULT);
+                incrementScene();
                 lastSelectionTimeFrame = timeFrame;
 
                 if (idx == thisGuess.correct_idx) {

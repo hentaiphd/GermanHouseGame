@@ -75,8 +75,8 @@ package
             this.setupBackground(ImgBg);
 
             CONFIG::debugging {
-                //this.ending = true;
-                this.ending = this.ending;
+                this.ending = true;
+                //this.ending = this.ending;
             }
 
             profBubbleOne = new FlxSprite(63, 30);
@@ -333,30 +333,64 @@ package
                 if (currentState == STATE_INTRO) {
                     if (current_scene == 0 && timeFrame == 1) {
                         this.incrementScene();
+                        makeActive(profBubbleOne);
                     } else if (current_scene == 1 && shouldAdvanceScene(2)) {
+                        makeActive(profTextOne);
                         this.incrementScene();
                     } else if (current_scene == 2 && shouldAdvanceScene(3)) {
+                        makeInactive(profTextOne);
+                        makeActive(profTextTwo);
                         this.incrementScene();
                     } else if (current_scene == 3 && shouldAdvanceScene(3)) {
+                        makeInactive(profTextTwo);
+                        makeActive(profTextThree);
                         this.incrementScene();
                     } else if (current_scene == 4 && shouldAdvanceScene(3)) {
+                        makeActive(profTextFour);
                         this.incrementScene();
                     } else if (current_scene == 5 && shouldAdvanceScene(3)) {
                         switchState(STATE_CHOICE);
+                        makeInactive(profBubbleTwo, profTextWrong, profTextSix);
+                        makeInactive(profTextThree, profTextFour, profBubbleOne, kidRight);
+                        makeInactive(profFront, profFinger);
+                        makeActive(kidLeft, profSide);
                     }
                 } else if (currentState == STATE_CHOICE) {
                     if (current_scene == 1 && shouldAdvanceScene(1)) {
+                        makeActive(boardText);
                         this.incrementScene();
                     } else if (current_scene == 2) {
                     } else if (current_scene == 3 && shouldAdvanceScene(0)) {
                         switchState(STATE_RESULT);
+                        makeInactive(boardText, profSide);
+                        makeActive(profFront, profFinger, profBubbleTwo, kidLeft);
                     }
                 } else if (currentState == STATE_RESULT) {
                     if (current_scene == 1 && shouldAdvanceScene(2)) {
+                        if(profTextGuess.text == profTextRight.text){
+                            makeActive(profTextRight);
+                        } else if (profTextGuess.text == profTextWrong.text) {
+                            makeActive(profTextWrong);
+                        }
                         this.incrementScene();
                     } else if (current_scene == 2 && shouldAdvanceScene(2)) {
+                        if(profTextGuess.text == profTextRight.text){
+                            makeActive(profTextDefinition);
+                        } else if (profTextGuess.text == profTextWrong.text) {
+                            makeActive(profTextSix);
+                        }
                         this.incrementScene();
                     } else if (current_scene == 3 && shouldAdvanceScene(2)) {
+                        if(profTextGuess.text == profTextRight.text){
+                            makeActive(profTextFive);
+                        } else if (profTextGuess.text == profTextWrong.text) {
+                            switchState(STATE_CHOICE);
+                            makeInactive(profBubbleTwo, profTextWrong, profTextSix);
+                            makeInactive(profTextThree, profTextFour, profBubbleOne, kidRight);
+                            makeInactive(profFront, profFinger);
+                            makeActive(kidLeft, profSide);
+                            makeActive(boardText);
+                        }
                         this.incrementScene();
                     } else if (current_scene == 4 && shouldAdvanceScene(2)){
                         this.incrementScene();
@@ -369,75 +403,30 @@ package
 
                 if(currentState == STATE_INTRO){
                     if(current_scene == 1){
-                        profBubbleOne.alpha += ALPHA_DELTA;
                     } else if(current_scene == 2){
-                        profTextOne.alpha += ALPHA_DELTA;
                         fingerAnimate(current_scene);
                     } else if(current_scene == 3){
-                        profTextOne.alpha -= ALPHA_DELTA;
-                        profTextTwo.alpha += ALPHA_DELTA;
                         fingerAnimate(current_scene);
                     } else if(current_scene == 4){
-                        profTextTwo.alpha -= ALPHA_DELTA;
-                        profTextThree.alpha += ALPHA_DELTA;
                         fingerAnimate(current_scene);
                     } else if(current_scene == 5){
-                        profTextFour.alpha += ALPHA_DELTA;
                         fingerAnimate(current_scene);
                     }
                 } else if(currentState == STATE_CHOICE){
                     if(current_scene == 1){
-                        if(retry){
-                            profFront.alpha -= ALPHA_DELTA;
-                            profFinger.alpha -= ALPHA_DELTA;
-                            profBubbleTwo.alpha -= ALPHA_DELTA;
-                            profTextWrong.alpha -= ALPHA_DELTA;
-                            profTextSix.alpha -= ALPHA_DELTA;
-                        } else {
-                            profTextThree.alpha -= ALPHA_DELTA;
-                            profTextFour.alpha -= ALPHA_DELTA;
-                            profBubbleOne.alpha -= ALPHA_DELTA;
-                            kidRight.alpha -= ALPHA_DELTA;
-                            profFront.alpha -= ALPHA_DELTA;
-                            profFinger.alpha -= ALPHA_DELTA;
-                        }
-                        kidLeft.alpha += ALPHA_DELTA;
-                        profSide.alpha += ALPHA_DELTA;
                     } else if(current_scene == 2){
-                        boardText.alpha += ALPHA_DELTA;
                         this.activeSelectorBox.incrementAlpha(ALPHA_DELTA);
                     }
                 } else if(currentState == STATE_RESULT){
                     if(current_scene == 1){
                         this.activeSelectorBox.incrementAlpha(-ALPHA_DELTA);
-                        boardText.alpha -= ALPHA_DELTA;
-                        profSide.alpha -= ALPHA_DELTA;
-                        profFront.alpha += ALPHA_DELTA;
-                        profFinger.alpha += ALPHA_DELTA;
-                        profBubbleTwo.alpha += ALPHA_DELTA;
-                        kidLeft.alpha += ALPHA_DELTA;
-                    } else if(current_scene >= 2){
+                    } else if(current_scene == 2){
+                        fingerAnimate(current_scene);
+                    } else if(current_scene == 3) {
+                        fingerAnimate(current_scene);
+                    } else if (current_scene == 4) {
                         if(profTextGuess.text == profTextRight.text){
-                            if(current_scene == 2){
-                                profTextRight.alpha += ALPHA_DELTA;
-                                fingerAnimate(current_scene);
-                            } else if(current_scene == 3){
-                                profTextDefinition.alpha += ALPHA_DELTA
-                                fingerAnimate(current_scene);
-                            } else if(current_scene == 4){
-                                profTextFive.alpha += ALPHA_DELTA;
-                                fingerAnimate(current_scene);
-                            }
-                        } else if(profTextGuess.text == profTextWrong.text){
-                            if(current_scene == 2){
-                                profTextWrong.alpha += ALPHA_DELTA;
-                                fingerAnimate(current_scene);
-                            } else if(current_scene == 3){
-                                profTextSix.alpha += ALPHA_DELTA;
-                                fingerAnimate(current_scene);
-                            } else if(current_scene == 4){
-                                switchState(STATE_CHOICE);
-                            }
+                            fingerAnimate(current_scene);
                         }
                     }
                 }
@@ -445,38 +434,80 @@ package
                 if (currentState == STATE_INTRO) {
                     if (current_scene == 0 && timeFrame == 1) {
                         this.incrementScene();
+                        makeActive(profBubbleOne);
                     } else if (current_scene == 1 && shouldAdvanceScene(2)) {
+                        makeActive(profTextOne);
                         this.incrementScene();
                     } else if (current_scene == 2 && shouldAdvanceScene(3)) {
+                        makeInactive(profTextOne, profBubbleOne);
+                        makeActive(kidBubble, kidTextOne);
                         this.incrementScene();
                     } else if (current_scene == 3 && shouldAdvanceScene(3)) {
+                        makeInactive(kidBubble, kidTextOne);
+                        makeActive(profBubbleOne, profTextTwo);
                         this.incrementScene();
                     } else if (current_scene == 4 && shouldAdvanceScene(3)) {
+                        makeInactive(profTextTwo);
+                        makeActive(profTextSeven);
                         this.incrementScene();
                     } else if (current_scene == 5 && shouldAdvanceScene(2)) {
+                        makeInactive(profTextSeven, profBubbleOne);
+                        makeActive(kidBubble, kidTextTwo);
                         this.incrementScene();
                     } else if (current_scene == 6 && shouldAdvanceScene(4)) {
+                        makeInactive(kidBubble, kidTextTwo);
+                        makeActive(profBubbleOne, profTextThree);
                         this.incrementScene();
                     } else if (current_scene == 7 && shouldAdvanceScene(3)) {
+                        makeActive(profTextFour);
                         this.incrementScene();
                     } else if (current_scene == 8 && shouldAdvanceScene(3)) {
                         switchState(STATE_CHOICE);
+                        makeInactive(profBubbleTwo, profTextWrong, profTextSix);
+                        makeInactive(profTextThree, profTextFour, profBubbleOne, kidLeft);
+                        makeInactive(profFront, profFinger);
+                        makeActive(kidRight, profSide);
                     }
                 } else if (currentState == STATE_CHOICE) {
                     if (current_scene == 1 && shouldAdvanceScene(1)) {
+                        makeActive(boardText);
                         this.incrementScene();
                     } else if (current_scene == 2) {
                     } else if (current_scene == 3 && shouldAdvanceScene(0)) {
                         switchState(STATE_RESULT);
+                        makeInactive(boardText, profSide);
+                        makeActive(profFront, profFinger, profBubbleTwo, kidRight);
                     }
                 } else if (currentState == STATE_RESULT) {
                     if (current_scene == 1 && shouldAdvanceScene(1)) {
+                        if(profTextGuess.text == profTextRight.text){
+                            makeActive(profTextRight);
+                        } else if (profTextGuess.text == profTextWrong.text) {
+                            makeActive(profTextWrong);
+                        }
                         this.incrementScene();
                     } else if (current_scene == 2 && shouldAdvanceScene(2)) {
+                        if(profTextGuess.text == profTextRight.text){
+                            makeActive(profTextDefinition);
+                        } else if (profTextGuess.text == profTextWrong.text) {
+                            makeActive(profTextSix);
+                        }
                         this.incrementScene();
                     } else if (current_scene == 3 && shouldAdvanceScene(2)) {
+                        if(profTextGuess.text == profTextRight.text){
+                            makeActive(profTextFive);
+                        } else if (profTextGuess.text == profTextWrong.text) {
+                            switchState(STATE_CHOICE);
+                            makeInactive(profBubbleTwo, profTextWrong, profTextSix);
+                            makeInactive(profTextThree, profTextFour, profBubbleOne, kidLeft);
+                            makeInactive(profFront, profFinger);
+                            makeActive(kidRight, profSide);
+                            makeActive(boardText);
+                        }
                         this.incrementScene();
                     } else if (current_scene == 4 && shouldAdvanceScene(2)){
+                        makeActive(familyBubble, familyText);
+                        makeInactive(profTextRight, profTextFive, profTextDefinition, profBubbleTwo);
                         this.incrementScene();
                     } else if (current_scene == 5 && shouldAdvanceScene(2)){
                         this.incrementScene();
@@ -489,102 +520,37 @@ package
 
                 if(currentState == STATE_INTRO){
                     if(current_scene == 1){
-                        profBubbleOne.alpha += ALPHA_DELTA;
                     } else if(current_scene == 2){
-                        profTextOne.alpha += ALPHA_DELTA;
                         fingerAnimate(current_scene);
                     } else if(current_scene == 3){
-                        profTextOne.alpha -= ALPHA_DELTA;
-                        profBubbleOne.alpha -= ALPHA_DELTA;
-                        kidBubble.alpha += ALPHA_DELTA;
-                        kidTextOne.alpha += ALPHA_DELTA;
                     } else if(current_scene == 4){
-                        kidBubble.alpha -= ALPHA_DELTA;
-                        kidTextOne.alpha -= ALPHA_DELTA;
-                        profBubbleOne.alpha += ALPHA_DELTA;
-                        profTextTwo.alpha += ALPHA_DELTA;
                         fingerAnimate(current_scene);
                     } else if(current_scene == 5){
-                        profTextTwo.alpha -= ALPHA_DELTA;
-                        profTextSeven.alpha += ALPHA_DELTA;
                         fingerAnimate(current_scene);
                     } else if(current_scene == 6){
-                        profTextSeven.alpha -= ALPHA_DELTA;
-                        profBubbleOne.alpha -= ALPHA_DELTA;
-                        kidBubble.alpha += ALPHA_DELTA;
-                        kidTextTwo.alpha += ALPHA_DELTA;
                     } else if(current_scene == 7){
-                        kidBubble.alpha -= ALPHA_DELTA;
-                        kidTextTwo.alpha -= ALPHA_DELTA;
-                        profBubbleOne.alpha += ALPHA_DELTA;
-                        profTextThree.alpha += ALPHA_DELTA;
                         fingerAnimate(current_scene);
                     } else if(current_scene == 8){
-                        profTextFour.alpha += ALPHA_DELTA;
                         fingerAnimate(current_scene);
                     }
                 } else if(currentState == STATE_CHOICE){
                     if(current_scene == 1){
-                        if(retry){
-                            profFront.alpha -= ALPHA_DELTA;
-                            profFinger.alpha -= ALPHA_DELTA;
-                            profBubbleTwo.alpha -= ALPHA_DELTA;
-                            profTextWrong.alpha -= ALPHA_DELTA;
-                            profTextSix.alpha -= ALPHA_DELTA;
-                        } else {
-                            profTextThree.alpha -= ALPHA_DELTA;
-                            profTextFour.alpha -= ALPHA_DELTA;
-                            profBubbleOne.alpha -= ALPHA_DELTA;
-                            kidLeft.alpha -= ALPHA_DELTA;
-                            profFront.alpha -= ALPHA_DELTA;
-                            profFinger.alpha -= ALPHA_DELTA;
-                        }
-                        kidRight.alpha += ALPHA_DELTA;
-                        profSide.alpha += ALPHA_DELTA;
                     } else if(current_scene == 2){
-                        boardText.alpha += ALPHA_DELTA;
                         this.activeSelectorBox.incrementAlpha(ALPHA_DELTA);
                     }
                 } else if(currentState == STATE_RESULT){
                     if(current_scene == 1){
                         this.activeSelectorBox.incrementAlpha(-ALPHA_DELTA);
-                        boardText.alpha -= ALPHA_DELTA;
-                        profSide.alpha -= ALPHA_DELTA;
-                        profFront.alpha += ALPHA_DELTA;
-                        profFinger.alpha += ALPHA_DELTA;
-                        profBubbleTwo.alpha += ALPHA_DELTA;
-                        kidRight.alpha += ALPHA_DELTA;
-                    } else if(current_scene >= 2){
+                    } else if(current_scene == 2){
+                        fingerAnimate(current_scene);
+                    } else if (current_scene == 3) {
+                        fingerAnimate(current_scene);
+                    } else if (current_scene == 4) {
                         if(profTextGuess.text == profTextRight.text){
-                            if(current_scene == 2){
-                                profTextRight.alpha += ALPHA_DELTA;
-                                fingerAnimate(current_scene);
-                            } else if(current_scene == 3){
-                                profTextDefinition.alpha += ALPHA_DELTA
-                                fingerAnimate(current_scene);
-                            } else if(current_scene == 4){
-                                profTextFive.alpha += ALPHA_DELTA;
-                                fingerAnimate(current_scene);
-                            } else if(current_scene == 5){
-                                profTextRight.alpha -= ALPHA_DELTA;
-                                profTextFive.alpha -= ALPHA_DELTA;
-                                profTextDefinition.alpha -= ALPHA_DELTA;
-                                profBubbleTwo.alpha -= ALPHA_DELTA;
-                                familyBubble.alpha += ALPHA_DELTA;
-                                familyText.alpha += ALPHA_DELTA;
-                                fingerAnimate(current_scene);
-                            }
-                        } else if(profTextGuess.text == profTextWrong.text){
-                            if(current_scene == 2){
-                                fingerAnimate(current_scene);
-                                profTextWrong.alpha += ALPHA_DELTA;
-                            } else if(current_scene == 3){
-                                fingerAnimate(current_scene);
-                                profTextSix.alpha += ALPHA_DELTA;
-                            } else if(current_scene == 4){
-                                switchState(STATE_CHOICE);
-                            }
+                            fingerAnimate(current_scene);
                         }
+                    } else if (current_scene == 5) {
+                        fingerAnimate(current_scene);
                     }
                 }
             }

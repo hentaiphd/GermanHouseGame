@@ -74,17 +74,22 @@ package
             if (postcardTouchTime != -1){
                 if (timeFrame > postcardTouchTime && timeFrame < postcardTouchTime+1*TimedState.fpSec) {
                     postcard.alpha += ALPHA_DELTA;
-                } else if (timeFrame > postcardTouchTime+4*TimedState.fpSec) {
-                    postcard.alpha -= ALPHA_DELTA;
-                    player.shouldMove = true;
                 }
+            } else {
+                postcard.alpha -= ALPHA_DELTA;
+            }
+            if (timeFrame > postcardTouchTime+4*TimedState.fpSec || FlxG.mouse.justPressed()) {
+                player.shouldMove = true;
+                postcardTouchTime = -1;
             }
         }
 
         private function postcardTouched(a:FlxSprite, b:FlxSprite):void
         {
-            postcardTouchTime = timeFrame;
-            player.shouldMove = false;
+            if (postcardTouchTime == -1) {
+                postcardTouchTime = timeFrame;
+                player.shouldMove = false;
+            }
         }
 
         private function stairsTouched(a:FlxSprite, b:FlxSprite):void

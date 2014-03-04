@@ -123,13 +123,16 @@ package
         public function shouldAdvanceScene(offset:Number):Boolean
         {
             var timed:Boolean = false;
-            if (this.lastStateChangeTimeFrame != -1) {
-                timed = timeFrame == this.lastStateChangeTimeFrame+offset*TimedState.fpSec;
-            } else if (this.lastSceneChangeTimeFrame != -1) {
-                timed = timeFrame == this.lastSceneChangeTimeFrame+offset*TimedState.fpSec;
-            } else {
-                timed = timeFrame == offset*TimedState.fpSec;
+            var baseTime:Number = 0;
+            var choices:Array = new Array(0, this.lastStateChangeTimeFrame, this.lastSceneChangeTimeFrame);
+            for (var i:int = 0; i < 3; i++){
+                baseTime = choices[i];
+                if(baseTime != -1 && timeFrame <= baseTime+offset*TimedState.fpSec) {
+                    break;
+                }
             }
+
+            timed = timeFrame == baseTime+offset*TimedState.fpSec;
             var ret:Boolean = timed || (!clickLock && FlxG.mouse.justPressed());
             if (FlxG.mouse.justPressed()) {
                 clickLock = true;

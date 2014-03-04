@@ -269,49 +269,68 @@ package
 
             if (currentState == STATE_INTRO) {
                 if (current_scene == 0 && timeFrame == 1) {
+                    makeActive(bubble12, bubble12Text1);
                     this.incrementScene();
                 } else if (current_scene == 1 && shouldAdvanceScene(2)) {
                     this.incrementScene();
                     bubble12Text1.text += " " + bubble12String1P2;
                 } else if (current_scene == 2 && shouldAdvanceScene(2)) {
+                    makeInactive(bubble12, bubble12Text1);
+                    makeActive(bubble11, bubble11Text1);
                     this.incrementScene();
                 } else if (current_scene == 3 && shouldAdvanceScene(2)) {
+                    makeActive(bubble12, bubble12Text2);
+                    makeInactive(bubble11, bubble11Text1);
                     this.incrementScene();
                 } else if (current_scene == 4 && shouldAdvanceScene(2)) {
-                    current_scene = 1;
                     switchState(STATE_CHOICE);
+                    makeInactive(bubble12, bubble12Text2, oma1, kasperle2);
+                    makeActive(oma2, kasperle1, thisGuess);
                 }
             } else if (currentState == STATE_CHOICE) {
                 if (current_scene == 1 && shouldAdvanceScene(2)) {
+                    makeActive(bubble11);
                     this.incrementScene();
                 } else if (current_scene == 2) {
                 } else if (current_scene == 3 && shouldAdvanceScene(0)) {
                     switchState(STATE_RESULT);
+                    makeInactive(bubble11, oma2, kasperle1);
+                    makeActive(kasperle2, bubble12, oma1, bubble12Text3);
                 }
             } else if (currentState == STATE_RESULT) {
                 if (current_scene == 1 && shouldAdvanceScene(2)) {
                     this.incrementScene();
+                    bubble12Text3.text = bubble12String3B;
                 } else if (current_scene == 2 && shouldAdvanceScene(2)) {
+                    bubble12Text3.text = bubble12String3C;
                     this.incrementScene();
                 } else if (current_scene == 3 && shouldAdvanceScene(2)) {
+                    bubble12Text3.text = bubble12String3D;
                     this.incrementScene();
                 } else if (current_scene == 4 && shouldAdvanceScene(2)) {
                     this.incrementScene();
                     if (!this.ending) {
                         FlxG.switchState(new UpstairsRoom());
                     }
+                    makeInactive(kid2, kid3, kid4, kid5, kasperle2, oma1, bubble12, bubble12Text3);
+                    makeActive(mom, dad);
                 } else if (current_scene == 5) {
                     if (shouldAdvanceScene(2)) {
                         this.incrementScene();
                         bubble12Text3.text = bubble12String4;
+                        makeActive(bubble12, bubble12Text3);
                     }
                 } else if (current_scene == 6 && shouldAdvanceScene(4)) {
                     this.incrementScene();
                     bubble12Text3.text = bubble12String4B;
                 } else if (current_scene == 7 && shouldAdvanceScene(2)) {
+                    makeInactive(bubble12, bubble12Text3);
+                    makeActive(bubble2, bubble2Text);
                     this.incrementScene();
                 } else if (current_scene == 8 && shouldAdvanceScene(2)) {
                     this.incrementScene();
+                    makeActive(bubble12, bubble12Text3);
+                    makeInactive(bubble2, bubble2Text);
                     if (guessResult == GUESS_CORRECT) {
                         bubble12Text3.text = guessCorrectString;
                     } else if (guessResult == GUESS_INCORRECT) {
@@ -325,79 +344,13 @@ package
                 }
             }
 
-            if (currentState == STATE_INTRO) {
-                if (current_scene == 1) {
-                    bubble12.alpha += ALPHA_DELTA;
-                    bubble12Text1.alpha += ALPHA_DELTA;
-                } else if (current_scene == 2) {
-
-                } else if (current_scene == 3) {
-                    bubble12.alpha -= ALPHA_DELTA;
-                    bubble12Text1.alpha -= ALPHA_DELTA;
-                    bubble11.alpha += ALPHA_DELTA;
-                    bubble11Text1.alpha += ALPHA_DELTA;
-                } else if (current_scene == 4) {
-                    bubble12.alpha += ALPHA_DELTA;
-                    bubble12Text2.alpha += ALPHA_DELTA;
-                    bubble11.alpha -= ALPHA_DELTA;
-                    bubble11Text1.alpha -= ALPHA_DELTA;
-                }
-            } else if (currentState == STATE_CHOICE) {
-                if (current_scene == 1) {
-                    bubble12.alpha -= ALPHA_DELTA;
-                    bubble12Text2.alpha -= ALPHA_DELTA;
-                    oma1.alpha -= ALPHA_DELTA;
-                    oma2.alpha += ALPHA_DELTA;
-                    kasperle1.alpha += ALPHA_DELTA;
-                    kasperle2.alpha -= ALPHA_DELTA;
-                    thisGuess.alpha += ALPHA_DELTA;
-                } else if (current_scene == 2) {
-                    bubble11.alpha += ALPHA_DELTA;
+            if (currentState == STATE_CHOICE) {
+                if (current_scene == 2) {
                     this.activeSelectorBox.incrementAlpha(ALPHA_DELTA);
                 }
             } else if (currentState == STATE_RESULT) {
                 if (current_scene == 1) {
-                    bubble11.alpha -= ALPHA_DELTA;
                     this.activeSelectorBox.incrementAlpha(-ALPHA_DELTA);
-                    oma1.alpha += ALPHA_DELTA;
-                    oma2.alpha -= ALPHA_DELTA;
-                    kasperle1.alpha -= ALPHA_DELTA;
-                    kasperle2.alpha += ALPHA_DELTA;
-                    bubble12.alpha += ALPHA_DELTA;
-                    bubble12Text3.alpha += ALPHA_DELTA;
-                } else if (current_scene == 2) {
-                    bubble12Text3.text = bubble12String3B;
-                } else if (current_scene == 3) {
-                    bubble12Text3.text = bubble12String3C;
-                } else if (current_scene == 4) {
-                    bubble12Text3.text = bubble12String3D;
-                } else if (current_scene == 5) {
-                    kid2.alpha -= ALPHA_DELTA;
-                    kid3.alpha -= ALPHA_DELTA;
-                    kid4.alpha -= ALPHA_DELTA;
-                    kid5.alpha -= ALPHA_DELTA;
-                    kasperle2.alpha -= ALPHA_DELTA;
-                    oma1.alpha -= ALPHA_DELTA;
-                    bubble12.alpha -= ALPHA_DELTA;
-                    bubble12Text3.alpha -= ALPHA_DELTA;
-                    mom.alpha += ALPHA_DELTA;
-                    dad.alpha += ALPHA_DELTA;
-                } else if (current_scene == 6) {
-                    bubble12.alpha += ALPHA_DELTA;
-                    bubble12Text3.alpha += ALPHA_DELTA;
-                } else if (current_scene == 7) {
-                } else if (current_scene == 8) {
-                    bubble12.alpha -= ALPHA_DELTA;
-                    bubble12Text3.alpha -= ALPHA_DELTA;
-                    bubble2.alpha += ALPHA_DELTA;
-                    bubble2Text.alpha += ALPHA_DELTA;
-                } else if (current_scene == 9) {
-                    bubble12.alpha += ALPHA_DELTA;
-                    bubble12Text3.alpha += ALPHA_DELTA;
-                    bubble2.alpha -= ALPHA_DELTA;
-                    bubble2Text.alpha -= ALPHA_DELTA;
-                } else if (current_scene == 10) {
-
                 }
             }
         }

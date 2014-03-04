@@ -20,6 +20,7 @@ package
         public var ending:Boolean = false;
         public var clickLock:Boolean = false;
         public var debugText:FlxText;
+        public var activeSprites:Array, inactiveSprites:Array;
 
         public static const STATE_INTRO:int = 1;
         public var currentState:int = STATE_INTRO;
@@ -36,6 +37,8 @@ package
         {
             super.create();
             endingChecker();
+            activeSprites = new Array();
+            inactiveSprites = new Array();
         }
 
         override public function update():void
@@ -47,6 +50,14 @@ package
 
             if(this.activeSelectorBox != null){
                 this.activeSelectorBox.update();
+            }
+
+            var i:int = 0;
+            for (i = 0; i < activeSprites.length; i++) {
+                activeSprites[i].alpha += ALPHA_DELTA;
+            }
+            for (i = 0; i < inactiveSprites.length; i++) {
+                inactiveSprites[i].alpha -= ALPHA_DELTA;
             }
 
             mouse.hovering = false;
@@ -100,6 +111,30 @@ package
                     this.switchLanguage();
                     FlxG.state.add(_text);
                 }
+            }
+        }
+
+        public function makeActive(... args):void
+        {
+            for(var i:int = 0; i < args.length; i++) {
+                var sprite:FlxSprite = args[i] as FlxSprite;
+                var idx:Number = this.inactiveSprites.indexOf(sprite);
+                if (idx != -1) {
+                    this.inactiveSprites.splice(idx,1);
+                }
+                this.activeSprites.push(sprite);
+            }
+        }
+
+        public function makeInactive(... args):void
+        {
+            for(var i:int = 0; i < args.length; i++) {
+                var sprite:FlxSprite = args[i] as FlxSprite;
+                var idx:Number = this.activeSprites.indexOf(sprite);
+                if (idx != -1) {
+                    this.activeSprites.splice(idx,1);
+                }
+                this.inactiveSprites.push(sprite);
             }
         }
 

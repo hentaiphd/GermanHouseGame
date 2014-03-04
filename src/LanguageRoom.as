@@ -72,16 +72,12 @@ package
 
             super.create();
 
-            CONFIG::debugging {
-                this.ending = true;
-                debugText = new FlxText(300,10,300,"");
-                debugText.color = 0xff000000;
-                debugText.size = 11;
-                add(debugText);
-            }
-
             this.setupBackground(ImgBg);
 
+            CONFIG::debugging {
+                //this.ending = true;
+                this.ending = this.ending;
+            }
 
             profBubbleOne = new FlxSprite(63, 30);
             profBubbleOne.loadGraphic(ImgBubbleOne, true, true, 254, 186, true);
@@ -232,8 +228,14 @@ package
             conversation(new FlxPoint(100, 100), new FlxPoint(450,230),"", this, SEL_PROF,
                          playerQuestions[word], true, 40)();
 
-            this.postCreate();
+            CONFIG::debugging {
+                debugText = new FlxText(300,10,300,"");
+                debugText.color = 0xff000000;
+                debugText.size = 11;
+                add(debugText);
+            }
 
+            this.postCreate();
         }
 
         override public function switchLanguage():void
@@ -323,35 +325,42 @@ package
         override public function update():void{
             super.update();
 
+            CONFIG::debugging {
+                debugText.text = "" + current_scene;
+            }
+
             if(!this.ending){
                 if (currentState == STATE_INTRO) {
                     if (current_scene == 0 && timeFrame == 1) {
-                        current_scene += 1;
-                    } else if (current_scene == 1 && startAgo(2)) {
-                        current_scene += 1;
-                    } else if (current_scene == 2 && startAgo(5)) {
-                        current_scene += 1;
-                    } else if (current_scene == 3 && startAgo(8)) {
-                        current_scene += 1;
-                    } else if (current_scene == 4 && startAgo(11)) {
-                        current_scene += 1;
-                    } else if (current_scene == 5 && startAgo(14)) {
+                        this.incrementScene();
+                    } else if (current_scene == 1 && shouldAdvanceScene(2)) {
+                        this.incrementScene();
+                    } else if (current_scene == 2 && shouldAdvanceScene(3)) {
+                        this.incrementScene();
+                    } else if (current_scene == 3 && shouldAdvanceScene(3)) {
+                        this.incrementScene();
+                    } else if (current_scene == 4 && shouldAdvanceScene(3)) {
+                        this.incrementScene();
+                    } else if (current_scene == 5 && shouldAdvanceScene(3)) {
                         switchState(STATE_CHOICE);
                     }
                 } else if (currentState == STATE_CHOICE) {
-                    if (current_scene == 1 && lastStateAgo(1)) {
-                        current_scene += 1;
+                    if (current_scene == 1 && shouldAdvanceScene(1)) {
+                        this.incrementScene();
+                    } else if (current_scene == 2) {
+                    } else if (current_scene == 3 && shouldAdvanceScene(0)) {
+                        switchState(STATE_RESULT);
                     }
                 } else if (currentState == STATE_RESULT) {
-                    if (current_scene == 1 && lastStateAgo(2)) {
-                        current_scene += 1;
-                    } else if (current_scene == 2 && lastStateAgo(4)) {
-                        current_scene += 1;
-                    } else if (current_scene == 3 && lastStateAgo(6)) {
-                        current_scene += 1;
-                    } else if (current_scene == 4 && lastStateAgo(8)){
-                        current_scene += 1;
-                    } else if (current_scene == 5 && lastStateAgo(12)){
+                    if (current_scene == 1 && shouldAdvanceScene(2)) {
+                        this.incrementScene();
+                    } else if (current_scene == 2 && shouldAdvanceScene(2)) {
+                        this.incrementScene();
+                    } else if (current_scene == 3 && shouldAdvanceScene(2)) {
+                        this.incrementScene();
+                    } else if (current_scene == 4 && shouldAdvanceScene(2)){
+                        this.incrementScene();
+                    } else if (current_scene == 5 && shouldAdvanceScene(4)){
                         if(!retry){
                             FlxG.switchState(new UpstairsRoom());
                         }
@@ -435,40 +444,43 @@ package
             } else if(this.ending){
                 if (currentState == STATE_INTRO) {
                     if (current_scene == 0 && timeFrame == 1) {
-                        current_scene += 1;
-                    } else if (current_scene == 1 && startAgo(2)) {
-                        current_scene += 1;
-                    } else if (current_scene == 2 && startAgo(5)) {
-                        current_scene += 1;
-                    } else if (current_scene == 3 && startAgo(8)) {
-                        current_scene += 1;
-                    } else if (current_scene == 4 && startAgo(11)) {
-                        current_scene += 1;
-                    } else if (current_scene == 5 && startAgo(13)) {
-                        current_scene += 1;
-                    } else if (current_scene == 6 && startAgo(17)) {
-                        current_scene += 1;
-                    } else if (current_scene == 7 && startAgo(20)) {
-                        current_scene += 1;
-                    } else if (current_scene == 8 && startAgo(23)) {
+                        this.incrementScene();
+                    } else if (current_scene == 1 && shouldAdvanceScene(2)) {
+                        this.incrementScene();
+                    } else if (current_scene == 2 && shouldAdvanceScene(3)) {
+                        this.incrementScene();
+                    } else if (current_scene == 3 && shouldAdvanceScene(3)) {
+                        this.incrementScene();
+                    } else if (current_scene == 4 && shouldAdvanceScene(3)) {
+                        this.incrementScene();
+                    } else if (current_scene == 5 && shouldAdvanceScene(2)) {
+                        this.incrementScene();
+                    } else if (current_scene == 6 && shouldAdvanceScene(4)) {
+                        this.incrementScene();
+                    } else if (current_scene == 7 && shouldAdvanceScene(3)) {
+                        this.incrementScene();
+                    } else if (current_scene == 8 && shouldAdvanceScene(3)) {
                         switchState(STATE_CHOICE);
                     }
                 } else if (currentState == STATE_CHOICE) {
-                    if (current_scene == 1 && lastStateAgo(1)) {
-                        current_scene += 1;
+                    if (current_scene == 1 && shouldAdvanceScene(1)) {
+                        this.incrementScene();
+                    } else if (current_scene == 2) {
+                    } else if (current_scene == 3 && shouldAdvanceScene(0)) {
+                        switchState(STATE_RESULT);
                     }
                 } else if (currentState == STATE_RESULT) {
-                    if (current_scene == 1 && lastStateAgo(1)) {
-                        current_scene += 1;
-                    } else if (current_scene == 2 && lastStateAgo(3)) {
-                        current_scene += 1;
-                    } else if (current_scene == 3 && lastStateAgo(5)) {
-                        current_scene += 1;
-                    } else if (current_scene == 4 && lastStateAgo(7)){
-                        current_scene += 1;
-                    } else if (current_scene == 5 && lastStateAgo(9)){
-                        current_scene += 1;
-                    } else if (current_scene == 6 && lastStateAgo(12)){
+                    if (current_scene == 1 && shouldAdvanceScene(1)) {
+                        this.incrementScene();
+                    } else if (current_scene == 2 && shouldAdvanceScene(2)) {
+                        this.incrementScene();
+                    } else if (current_scene == 3 && shouldAdvanceScene(2)) {
+                        this.incrementScene();
+                    } else if (current_scene == 4 && shouldAdvanceScene(2)){
+                        this.incrementScene();
+                    } else if (current_scene == 5 && shouldAdvanceScene(2)){
+                        this.incrementScene();
+                    } else if (current_scene == 6 && shouldAdvanceScene(3)){
                         if(!retry){
                             this.theEnd();
                         }
@@ -614,7 +626,7 @@ package
                 }
 
                 lastSelectionTimeFrame = timeFrame;
-                switchState(STATE_RESULT);
+                incrementScene();
             }
         }
     }

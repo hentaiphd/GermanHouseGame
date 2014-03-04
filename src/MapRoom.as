@@ -13,10 +13,12 @@ package
         public var lastCollideTimeFrame:Number = -1;
         public var lastClickTimeFrame:Number = -1;
         public var lastStateChangeTimeFrame:Number = -1;
+        public var lastSceneChangeTimeFrame:Number = -1;
         public var activeSelectorBox:SelectorTextBox = null;
         public var activeTextBox:TextBox = null;
         public var player:Player;
         public var ending:Boolean = false;
+        public var clickLock:Boolean = false;
         public var debugText:FlxText;
 
         public static const STATE_INTRO:int = 1;
@@ -118,10 +120,36 @@ package
         public function switchLanguage():void
         {}
 
+        public function shouldAdvanceScene(offset:Number):Boolean
+        {
+            var timed:Boolean = false;
+            if (this.lastStateChangeTimeFrame != -1) {
+                timed = timeFrame == this.lastStateChangeTimeFrame+offset*TimedState.fpSec;
+            } else if (this.lastSceneChangeTimeFrame != -1) {
+                timed = timeFrame == this.lastSceneChangeTimeFrame+offset*TimedState.fpSec;
+            } else {
+                timed = timeFrame == offset*TimedState.fpSec;
+            }
+            var ret:Boolean = timed || (!clickLock && FlxG.mouse.justPressed());
+            if (FlxG.mouse.justPressed()) {
+                clickLock = true;
+            }
+            return ret;
+        }
+
+        public function incrementScene():void
+        {
+            current_scene += 1;
+            lastSceneChangeTimeFrame = timeFrame;
+            clickLock = false;
+        }
+
         public function switchState(state:int):void
         {
             this.currentState = state;
             lastStateChangeTimeFrame = timeFrame;
+            lastSceneChangeTimeFrame = timeFrame;
+            clickLock = false;
             current_scene = 1;
         }
 

@@ -94,7 +94,7 @@ package
 
             this.addClickZone(new FlxPoint(340, 0), new FlxPoint(300, 100),
                               null, doorWasClicked);
-            this.addClickZone(new FlxPoint(0, 0), new FlxPoint(200, 270),
+            this.addClickZone(new FlxPoint(0, 0), new FlxPoint(200, 300),
                               null, stairsTouched);
             this.addClickZone(new FlxPoint(240, 50), new FlxPoint(80, 160),
                               null, null);

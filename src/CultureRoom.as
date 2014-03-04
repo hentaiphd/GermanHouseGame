@@ -329,43 +329,46 @@ package
             if (!this.ending) {
                 if (currentState == STATE_INTRO) {
                     if (current_scene == 0 && timeFrame == 1) {
-                        current_scene += 1;
-                    } else if (current_scene == 1 && startAgo(2)) {
-                        current_scene += 1;
-                    } else if (current_scene == 2 && startAgo(4)) {
-                        current_scene += 1;
-                    } else if (current_scene == 3 && startAgo(6)) {
-                        current_scene += 1;
+                        this.incrementScene();
+                    } else if (current_scene == 1 && shouldAdvanceScene(2)) {
+                        this.incrementScene();
+                    } else if (current_scene == 2 && shouldAdvanceScene(2)) {
+                        this.incrementScene();
+                    } else if (current_scene == 3 && shouldAdvanceScene(2)) {
+                        this.incrementScene();
                         photographerBubble1Text.text = photographerText1B;
-                    } else if (current_scene == 4 && startAgo(8)) {
-                        current_scene += 1;
+                    } else if (current_scene == 4 && shouldAdvanceScene(2)) {
+                        this.incrementScene();
                         photographerBubble1Text.text = photographerText1C;
-                    } else if (current_scene == 5 && startAgo(10)) {
-                        current_scene += 1;
+                    } else if (current_scene == 5 && shouldAdvanceScene(2)) {
+                        this.incrementScene();
                         photographerBubble1Text.text = photographerText1D;
-                    } else if (current_scene == 6 && startAgo(12)) {
-                        current_scene += 1;
+                    } else if (current_scene == 6 && shouldAdvanceScene(2)) {
+                        this.incrementScene();
                         photographerBubble1Text.text = photographerText1E;
-                    } else if (current_scene == 7 && startAgo(14)) {
-                        current_scene += 1;
+                    } else if (current_scene == 7 && shouldAdvanceScene(2)) {
+                        this.incrementScene();
                         kidBubble1Text.text = kidText2;
-                    } else if (current_scene == 8 && startAgo(16)) {
+                    } else if (current_scene == 8 && shouldAdvanceScene(2)) {
                         switchState(STATE_CHOICE);
                     }
                 } else if (currentState == STATE_CHOICE) {
-                    if (current_scene == 1 && lastStateAgo(1)) {
-                        current_scene += 1;
+                    if (current_scene == 1 && shouldAdvanceScene(1)) {
+                        this.incrementScene();
+                    } else if (current_scene == 2) {
+                    } else if (current_scene == 3 && shouldAdvanceScene(1)) {
+                        switchState(STATE_RESULT);
                     }
                 } else if (currentState == STATE_RESULT) {
-                    if (current_scene == 1 && lastStateAgo(3)) {
-                        current_scene += 1;
-                    } else if (current_scene == 2 && lastStateAgo(5)) {
-                        current_scene += 1;
-                    } else if (current_scene == 3 && lastStateAgo(7)) {
-                        current_scene += 1;
+                    if (current_scene == 1 && shouldAdvanceScene(3)) {
+                        this.incrementScene();
+                    } else if (current_scene == 2 && shouldAdvanceScene(2)) {
+                        this.incrementScene();
+                    } else if (current_scene == 3 && shouldAdvanceScene(2)) {
+                        this.incrementScene();
                         resultText2.text = endText2;
-                    } else if (current_scene == 4 && lastStateAgo(10)) {
-                        current_scene += 1;
+                    } else if (current_scene == 4 && shouldAdvanceScene(3)) {
+                        this.incrementScene();
                         FlxG.switchState(new LobbyRoom());
                     }
                 }
@@ -429,67 +432,70 @@ package
             } else {  // ending
                 if (currentState == STATE_INTRO) {
                     if (current_scene == 0 && timeFrame == 1) {
-                        current_scene += 1;
-                    } else if (current_scene == 1 && startAgo(2)) {
-                        current_scene += 1;
-                    } else if (current_scene == 2 && startAgo(4)) {
-                        current_scene += 1;
+                        this.incrementScene();
+                    } else if (current_scene == 1 && shouldAdvanceScene(2)) {
+                        this.incrementScene();
+                    } else if (current_scene == 2 && shouldAdvanceScene(2)) {
+                        this.incrementScene();
                         kidBubble1Text.text = kidText2End;
-                    } else if (current_scene == 3 && startAgo(6)) {
-                        current_scene += 1;
-                    } else if (current_scene == 4 && startAgo(8)) {
-                        current_scene += 1;
+                    } else if (current_scene == 3 && shouldAdvanceScene(2)) {
+                        this.incrementScene();
+                    } else if (current_scene == 4 && shouldAdvanceScene(2)) {
+                        this.incrementScene();
                         kidBubble1Text.text = kidText3End;
-                    } else if (current_scene == 5 && startAgo(10)) {
-                        current_scene += 1;
+                    } else if (current_scene == 5 && shouldAdvanceScene(2)) {
+                        this.incrementScene();
                         bubble16Text.text = momText2;
-                    } else if (current_scene == 6 && startAgo(12)) {
-                        current_scene += 1;
+                    } else if (current_scene == 6 && shouldAdvanceScene(2)) {
+                        this.incrementScene();
                         photographerBubble1Text.text = photographerText1;
-                    } else if (current_scene == 7 && startAgo(14)) {
-                        current_scene += 1;
+                    } else if (current_scene == 7 && shouldAdvanceScene(2)) {
+                        this.incrementScene();
                         photographerBubble1Text.text = photographerText1B;
-                    } else if (current_scene == 8 && startAgo(16)) {
-                        current_scene += 1;
+                    } else if (current_scene == 8 && shouldAdvanceScene(2)) {
+                        this.incrementScene();
                         photographerBubble1Text.text = photographerText1C;
-                    } else if (current_scene == 9 && startAgo(18)) {
-                        current_scene += 1;
+                    } else if (current_scene == 9 && shouldAdvanceScene(2)) {
+                        this.incrementScene();
                         photographerBubble1Text.text = photographerText1E;
-                    } else if (current_scene == 10 && startAgo(20)) {
-                        current_scene += 1;
-                    } else if (current_scene == 11 && startAgo(22)) {
-                        current_scene += 1;
+                    } else if (current_scene == 10 && shouldAdvanceScene(2)) {
+                        this.incrementScene();
+                    } else if (current_scene == 11 && shouldAdvanceScene(2)) {
+                        this.incrementScene();
                         bubble16Text.text = momText3;
-                    } else if (current_scene == 12 && startAgo(24)) {
-                        current_scene += 1;
+                    } else if (current_scene == 12 && shouldAdvanceScene(2)) {
+                        this.incrementScene();
                         kidBubble1Text.text = kidText4End;
-                    } else if (current_scene == 13 && startAgo(26)) {
+                    } else if (current_scene == 13 && shouldAdvanceScene(2)) {
                         switchState(STATE_CHOICE);
                     }
                 } else if (currentState == STATE_CHOICE) {
-                    if (current_scene == 1 && lastStateAgo(2)) {
-                        current_scene += 1;
+                    if (current_scene == 1 && shouldAdvanceScene(2)) {
+                        this.incrementScene();
+                    } else if (current_scene == 2) {
+                    } else if (current_scene == 3 && shouldAdvanceScene(1)) {
+                        switchState(STATE_RESULT);
                     }
                 } else if (currentState == STATE_RESULT) {
-                    if (current_scene == 1 && lastStateAgo(2)) {
-                        current_scene += 1;
-                    } else if(current_scene == 2 && lastStateAgo(4)) {
-                        current_scene += 1;
-                    } else if(current_scene == 3 && lastStateAgo(6)) {
-                        current_scene += 1;
+                    if (current_scene == 1 && shouldAdvanceScene(2)) {
+                        this.incrementScene();
+                    } else if(current_scene == 2 && shouldAdvanceScene(4)) {
+                        this.incrementScene();
+                    } else if(current_scene == 3 && shouldAdvanceScene(6)) {
+                        this.incrementScene();
                         kidBubble1Text.text = resultText2End;
-                    } else if(current_scene == 4 && lastStateAgo(8)) {
-                        current_scene += 1;
+                    } else if(current_scene == 4 && shouldAdvanceScene(8)) {
+                        this.incrementScene();
                         kidBubble1Text.text = resultText3End;
-                    } else if(current_scene == 5 && lastStateAgo(10)) {
-                        current_scene += 1;
+                    } else if(current_scene == 5 && shouldAdvanceScene(2)) {
+                        this.incrementScene();
                         this.theEnd();
-                    } else if(current_scene == 6 && lastStateAgo(12)) {
-                        current_scene += 1;
-                    } else if(current_scene == 7 && lastStateAgo(14)) {
-                        current_scene += 1;
-                    } else if(current_scene == 8 && lastStateAgo(16)) {
-                        current_scene += 1;
+                    } else if(current_scene == 6 && shouldAdvanceScene(2)) {
+                        this.incrementScene();
+                    } else if(current_scene == 7 && shouldAdvanceScene(2)) {
+                        this.incrementScene();
+                    } else if(current_scene == 8 && shouldAdvanceScene(2)) {
+                        this.incrementScene();
                     }
                 }
 
@@ -593,7 +599,7 @@ package
                 && selector._label == SEL_OFFER)
             {
                 lastSelectionTimeFrame = timeFrame;
-                switchState(STATE_RESULT);
+                incrementScene();
 
                 if (idx == 0) {
                     cutChoice = CHOICE_SHORT;

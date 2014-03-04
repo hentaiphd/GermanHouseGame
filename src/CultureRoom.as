@@ -31,6 +31,7 @@ package
         [Embed(source="../assets/02-Scissors-01.png")] private var ImgScissors1:Class;
         [Embed(source="../assets/02-Scissors-02.png")] private var ImgScissors2:Class;
         [Embed(source="../assets/02-Scissors-03.png")] private var ImgScissors3:Class;
+        [Embed(source="../assets/culture.mp3")] private var SndBGM:Class;
 
         private var photographer:FlxSprite;
         private var friseurin:FlxSprite;
@@ -254,6 +255,8 @@ package
                 debugText.size = 11;
                 add(debugText);
             }
+
+            HouseMap.getInstance().playLoopingBGM(SndBGM, "culture");
 
             this.postCreate();
         }

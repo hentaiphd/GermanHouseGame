@@ -5,6 +5,8 @@ package
 
     public class MapRoom extends TimedState
     {
+        [Embed(source="../assets/interface.mp3")] private var SndInterface:Class;
+
         public var mouse:AnimatedCursor;
         public var bgImage:FlxSprite;
         private var zones:Dictionary;
@@ -311,7 +313,9 @@ package
 
         public function didSelectTextOption(idx:Number, item:FlxText,
                                             selector:SelectorTextBox):void
-        {}
+        {
+            FlxG.play(SndInterface);
+        }
 
         public function getKeys(dictionary:Dictionary):Array
         {

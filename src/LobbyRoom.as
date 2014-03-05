@@ -198,6 +198,7 @@ package
             if (currentState == STATE_INTRO && current_scene == 2
                 && selector._label == SEL_LANG)
             {
+                super.didSelectTextOption(idx, item, selector);
                 current_scene += 1;
 
                 lastSelectionTimeFrame = timeFrame;

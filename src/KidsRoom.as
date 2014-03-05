@@ -361,6 +361,7 @@ package
             if (currentState == STATE_CHOICE && current_scene == 2
                 && selector._label == SEL_QUES)
             {
+                super.didSelectTextOption(idx, item, selector);
                 incrementScene();
                 lastSelectionTimeFrame = timeFrame;
 

@@ -575,6 +575,7 @@ package
         {
             if (currentState == STATE_CHOICE && current_scene == 2
                 && selector._label == SEL_PROF){
+                super.didSelectTextOption(idx, item, selector);
 
                 //allow player to guess until they get the right one
                 if(item.text == playerAnswers[word]){

@@ -338,6 +338,7 @@ package
             HouseMap.getInstance().CultureRoom = false;
             HouseMap.getInstance().KidsRoom = false;
             HouseMap.getInstance().LangRoom = false;
+            HouseMap.getInstance().hasSeenIntroSequence = false;
 
             FlxG.switchState(new TextState(s1, new TextState(s2, new MenuState())));
         }

@@ -26,6 +26,11 @@ package
         [Embed(source="../assets/Bubble-11.png")] private var ImgBubble11:Class;
         [Embed(source="../assets/Bubble-12.png")] private var ImgBubble12:Class;
         [Embed(source="../assets/kids.mp3")] private var SndBGM:Class;
+        [Embed(source="../assets/dad.mp3")] private var SndDad:Class;
+        [Embed(source="../assets/mom.mp3")] private var SndMom:Class;
+        [Embed(source="../assets/puppet1.mp3")] private var SndPuppet1:Class;
+        [Embed(source="../assets/puppet2.mp3")] private var SndPuppet2:Class;
+        [Embed(source="../assets/dooropen.mp3")] private var SndDoor:Class;
 
         private var kasperle1:FlxSprite, kasperle2:FlxSprite;
         private var oma1:FlxSprite, oma2:FlxSprite;
@@ -219,6 +224,7 @@ package
             }
 
             HouseMap.getInstance().playLoopingBGM(SndBGM, "kids");
+            FlxG.play(SndDoor);
 
             this.postCreate();
         }
@@ -274,10 +280,12 @@ package
                 } else if (current_scene == 1 && shouldAdvanceScene(2)) {
                     this.incrementScene();
                     bubble12Text1.text += " " + bubble12String1P2;
+                    FlxG.play(SndPuppet1);
                 } else if (current_scene == 2 && shouldAdvanceScene(2)) {
                     makeInactive(bubble12, bubble12Text1);
                     makeActive(bubble11, bubble11Text1);
                     this.incrementScene();
+                    FlxG.play(SndPuppet2);
                 } else if (current_scene == 3 && shouldAdvanceScene(2)) {
                     makeActive(bubble12, bubble12Text2);
                     makeInactive(bubble11, bubble11Text1);
@@ -300,6 +308,7 @@ package
             } else if (currentState == STATE_RESULT) {
                 if (current_scene == 1 && shouldAdvanceScene(2)) {
                     this.incrementScene();
+                    FlxG.play(SndPuppet1);
                     bubble12Text3.text = bubble12String3B;
                 } else if (current_scene == 2 && shouldAdvanceScene(2)) {
                     bubble12Text3.text = bubble12String3C;
@@ -317,6 +326,8 @@ package
                 } else if (current_scene == 5) {
                     if (shouldAdvanceScene(2)) {
                         this.incrementScene();
+                        FlxG.play(SndDad);
+                        FlxG.play(SndMom);
                         bubble12Text3.text = bubble12String4;
                         makeActive(bubble12, bubble12Text3);
                     }

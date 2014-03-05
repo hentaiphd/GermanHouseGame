@@ -32,6 +32,9 @@ package
         [Embed(source="../assets/02-Scissors-02.png")] private var ImgScissors2:Class;
         [Embed(source="../assets/02-Scissors-03.png")] private var ImgScissors3:Class;
         [Embed(source="../assets/culture.mp3")] private var SndBGM:Class;
+        [Embed(source="../assets/barber1.mp3")] private var SndFriseur:Class;
+        [Embed(source="../assets/hairsounds.mp3")] private var SndHair:Class;
+        [Embed(source="../assets/dooropen.mp3")] private var SndDoor:Class;
 
         private var photographer:FlxSprite;
         private var friseurin:FlxSprite;
@@ -258,6 +261,9 @@ package
 
             HouseMap.getInstance().playLoopingBGM(SndBGM, "culture");
 
+            FlxG.play(SndHair, .4, true);
+            FlxG.play(SndDoor);
+
             this.postCreate();
         }
 
@@ -365,6 +371,7 @@ package
                 } else if (currentState == STATE_CHOICE) {
                     if (current_scene == 1 && shouldAdvanceScene(1)) {
                         this.incrementScene();
+                        FlxG.play(SndFriseur);
                     } else if (current_scene == 2) {
                     } else if (current_scene == 3 && shouldAdvanceScene(1)) {
                         switchState(STATE_RESULT);
@@ -460,6 +467,7 @@ package
                 } else if (currentState == STATE_CHOICE) {
                     if (current_scene == 1 && shouldAdvanceScene(2)) {
                         this.incrementScene();
+                        FlxG.play(SndFriseur);
                     } else if (current_scene == 2) {
                     } else if (current_scene == 3 && shouldAdvanceScene(1)) {
                         switchState(STATE_RESULT);

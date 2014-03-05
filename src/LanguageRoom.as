@@ -19,6 +19,12 @@ package
         [Embed(source="../assets/Bubble-02.png")] private var ImgBubbleThree:Class;
         [Embed(source="../assets/Bubble-13.png")] private var ImgBubbleFour:Class;
         [Embed(source="../assets/LeaBlock-Regular.ttf", fontFamily="LeaBlock-Regular", embedAsCFF="false")] public var FontLea:String;
+        [Embed(source="../assets/man1.mp3")] private var SndMan1:Class;
+        [Embed(source="../assets/man2.mp3")] private var SndMan2:Class;
+        [Embed(source="../assets/dad.mp3")] private var SndDad:Class;
+        [Embed(source="../assets/mom.mp3")] private var SndMom:Class;
+        [Embed(source="../assets/dooropen.mp3")] private var SndDoor:Class;
+
         private var wordList:Array;
         private var playerQuestions:Dictionary;
         private var playerAnswers:Dictionary;
@@ -235,6 +241,8 @@ package
                 add(debugText);
             }
 
+            FlxG.play(SndDoor);
+
             this.postCreate();
         }
 
@@ -336,6 +344,7 @@ package
                         makeActive(profBubbleOne);
                     } else if (current_scene == 1 && shouldAdvanceScene(2)) {
                         makeActive(profTextOne);
+                        FlxG.play(SndMan2);
                         this.incrementScene();
                     } else if (current_scene == 2 && shouldAdvanceScene(3)) {
                         makeInactive(profTextOne);
@@ -367,6 +376,7 @@ package
                     }
                 } else if (currentState == STATE_RESULT) {
                     if (current_scene == 1 && shouldAdvanceScene(2)) {
+                        FlxG.play(SndMan1);
                         if(profTextGuess.text == profTextRight.text){
                             makeActive(profTextRight);
                         } else if (profTextGuess.text == profTextWrong.text) {
@@ -436,6 +446,7 @@ package
                         this.incrementScene();
                         makeActive(profBubbleOne);
                     } else if (current_scene == 1 && shouldAdvanceScene(2)) {
+                        FlxG.play(SndMan2);
                         makeActive(profTextOne);
                         this.incrementScene();
                     } else if (current_scene == 2 && shouldAdvanceScene(3)) {
@@ -480,6 +491,7 @@ package
                     }
                 } else if (currentState == STATE_RESULT) {
                     if (current_scene == 1 && shouldAdvanceScene(1)) {
+                        FlxG.play(SndMan1);
                         if(profTextGuess.text == profTextRight.text){
                             makeActive(profTextRight);
                         } else if (profTextGuess.text == profTextWrong.text) {
@@ -507,6 +519,8 @@ package
                         this.incrementScene();
                     } else if (current_scene == 4 && shouldAdvanceScene(2)){
                         makeActive(familyBubble, familyText);
+                        FlxG.play(SndDad);
+                        FlxG.play(SndMom);
                         makeInactive(profTextRight, profTextFive, profTextDefinition, profBubbleTwo);
                         this.incrementScene();
                     } else if (current_scene == 5 && shouldAdvanceScene(2)){

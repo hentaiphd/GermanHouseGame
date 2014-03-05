@@ -13,6 +13,8 @@ package
         [Embed(source="../assets/Bubble-03.png")] private var ImgBubble3:Class;
         [Embed(source="../assets/0105-Hair.png")] private var ImgHair:Class;
         [Embed(source="../assets/language.mp3")] private var SndBGM:Class;
+        [Embed(source="../assets/frontdesk1.mp3")] private var SndWorker:Class;
+        [Embed(source="../assets/doorclose.mp3")] private var SndDoor:Class;
 
         public var worker:FlxSprite;
         public var stairs:FlxSprite;
@@ -39,6 +41,7 @@ package
                 currentState = STATE_MAIN;
             } else {
                 currentState = STATE_INTRO;
+                FlxG.play(SndDoor, .6);
             }
 
             CONFIG::debugging {
@@ -137,6 +140,7 @@ package
             if (currentState == STATE_INTRO) {
                 if (current_scene == 0 && (timeFrame == 1*TimedState.fpSec)) {
                     current_scene += 1;
+                    FlxG.play(SndWorker);
                 } else if (current_scene == 1 && (timeFrame == 4*TimedState.fpSec)) {
                     current_scene += 1;
                 } else if (current_scene == 2) {

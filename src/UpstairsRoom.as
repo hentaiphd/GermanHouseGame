@@ -45,10 +45,10 @@ package
             this.addClickZone(new FlxPoint(0, 287), new FlxPoint(218, 189),
                 null, stairsTouched);
 
-            this.addClickZone(new FlxPoint(42, 0), new FlxPoint(176, 61),
+            this.addClickZone(new FlxPoint(42, 0), new FlxPoint(176, 88),
                 null, languageDoorTouched);
 
-            this.addClickZone(new FlxPoint(373, 389), new FlxPoint(232, 89),
+            this.addClickZone(new FlxPoint(333, 389), new FlxPoint(272, 89),
                 null, kidsDoorTouched);
 
             var entryPoint:FlxPoint = mainEntryPoint;

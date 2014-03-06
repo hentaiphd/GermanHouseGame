@@ -95,14 +95,14 @@ package
             profBubbleTwo.alpha = 0;
             add(profBubbleTwo);
 
+            profFront = new FlxSprite(348, 49);
+            profFront.loadGraphic(ImgProfFront, true, true, 271, 429, true);
+            add(profFront);
+
             kidBubble = new FlxSprite(83, 195);
             kidBubble.loadGraphic(ImgBubbleThree, true, true, 329, 144, true);
             kidBubble.alpha = 0;
             add(kidBubble);
-
-            profFront = new FlxSprite(348, 49);
-            profFront.loadGraphic(ImgProfFront, true, true, 271, 429, true);
-            add(profFront);
 
             profFinger = new FlxSprite(343, 69);
             profFinger.loadGraphic(ImgProfFinger, true, true, 75, 80, true);

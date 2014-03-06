@@ -162,7 +162,7 @@ package
             var timed:Boolean = false;
             var baseTime:Number = 0;
             var choices:Array = new Array(0, this.lastStateChangeTimeFrame, this.lastSceneChangeTimeFrame);
-            for (var i:int = 0; i < 3; i++){
+            for (var i:int = 0; i < choices.length; i++){
                 baseTime = choices[i];
                 if(baseTime != -1 && timeFrame <= baseTime+offset*TimedState.fpSec) {
                     break;
